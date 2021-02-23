@@ -1,0 +1,973 @@
+﻿
+@*<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h3></h3>
+        <ol class="breadcrumb">
+            @if (AyarMetot.ProTerminal == "Süthanem")
+            {
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action("AnaSayfa2", "AnaSayfa")">Anasayfa</a>
+                </li>
+            }
+            else
+            {
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action("OnMuhasebeAnaSayfa", "AnaSayfa")">Anasayfa</a>
+                </li>
+            }
+            <li class="active breadcrumb-item">
+                <strong style="color : black">Finansal Raporlar</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>*@
+<br />
+<div class="row">
+    <div class="col-lg-3">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h5>Analizler</h5>
+      
+            </div>
+        
+            <div class="ibox-content inspinia-timeline">
+
+                <div class="timeline-item">
+                    <div class="row">
+                     
+                        <div class="col content no-top-border">
+                         
+                                <div class="ibox">
+                                    <div class="ibox-content">
+                                        <h4>Kasa Analizi</h4>
+                                        <h2>65 000</h2>
+                                        <div id="sparkline2"><canvas width="440" height="60" style="display: inline-block; width: 440.8px; height: 60px; vertical-align: top;"></canvas></div>
+                                    </div>
+                                </div>
+                       
+
+                           
+                        </div>
+                    </div>
+                </div>
+
+             
+                  
+
+                <div class="timeline-item">
+                    <div class="row">
+                   
+                        <div class="col content no-top-border">
+
+                            <div class="ibox">
+                            
+                                    <div class="ibox-content">
+                                        <h4>Banka Analizi</h4>
+                                        <h2>658 000</h2>
+                                        <div id="sparkline3"><canvas width="440" height="60" style="display: inline-block; width: 440.8px; height: 60px; vertical-align: top;"></canvas></div>
+                                    </div>
+                              
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="row">
+                    
+                        <div class="col content no-top-border">
+
+                            <div class="ibox">
+
+                                <div class="ibox-content">
+                                    <h4>Çek/Senet Analizi</h4>
+                                    <h2>198 009</h2>
+                                    <div id="sparkline1"><canvas width="440" height="60" style="display: inline-block; width: 440.8px; height: 60px; vertical-align: top;"></canvas></div>
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="row">
+                   
+                        <div class="col content no-top-border">
+
+                            <div class="ibox">
+
+                                <div class="ibox-content">
+                                    <h5>Cari Ürün Analizi</h5>
+                                    <h2>00:06:40</h2>
+                                    <div id="sparkline4"><canvas width="440" height="60" style="display: inline-block; width: 440.8px; height: 60px; vertical-align: top;"></canvas></div>
+                                </div>
+
+                         
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-9"  >
+   <br />
+        <div class="row">
+            <div class="col-md-3">
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+
+                        <div style="height:5%;background-color:#f7f7f8;text-align: center;padding-top: 30px;">
+                            <label >2019 DEVREDEN</label>
+                        </div>
+                        <div class="product-desc">
+                            <table style="width:100%">
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"> Devreden</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+
+
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+
+                        <div style="height:5%;background-color:#f7f7f8;text-align: center;padding-top: 30px;">
+                            <label>BUGÜN</label>
+                        </div>
+                        <div class="product-desc">
+
+                            <table style="width:100%">
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"> Kasa Girişi</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"> Kasa Çıkışı</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-danger">6,00 TL  </a></td>
+
+
+                                </tr>
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"><b>Genel Toplam</b>  </a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+                            </table>
+
+
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+                        <div style="height:5%;background-color:#f7f7f8;text-align: center;padding-top: 30px;">
+                            <label>2021</label>
+                        </div>
+                        <div class="product-desc">
+
+                            <table style="width:100%">
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"> Kasa Girişi</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"> Kasa Çıkışı</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-danger">6,00 TL  </a></td>
+
+
+                                </tr>
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"><b>Dönem Toplam</b>  </a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+                            </table>
+
+
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+
+                        <div style="height:5%;background-color:#f7f7f8;text-align: center;padding-top: 30px;">
+                            <label><b>Toplam</b></label>
+                        </div>
+                        <div class="product-desc">
+
+                            <table style="width:100%">
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"> Kasa Girişi</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"> Kasa Çıkışı</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-danger">6,00 TL  </a></td>
+
+
+                                </tr>
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"><b>Bakiye</b>  </a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+                            </table>
+
+
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<br />
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+
+                        <div style="height:20%;background-color:#f7f7f8;text-align: center;
+  padding-top: 30px;">
+                            <label style="margin-bottom:20px">2019 DEVREDEN</label>
+                        </div>
+                        <div class="product-desc">
+                            <table style="width:100%">
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"> Devreden</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+
+
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+
+                        <div style="height:20%;background-color:#f7f7f8;text-align: center;
+  padding-top: 30px;">
+                            <label style="margin-bottom:20px">BUGÜN</label>
+                        </div>
+                        <div class="product-desc">
+
+                            <table style="width:100%">
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"> Kasa Girişi</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"> Kasa Çıkışı</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-danger">6,00 TL  </a></td>
+
+
+                                </tr>
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"><b>Genel Toplam</b>  </a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+                            </table>
+
+
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+
+                        <div style="height:20%;background-color:#f7f7f8;text-align: center;
+  padding-top: 30px;">
+                            <label style="margin-bottom:20px">2021</label>
+                        </div>
+                        <div class="product-desc">
+
+                            <table style="width:100%">
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"> Kasa Girişi</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"> Kasa Çıkışı</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-danger">6,00 TL  </a></td>
+
+
+                                </tr>
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"><b>Dönem Toplam</b>  </a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+                            </table>
+
+
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+
+                        <div style="height:20%;background-color:#f7f7f8;text-align: center;
+  padding-top: 30px;">
+                            <label style="margin-bottom:20px">Toplam</label>
+                        </div>
+                        <div class="product-desc">
+
+                            <table style="width:100%">
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"> Kasa Girişi</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"> Kasa Çıkışı</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-danger">6,00 TL  </a></td>
+
+
+                                </tr>
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"><b>Bakiye</b>  </a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+                            </table>
+
+
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+
+                        <div style="height:20%;background-color:#f7f7f8;text-align: center;
+  padding-top: 30px;">
+                            <label style="margin-bottom:20px">ÇEKİMİZ</label>
+                        </div>
+                        <div class="product-desc">
+                            <table style="width:100%">
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"> Ödenmemiş Evrak</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-danger">6,00 TL  </a></td>
+
+
+                                </tr>
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"> Ödenmiş Evrak</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px">Bakiye</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+
+
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+
+                        <div style="height:20%;background-color:#f7f7f8;text-align: center;
+  padding-top: 30px;">
+                            <label style="margin-bottom:20px">BUGÜN</label>
+                        </div>
+                        <div class="product-desc">
+
+                            <table style="width:100%">
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"> Ödenmemiş Evrak</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-danger">6,00 TL  </a></td>
+
+
+                                </tr>
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"> Ödenmiş Evrak</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px">Bakiye</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+
+                            </table>
+
+
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+
+                        <div style="height:20%;background-color:#f7f7f8;text-align: center;
+  padding-top: 30px;">
+                            <label style="margin-bottom:20px">Müşteri Çeki</label>
+                        </div>
+                        <div class="product-desc">
+
+                            <table style="width:100%">
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px">Taksil Bekleyen</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px">Tahsil Edilen</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-danger">6,00 TL  </a></td>
+
+
+                                </tr>
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"><b>Dönem Toplam</b>  </a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+                            </table>
+
+
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+
+                        <div style="height:20%;background-color:#f7f7f8;text-align: center;
+  padding-top: 30px;">
+                            <label style="margin-bottom:20px">Müşteri Senedi</label>
+                        </div>
+                        <div class="product-desc">
+
+                            <table style="width:100%">
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px">Taksil Bekleyen</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px">Tahsil Edilen</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-danger">6,00 TL  </a></td>
+
+
+                                </tr>
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"><b>Dönem Toplam</b>  </a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+                            </table>
+
+
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+
+                        <div style="height:20%;background-color:#f7f7f8;text-align: center;
+  padding-top: 30px;">
+                            <label style="margin-bottom:20px">BORÇ/ALACAK CARİ</label>
+                        </div>
+                        <div class="product-desc">
+                            <table style="width:100%">
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px">Cari Borçları</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-danger">6,00 TL  </a></td>
+
+
+                                </tr>
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"> Cari Alacakları</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px">Bakiye</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+                                </tr>
+
+
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+
+                        <div style="height:20%;background-color:#f7f7f8;text-align: center;
+  padding-top: 30px;">
+                            <label style="margin-bottom:20px">STOK ENVARTER</label>
+                        </div>
+                        <div class="product-desc">
+
+                            <table style="width:100%" >
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px"> Stok Envarter</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="float:right"><a href="#" class="btn btn-sm btn-outline btn-danger">6,00 TL  </a></td>
+
+
+                                </tr>
+
+
+                            </table>
+
+
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+
+                        <div style="height:20%;background-color:#f7f7f8;text-align: center;
+  padding-top: 30px;">
+                            <label style="margin-bottom:20px">FİRMA DURUMU</label>
+                        </div>
+                        <div class="product-desc">
+
+                            <table style="width:100%">
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px">Kasa Bakiyesi</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="text-align:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+                                    <td>
+                                        <a href="#" class="product-name" style="font-size:13px">Evraklarım</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="text-align:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+
+
+                                </tr>
+
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px">Borç Alacak Cari</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="text-align:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+                                    <td>
+                                        <a href="#" class="product-name" style="font-size:13px">Banka Bakiyesi</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="text-align:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+                                </tr>
+
+                                <tr>
+                                    <td style="float:left">
+                                        <a href="#" class="product-name" style="font-size:13px">Müşteri Evrakları</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="text-align:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+                                    <td>
+                                        <a href="#" class="product-name" style="font-size:13px">Stok Envarter</a>
+
+                                    </td>
+                                    <td style="width:5px"></td>
+                                    <td style="text-align:right"><a href="#" class="btn btn-sm btn-outline btn-primary">6,00 TL  </a></td>
+
+
+
+
+                                </tr>
+                            </table>
+
+
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<br />
+@section Scripts {
+    @Scripts.Render("~/plugins/sparkline")
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('body').addClass('light-navbar');
+            $("#sparkline1").sparkline([34, 43, 43, 35, 44, 32, 44, 52], {
+                type: 'line',
+                width: '100%',
+                height: '60',
+                lineColor: '#1ab394',
+                fillColor: "#ffffff"
+            });
+       
+            $("#sparkline2").sparkline([24, 43, 43, 55, 44, 62, 44, 72], {
+                type: 'line',
+                width: '100%',
+                height: '60',
+                lineColor: '#1ab394',
+                fillColor: "#ffffff"
+            });
+
+            $("#sparkline3").sparkline([74, 43, 23, 55, 54, 32, 24, 12], {
+                type: 'line',
+                width: '100%',
+                height: '60',
+                lineColor: '#ed5565',
+                fillColor: "#ffffff"
+            });
+            $("#sparkline4").sparkline([24, 43, 33, 55, 64, 72, 44, 22], {
+                type: 'line',
+                width: '100%',
+                height: '60',
+                lineColor: '#ed5565',
+                fillColor: "#ffffff"
+            });
+
+        });
+    </script>
+}

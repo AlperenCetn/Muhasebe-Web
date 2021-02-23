@@ -1,0 +1,379 @@
+﻿
+@{
+    ViewBag.Title = "Demo Anasayfa";
+}
+
+<link href="~/Content/Animasyon.css" rel="stylesheet" />
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox " style="box-shadow: 8px 14px 12px gray">
+
+                <div class="ibox-title m-b-sm border-bottom pb-2 pr-0" style="box-shadow:12px 12px 14px 9px gray; margin-top:20px">
+                    <div class="text-center p-lg">
+
+                        <div class="row aligncenter">
+                            <div class="col-md-1"> </div>
+
+                            <div class="col-md-10" id="Hosgeldiniz">
+                                <div class="widget navy-bg" style="box-shadow:8px 14px 12px gray">
+                                    <h2 class="font-bold">SA Muhasebe Programına Hoşgeldiniz.</h2>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row aligncenter">
+
+                            <div class="col-md-1">  </div>
+
+                            <div class="col-md-10 " id="DemoSure">
+                                <div class="widget bg-success" style="box-shadow:8px 14px 12px gray">
+                                    <h2><b> Demo sürümü için kalan süreniz <a class="btn btn-success" style="color:white; font-size:x-large;box-shadow: 2px 2px 4px 2px #07263a;"> @Session["KalanGun"].ToString() </a> Gün</b></h2>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row aligncenter">
+                            <div class="col-md-1">  </div>
+                            <div class="col-md-10 " id="SatinAl">
+
+                                <div class="widget yellow-bg" style="box-shadow:8px 14px 12px gray; width:100%">
+                                    <h2>
+                                        <b>  Paketlerimiz hakkında detaylı bilgiye sahip olmak ve satın almak için <button title="Satın Al" style="box-shadow: 2px 2px 4px 2px #8c5d2b;" class="btn btn-warning btn-sm"><i class="fa fa-shopping-bag"></i> <span class="bold" style="font-size:medium;">Satın Al</span></button> tıklayınız</b>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+
+
+
+
+                    </div>
+                </div>
+
+                <div class="ibox-content text-center pb-5" style="margin-top:30px; font-family:none; box-shadow:12px 12px 14px 9px gray">
+
+                    <br /> <br />
+
+                    <div class="row aligncenter">
+
+                        <div class="col-md-1">
+
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="widget navy-bg p-lg text-center" style="box-shadow:8px 14px 12px gray">
+                                <div class="row">
+                                    <div class="col-2 pl-0">
+                                        <i class="fa fa-plus-circle fa-8x"></i>
+                                    </div>
+                                    <div class="col-10 text-right pt-3" style="font-size:large">
+                                        <span style="text-align:left; font-size:22px"> İlk Carinizi Eklemek İster misiniz? </span>
+                                        <br /><br />
+                                        <a href="" class="btn  b-r-xl btn-lg dim" style="color:white; box-shadow:2px 2px 4px 2px #11715e" data-toggle="modal" data-target="#UyeOl">
+                                            <span class="fa fa-user-circle"></span> Hızlı Cari Ekle →
+
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="widget bg-success p-lg text-center" style="box-shadow:8px 14px 12px gray">
+                                <div class="row">
+                                    <div class="col-2 pl-0">
+                                        <i class="fa fa-box fa-8x"></i>
+                                    </div>
+                                    <div class="col-10 text-right pt-3" style="font-size:large">
+                                        <span style="font-size:24px"> Henüz Stok Eklemediniz! </span>
+                                        <br /><br />
+                                        <a href="" class="btn b-r-xl btn-lg" style="color:white; box-shadow:2px 2px 4px 2px #0f496d" data-toggle="modal" data-target="#stokid">
+                                            <span class="fa fa-shopping-bag"></span> Hızlı Stok Ekle →
+
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br />
+                    <div style="-webkit-transform: rotate(90deg);"> <b style="font-size:90px; color:black">» </b></div>
+
+
+
+                    <div class="row">
+                        <div class="col-md-4">
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="widget yellow-bg p-lg text-center" style="box-shadow:8px 14px 12px gray">
+                                <div class="row">
+                                    <div class="col-2 pl-0">
+                                        <i class="fa fa-file-invoice fa-8x"></i>
+                                    </div>
+                                    <div class="col-10 text-right pt-3" style="font-size:large">
+                                        <span style="font-size:22px"> İlk Faturanızı Kesmek İçin Hazırsınız </span>
+                                        <br /><br />
+                                        <a href="/Fatura/SatisYeni" class="btn  b-r-xl btn-lg dim" style="color:white; box-shadow:2px 2px 4px 2px #8c5d2b">
+                                            <span class="fa fa-money"></span> Hızlı Fatura Kes →
+
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <br /><br />
+
+                    @Html.Partial("~/Views/PartialView/YeniCari.cshtml")
+
+
+                    @Html.Partial("~/Views/PartialView/YeniStok.cshtml")
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                @section Styles {
+
+                    @Styles.Render("~/plugins/switcheryStyles")
+                    @Styles.Render("~/plugins/socialButtonsStyles")
+                }
+                @section Scripts {
+
+                    @Scripts.Render("~/plugins/switchery")
+
+                    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+
+
+                    <script type="text/javascript">
+
+                        $("#cariveri").on("submit", function (event) {
+                            event.preventDefault();
+                            var obj = {
+                                id: $("#cID").val(),
+                                FirmaKodu: $("#FirmaK").val(),
+                                CariUnvan: $("#CariU").val(),
+                                Il: $("#Il").val(),
+                                EkBilgi: $("#EkBilgi").val(),
+                                Adres: $("#Adres").val(),
+                                EPosta: $("#EPos").val(),
+                                Gsm: $("#Gsm").val(),
+                                Telefon1: $("#Telefon1").val(),
+                                KTipi: $("#KTip").val(),
+                                StokFG: $("#StokFG").val(),
+                                CariGrubu: $("#CariGrubu").val(),
+                                VergiDr: $("#VergiDr").val(),
+                                VergiNo: $("#VergiNo").val(),
+                                PostaKodu: $("#PostaKodu").val(),
+                                Yetkili: $("#Yetkili").val(),
+                                Milleti: $("#Ulke").val(),
+                                Faks: $("#Faks").val(),
+                                Yetkili: $("#Yetkili").val(),
+                                ozelAlan1: $("#ozelAlan1").val(),
+                                ozelAlan2: $("#ozelAlan2").val(),
+                                ozelAlan3: $("#ozelAlan3").val(),
+                                ozelAlan4: $("#ozelAlan4").val(),
+                                ozelAlan5: $("#ozelAlan5").val(),
+                                TCNo: $("#TCNo").val(),
+                                ParaBirimi: $("#ParaBirimi").val(),
+                                Iskonto: $("#Iskonto").val(),
+                                MersisNo: $("#MersisNo").val(),
+                                TicaretSicilNo: $("#TicaretSicilNo").val(),
+                                BagkurNo: $("#BagkurNo").val(),
+                                WebKA: $("#WebKA").val(),
+                                WebSifre: $("#WebSifre").val(),
+                                Ilce: $("#Ilce").val(),
+                                WebSite: $("#WebSite").val(),
+                                MusteriTemsilcisi: $("#MusteriTemsilcisi").val(),
+                            };
+                            var alacakB = $("#alacakB").val();
+                            var borcB = $("#borcB").val();
+
+                            $.ajax({
+                                type: "POST",
+                                url: '/Tables/YeniCari',
+                                data: { cr: obj, alacakINT: alacakB, borcINT: borcB },
+                                dataType: "json",
+                                success: function (gelenDeg) {
+
+                                    if (gelenDeg.sonuc == "0") {
+                                        setTimeout(oTable.ajax.reload(), 300);
+                                        $('#UyeOl').modal('hide');
+                                        swal("Uyarı", gelenDeg.Message, "warning")
+                                            .then((value) => {
+                                                $('#UyeOl').modal('show');
+                                            });
+                                    }
+                                    else if (gelenDeg.sonuc == "3") {
+                                        setTimeout(oTable.ajax.reload(), 300);
+                                        $('#UyeOl').modal('hide');
+                                        swal("Hata", gelenDeg.Message, "error")
+                                            .then((value) => {
+                                                $('#UyeOl').modal('show');
+                                            });
+                                    }
+                                    else if (gelenDeg.sonuc == "1") {
+                                        $('#UyeOl').modal('hide');
+                                        swal("Başarılı", gelenDeg.Message, "success")
+
+                                       .then((value) => {
+
+                                           location.reload(true);
+
+                                           setTimeout(oTable.ajax.reload(), 300);
+                                       });
+
+
+
+
+
+
+                                    }
+
+                                },
+                                error: function () {
+                                    swal("Hata", "Kayıt Eklenirken Hata Oluştu!", "error");
+                                }
+                            });
+                        });
+
+                        $("#stokveri").on("submit", function (event) {
+                            event.preventDefault();
+
+                            var dg = {
+                                sf: $("#SatishFiyat").val(),
+                                af: $("#AlishFiyat").val(),
+                                F2: $("#F2").val(),
+                                F3: $("#F3").val(),
+                                F4: $("#F4").val(),
+                                F5: $("#F5").val(),
+                                F6: $("#F6").val(),
+                                F7: $("#F7").val(),
+                                F8: $("#F8").val(),
+                                F9: $("#F9").val(),
+                                F10: $("#F10").val(),
+
+                            };
+                            var ktg = {
+                                Ktg1: $("#Ktg1").val(),
+                                Ktg2: $("#Ktg2").val(),
+                                Ktg3: $("#Ktg3").val(),
+                                Ktg4: $("#Ktg4").val(),
+                                Ktg5: $("#Ktg5").val(),
+                                Ktg6: $("#Ktg6").val(),
+                            };
+
+
+                            var obj = {
+                                id: $("#sID").val(),
+                                StokKodu: $("#StokK").val(),
+                                UrunAdi: $("#UrunA").val(),
+                                Barkod: $("#YeniBarkod").val(),
+                                StoktaKalan: $("#StoktaKalan").val(),
+                                AlishFiyat: $("#AlishFiyat").val(),
+                                //buraya kar oranının kayıt edileceği yer gelecek
+                                SatishFiyat: $("#SatishFiyat").val(),
+                                Marka: $("#Marka").val(),
+                                Grubu: $("#Grubu").val(),
+                                KDV: $("#KDV").val(),
+                                Birimi: $("#Birimi").val(),
+                                ParaBirimi: $("#ParaBirimi").val(),
+                                UrunTuru: $("#UrunTuru").val(),
+                                KalanStkU: $("#KalanStkU").val(),
+                                //KisaKod: $("#KisaKod").val(),
+                                //PartiNo: $("#PartiNo").val(),
+                                //Detay2: $("#Detay2").val(),
+                                //OEM: $("#OEM").val(),
+
+
+                                P2: $("#P2").val(),
+                                P3: $("#P3").val(),
+                                P4: $("#P4").val(),
+                                P5: $("#P5").val(),
+                                P6: $("#P6").val(),
+
+                                BRM2: $("#BRM2").val(),
+                                BRM3: $("#BRM3").val(),
+                                BRM4: $("#BRM4").val(),
+                                BRM5: $("#BRM5").val(),
+                                BRM6: $("#BRM6").val(),
+
+                                nbadet2: $("#nbadet2").val(),
+                                nbadet3: $("#nbadet3").val(),
+                                nbadet4: $("#nbadet4").val(),
+                                nbadet5: $("#nbadet5").val(),
+                                nbadet6: $("#nbadet6").val(),
+
+                                Brkd2: $("#Brk2").val(),
+                                Brkd3: $("#Brk3").val(),
+                                Brkd4: $("#Brk4").val(),
+                                Brkd5: $("#Brk5").val(),
+                                Brkd6: $("#Brk6").val(),
+
+                                //Marka: $("#Marka").val(),
+                                //Grubu: $("#Grubu").val(),
+                                //KDV: $("#KDV").val(),
+                                //Birimi: $("#Birimi").val(),
+                                //ParaBirimi: $("#ParaBirimi").val(),
+                                //UrunTuru: $("#UrunTuru").val(),
+                                //KisaKod: $("#KisaKod").val(),
+                                //PartiNo: $("#PartiNo").val(),
+                                //Detay2: $("#Detay2").val(),
+                                //OEM: $("#OEM").val(),
+                            };
+
+
+                            $.ajax({
+                                type: "POST",
+                                url: '/Stok/YeniStok',
+                                data: { st: obj, dg: dg, ktg: ktg },
+                                dataType: "json",
+                                success: function (gelenDeg) {
+
+                                    if (gelenDeg.sonuc == "0") {
+                                        swal("Uyarı", gelenDeg.Message, "warning");
+                                        $('#UyeOl').modal('hide');
+                                    } else if (gelenDeg.sonuc == "3") {
+                                        swal("Hata", gelenDeg.Message, "error");
+                                        $('#UyeOl').modal('hide');
+                                    } else if (gelenDeg.sonuc == "1") {
+
+                                        $('#stokid').modal('hide');
+                                        swal("Başarılı", gelenDeg.Message, "success")
+                                       .then((value) => {
+                                           location.reload(true);
+                                           setTimeout(oTable.ajax.reload(), 300);
+                                       });
+
+                                    }
+
+                                },
+                                error: function () {
+                                    swal("Hata", "Kayıt Eklenirken Hata Oluştu!", "error");
+                                }
+                            });
+                        });
+
+                        $(document).ready(function () {
+
+
+                        });
+
+
+
+
+                    </script>
+                }

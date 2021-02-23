@@ -1,0 +1,481 @@
+﻿
+@{
+    ViewBag.Title = "Siparişler";
+}
+
+
+@*<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h3></h3>
+        <ol class="breadcrumb">
+          
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action("OnMuhasebeAnaSayfa", "AnaSayfa")">Anasayfa</a>
+                </li>
+            
+            <li class="active breadcrumb-item">
+                <strong style="color : black">Ürünler</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>*@
+
+
+<div class="wrapper wrapper-content animated fadeIn">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="tabs-container">
+                <ul class="nav nav-tabs">
+
+                    <li><a class="nav-link-active bg-dark text-white" data-toggle="tab" href="#tab-1" style="opacity:9"> Bekleyen</a></li>
+                    <li><a class="nav-link-active   bg-dark text-white" data-toggle="tab" href="#tab-2">Tamamlanan</a></li>
+                    <li><a class="nav-link-active   bg-dark text-white" data-toggle="tab" href="#tab-3">İptal</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                   
+                    
+                            <div class="panel-body">
+                                <p><b>BEKLEYENLER</b></p>
+                                <div style="padding-top:5px;   background-color:white" class="row">
+                                    @foreach (var item in ViewBag.bekleyen)
+            {
+
+                                    decimal gt = Convert.ToDecimal(item.GenelToplam);
+                                        <div class="col-lg-3  px-1">
+
+                                            <div class="card   mb-3" style="max-width: 18rem;">
+                                                <div class="text-white card-header bg-dark"><b> @item.SiparisNo </b></div>
+                                                <div class="card-body" style="padding:10px;">
+                                                    <h5 class="card-title">@gt.ToString("N2")</h5>
+                                                    <p class="card-text"><b>@item.CariUnvan</b> <br />@item.Adres <br />@item.Telefon1</p>
+                                                </div>
+                                                <div class="card-footer bg-light " style="padding:7px;">
+                                                    <b><a href="/Orders/YeniOrders?id=0&ORDERSID=@item.ID" class="text-white btn btn-warning btn-xs">Bekliyor</a></b>
+                                                    <object align="right"><a onclick="Goster('@item.ID')"><i class="fa fa-edit"></i></a> </object>
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+
+
+                                    }
+
+
+
+
+                                </div>
+
+                            </div>
+
+                    
+                    </div>
+                    <div id="tab-2" class="tab-pane">
+                        <div class="panel-body">
+                            <p><b>TESLİM EDİLENLER</b></p>
+                            <div style="padding-top:5px;   background-color:white" class="row">
+                                @foreach (var item in ViewBag.teslim)
+                                    {
+
+                                    decimal gt = Convert.ToDecimal(item.GenelToplam);
+                                    <div class="col-lg-3  px-1">
+
+                                        <div class="card   mb-3" style="max-width: 18rem;">
+                                            <div class="text-white card-header bg-dark"><b> @item.SiparisNo </b></div>
+                                            <div class="card-body" style="padding:10px;">
+                                                <h5 class="card-title">@gt.ToString("N2")</h5>
+                                                <p class="card-text"><b>@item.CariUnvan - @item.Telefon1</b> <br />@item.Adres<br />@item.CariGrubu </p>
+                                            </div>
+                                            <div class="card-footer bg-light " style="padding:7px;">
+                                                <b><a href="/Orders/YeniOrders?id=0&ORDERSID=@item.ID" class="text-white btn btn-primary btn-xs">Tamamlandı</a></b>
+                                                <object align="right"><a onclick="Goster('@item.ID')"><i class="fa fa-edit"></i></a> </object>
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+
+
+                                }
+
+
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                         <div id="tab-3" class="tab-pane">
+                             <div class="panel-body">
+                                 <p><b>İPTAL EDİLENLER</b></p>
+                                 <div style="padding-top:5px;   background-color:white" class="row">
+                                     @foreach (var item in ViewBag.iptal)
+            {
+
+                decimal gt = Convert.ToDecimal(item.GenelToplam);
+                                         <div class="col-lg-3  px-1">
+
+                                             <div class="card   mb-3" style="max-width: 18rem;">
+                                                 <div class="text-white card-header bg-dark"><b> @item.SiparisNo </b></div>
+                                                 <div class="card-body" style="padding:10px;">
+                                                     <h5 class="card-title">@gt.ToString("N2")</h5>
+                                                     <p class="card-text"><b>@item.CariUnvan @item.Telefon1</b><br />@item.Adres <br /></p>
+                                                     <p class="card-text"><b>@item.IptalAciklama</b>
+</div>
+                                           
+                                                 <div class="card-footer bg-light " style="padding:7px;">
+                                                     <b><a href="/Orders/YeniOrders?id=0&ORDERSID=@item.ID" class="text-white btn btn-danger btn-xs">İptal</a></b>
+                                                     <object align="right"><a onclick="Goster('@item.ID')"><i class="fa fa-edit"></i></a> </object>
+
+                                                 </div>
+                                             </div>
+
+
+                                         </div>
+
+
+
+                                     }
+
+
+
+
+                                 </div>
+
+                             </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+         
+        </div>
+    </div>
+</div>
+        <div class="modal inmodal " id="UyeOl" tabindex="-1" role="dialog" aria-labelledby="">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content animated bounceInRight">
+                    
+                    <form id="veri">
+
+                        <div class="modal-header">
+
+                            <h4 class="card-title font-weight-bold"><a>--- numaralı Sipariş Detayı</a></h4>
+
+                        </div>
+                        <div class="modal-body">
+                            <!-- Card -->
+                            <div class="card booking-card">
+
+                                <!-- Card image -->
+                                
+                                <div class="card-body bg">
+
+                                    <!-- Title -->
+
+                                    <div class="row">
+
+                                      <div  class="col-md-4"><p class="mb-2">Adres:<a id="Adres"></a></p></div> 
+                                     <div class="col-md-4"  ><p class="mb-2">Telefon:<a id="Telefon1"></a></p></div>  
+                                  
+                                    </div>
+                          
+
+                              
+                         
+                                    <div class="row">
+
+                                        <div class="col-md-4"><p class="mb-12">Cari Unvan:<a id="CariUnvan"></a></p></div>
+                                        <div class="col-md-4"><p class="mb-12"><a id="CariGrubu"></a></p></div>
+
+                                    </div>
+
+                   
+                              
+
+
+                                    <hr class="my-4">
+
+
+
+
+                                    <h4 class="card-title font-weight-bold"><a>Sipariş Zamanı:</a><a id="IslemTarihi"></a></h4>
+                                    
+                                    <p class="mb-2">Adres Tarifi:<a id="Tarif"></a></p>
+                              
+                                    <p class="card-text">Sipariş Notu:<a id="SiparisNotu"></a></p>
+                                    <p class="card-text text-danger">Acıklama:<a id="Aciklama"></a></p>
+                                    <p class="card-text ">Şikayet:<a id="Sikayet"></a></p>
+                                    <hr class="my-4">
+
+                                    <div class="col-md-3 px-1">
+                                        <div class="form-group">
+                                            @Html.Hidden("cID", -1)
+                                        </div>
+                                    </div>
+                                    <p class="lead"><strong>Ürün Detayları</strong></p>
+                                    
+                                    <div id="tblUrun" class="row"  border-color:lightgray;margin-top:30px">
+                                        <div class="col-lg-11">
+                                            <table id="siparis" class="display table-bordered" width:100%">
+                                                <thead style="font-size:smaller;">
+                                                    <tr>
+                                                        <th></th>
+                                                        <th style="width:40%">Ürün</th>
+                                                        <th style="text-align:right"> Miktar</th>
+                                                        <th id="birimID" class="">Birim</th>
+                                                        <th class="">Birim Fiyat</th>
+                                                        <th class="">Tutar</th>
+                                                   
+                                                    </tr>
+                                                </thead>
+                                                <tbody style="font-weight:bold;"></tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                 
+                                </div>
+
+                            </div>
+                           
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Kapat</button>
+                            <a href="#"  onclick="Guncelle('Teslim Edildi')"  class="btn btn-primary btn-sm">Teslim Edildi</a>
+                            <a href="#"   onclick="Guncelle('İptal Edildi')" class="btn btn-danger btn-sm">İptal Edildi</a>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+      
+
+        
+
+
+
+
+
+
+
+
+        @section Styles {
+            @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+            @Styles.Render("~/plugins/wizardStepsStyles")
+            @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+        }
+        @section Scripts {
+            @Scripts.Render("~/plugins/wizardSteps")
+            @Scripts.Render("~/plugins/iCheck")
+            @Scripts.Render("~/plugins/validate")
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+            <script src="~/Scripts/mask.js"></script>
+            <script src="~/Scripts/musteri.js"></script>
+            <script src="~/Content/datatables.js"></script>
+            <script src="~/Scripts/moment-with-locales.js"></script>
+            <script src="~/Scripts/moment-with-locales.min.js"></script>
+            <script src="~/Scripts/moment.js"></script>
+            <script src="~/Scripts/moment.min.js"></script>
+            <script type="text/javascript">
+
+
+
+                function Guncelle(durum) {
+
+                    var id = $("#cID").val();
+
+                    $('#UyeOl').modal('hide');
+
+                    if(durum == "İptal Edildi") {
+
+                        swal({
+                            title: "[Seçili kaydı iptal etmek istediğinizden emin misiniz?]",
+                            text: "İptal Nedeni Giriniz.",
+                            input: 'text',
+                            icon: "warning",
+                            dangerMode: true,
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            cancelButtonText: "Hayır",
+                            confirmButtonText: "Evet",
+                            closeOnCancel: true,
+                            closeOnConfirm: true,
+
+                            preConfirm: (neden) => {
+                                $.ajax({
+                                    type: "POST",
+                                    url: '/Orders/GuncelleOrders?id=' + id + '&durum=' + durum + '&aciklama=' + neden,
+                                    success: function (data) {
+                                        if (data.success) {
+
+                                            swal("Başarılı", data.message, "success");
+                                            window.location.reload();
+                                        }
+                                    }
+
+                                });
+                            },
+
+                           
+                        })
+
+                    }
+
+                    else {
+
+
+                        swal({
+                            title: "[Durum Onayı]",
+                            text: "Durumu değiştirmek istediğinizden emin misiniz?",
+                            icon: "warning",
+                            dangerMode: true,
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            cancelButtonText: "Hayır",
+                            confirmButtonText: "Evet",
+                            closeOnCancel: true,
+                            closeOnConfirm: true,
+
+                            preConfirm: function () {
+                                $.ajax({
+                                    type: "POST",
+                                    url: '/Orders/GuncelleOrders?id=' + id + '&durum=' + durum,
+                                    success: function (data) {
+                                        if (data.success) {
+
+                                            swal("Başarılı", data.message, "success");
+                                            window.location.reload();
+                                        }
+                                    }
+
+                                });
+                            }
+
+                        })
+
+                    }
+
+
+                }
+
+
+
+                function Goster(id) {
+
+
+
+
+
+
+                    $.ajax({
+                        type: "GET",
+                        url: '@Url.Action("OrdersDetay", "Orders")/' + id,
+                        success: function (gt) {
+                            if (gt.success) {
+
+
+
+                                for (i = 1; i <= gt.data.length; i++) {
+
+                                    var cd = gt.data[i - 1];
+
+                                    var sutunlar = {
+                                        Kaldir: ' <p class="card-text"><b>' + i + '</b></p>',
+                                        UrunAdi: '<p class="card-text"><b>' + cd.UrunAdi + '</b></p>',
+                                        Miktar: '<p style="text-align:right" class="card-text"><b>' + cd.Miktar + '</b></p>',
+                                        Birim: '<p class="card-text"><b>' + cd.Birim + '</b></p>',
+                                        BirimFiyati: '<p style="text-align:right" class="card-text"><b>' + Number(cd.Fiyat).toFixed(2) + '</b></p>',
+                                        Tutar: '<p style="text-align:right" class="card-text"><b>' + Number(cd.Tutar).toFixed(2) + '</b></p>',
+
+                                    };
+
+
+                                    $("#siparis tbody").append("<tr style='font-size:small;'><td>" + sutunlar.Kaldir + "</td><td>" + sutunlar.UrunAdi + "</td> <td>" + sutunlar.Miktar + "</td><td>" + sutunlar.Birim + "</td><td>" + sutunlar.BirimFiyati + "</td><td>" + sutunlar.Tutar + "</td></tr>");
+
+                                }
+
+                            }
+                        }
+
+                    });
+
+                    $.ajax({
+                        type: "GET",
+                        url: '@Url.Action("OrdersBilgi", "Orders")/' + id,
+                        success: function (gt) {
+                            if (gt.success) {
+                                $("#cID").val(gt.data.ID);
+                                $("#SiparisNotu").html(gt.data.CariUnvan);
+
+
+                                $("#IslemTarihi").html(gt.data.IslemTarihi);
+                                $("#Tarif").html(gt.data.Tarif);
+
+                                $("#Aciklama").html(gt.data.Aciklama);
+                                $("#Sikayet").html(gt.data.Sikayet);
+
+
+                                $("#Adres").html(gt.data.Adres);
+                                $("#SiparisNo").html(gt.data.SiparisNo);
+                                $("#GenelToplam").html(gt.data.GenelToplam);
+                                $("#CariUnvan").html(gt.data.CariUnvan);
+
+                                $("#Adres").html(gt.data.Adres);
+                                $("#CariGrubu").html(gt.data.CariGrubu);
+                                $("#SiparisNotu").html(gt.data.SiparisNotu);
+
+                                $("#Aciklama").html(gt.data.Aciklama);
+                                $("#Telefon1").html(gt.data.Telefon1);
+                                $("#Teslimat").html(gt.data.Teslimat);
+
+
+
+
+
+
+
+
+                                $('#UyeOl').modal('show');
+                            }
+                        }
+
+                    });
+
+
+                }
+                $(document).ready(function () {
+
+                    $("#wizard").steps();
+                    $("#form").steps({
+                        bodyTag: "fieldset",
+
+
+
+                    });
+
+
+                });
+            </script>
+        }
+

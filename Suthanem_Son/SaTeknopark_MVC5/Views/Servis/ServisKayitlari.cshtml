@@ -1,0 +1,901 @@
+﻿@model SaTeknopark_MVC5.Models.TECHNICAL
+@{
+    ViewBag.Title = "Servis Kayıtları";
+
+}
+
+@*<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h3></h3>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("Anasayfa", "AnaSayfa")">Anasayfa</a>
+            </li>
+            <li class="active breadcrumb-item">
+
+                <strong style="color : black">Servis Kayıtları</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>*@
+
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox " style="box-shadow: 8px 14px 12px gray">
+                <div class="ibox-title ">
+                    <a onclick="Temizle()" href="/Servis/yeniServis" style='background-color:#263949;color:white; box-shadow: 2px 2px 2px gray ' type="button" class="btn btn-sm">
+                        Yeni Servis Kaydı
+                    </a>
+                    <a onclick="Temizle()" href="/Servis/BakimListesi" style='background-color:#1bb394;color:white;box-shadow: 2px 2px 2px gray ' type="button" class="btn btn-sm">
+                        Servis Bakım Listesi
+                    </a>
+
+                    <!--Modal Başlangıcı-->
+                    <div class="modal inmodal " id="UyeOl" tabindex="-1" role="dialog" aria-labelledby="">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content animated bounceInRight">
+                                <div class="modal-header">
+                                    <a style="text-align:left; color:white" class="btn btn-danger btn-xs" id="myModalLabel">Servis Durumu</a>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <form id="veri">
+                                    <div class="modal-body" style="background-color:aliceblue">
+
+                                        <div class="row">
+                                            @Html.Hidden("cID", -1)
+
+                                            <div class="col-md-4 pr-1">
+                                                <div class="form-group">
+                                                    <label><b>Durum</b></label>
+                                                    @Html.DropDownList("DurumID", new SelectList(AyarMetot.ServisDurumlar(), "Value", "Text"),
+                                                        "Seçiniz", new { @id = "DurumID", @class = "form-control" })
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-4 px-1">
+                                                <div class="form-group">
+                                                    <label><b>Düzenleme Tarihi</b></label>
+                                                    <input id="Tarih1" style="font-size:medium" name="Tarih1" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4 pl-1">
+                                                <div class="form-group">
+                                                    <label><b>Personel</b></label>
+                                                    @Html.DropDownList("PersonelID", new SelectList(AyarMetot.PersonelList("-1", Session["FirmaID"].ToString()), "Value", "Text", Session["PersonelID"].ToString()),
+                                                        "Seçiniz", new { @id = "PersonelID", @class = "form-control" });
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Açıklama</label>
+                                                    <textarea id="Aciklama1" style="height:75px" name="Aciklama1" Value="" class="form-control textarea"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Modal Sonu-->
+                 
+                    
+                </div>
+                <div class="ibox-content">
+                    
+                    
+                    
+                    <div class="row" style="background-color:white">
+                        
+                        <div class="col-md-3">
+                            <div class="">
+                                <label><b>Başlangıç Tarihi</b></label>
+
+                                <input type="date" id="min" class="form-control" value="@Convert.ToDateTime(new DateTime(2020,1,1,0,0,0)).ToString("yyyy-MM-dd")" name="min">
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+                            <div class="pl-0" >
+                                <label><b>Bitiş Tarihi</b></label>
+
+                                <input type="date" id="max" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="max">
+                            </div>
+
+                        </div>
+                        <div class="col-md-3 px-1">
+                            <div class="form-group">
+                                <label><b>Personel</b></label>
+                                @Html.DropDownList("PersonelTeknik", new SelectList(AyarMetot.PersonelList("-1",Session["FirmaID"].ToString()), "Value", "Text"), "Seçiniz",
+                                    new { @id = "PersonelTeknik", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-3 px-1">
+                            <div class="form-group">
+                                <label><b>Bayi</b></label>
+                                @Html.DropDownList("Bayi", new SelectList(AyarMetot.BayiiList(Session["FirmaID"].ToString()), "Value", "Text"), "Seçiniz",
+                                    new { @id = "Bayi", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-4 px-1">
+                            <div class="form-group">
+                                @Html.DropDownList("ServisDurum", new SelectList(AyarMetot.BakimList(), "Value", "Text", "Tüm Durumlar"), new { @id = "ServisDurum", @class = "form-control" , @style="display:none"})
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <button id="Tumdurumlar" class="btn btn-outline-primary btn-xs" value="Tüm Durumlar" onclick="Filtre(this.value)">TÜM DURUMLAR</button>
+                            <button id="GirisYapildi" class="btn btn-outline-success btn-xs" value="GİRİŞ YAPILDI" onclick="Filtre(this.value)">GİRİŞ YAPILDI</button>
+                            <button id="ServiseAlindi" class="btn btn-outline-danger btn-xs" value="SERVİSE ALINDI" onclick="Filtre(this.value)">SERVİSE ALINDI</button>
+                            <button id="MontajYapildi" class="btn btn-outline-warning btn-xs" value="MONTAJ TAMAMLANDI" onclick="Filtre(this.value)">MONTAJ TAMAMLANDI</button>
+                            <button id="BakimYapildi" class="btn btn-outline-success btn-xs" value="BAKIM YAPILDI" onclick="Filtre(this.value)">BAKIM YAPILDI</button>
+                            <button id="KontolEdildi" class="btn btn-outline-info btn-xs" value="KONTROL EDİLDİ" onclick="Filtre(this.value)">KONTROL EDİLDİ</button>
+                            <button id="ArizaGiderildi" class="btn btn-outline-secondary btn-xs" value="ARIZA GİDERİLDİ" onclick="Filtre(this.value)">ARIZA GİDERİLDİ</button>
+                            <button id="ServisErtelendi" class="btn btn-outline-danger btn-xs" value="SERVİS ERTELENDİ" onclick="Filtre(this.value)">SERVİS ERTELENDİ</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="ibox-content">
+
+                    <table class="table table-striped table-bordered table-hover dataTables-example" style =" width: 100%"> 
+                        <thead>
+                            <tr>
+                                <th style="width: 8%">Servis İşlem No</th>
+                                <th style="width: 8%">Seri No</th>
+                                <th style="width: 8%">Cari Unvan</th>
+                                <th style="width: 8%">İlgili Teknisyen/Bayii</th>
+                                <th style="width: 8%">S.Tarihi </th>
+                                <th style="width: 8%">Marka</th>
+                                <th style="width: 8%">Model </th>
+                                <th style="width: 8%">Tutar </th>
+                                <th style="width: 8%">Para Birimi </th>
+                                <th style="width: 8%">Durum </th>
+                                <th style="width: 8%">Cihaz Adresi </th>
+                                <th style="width: 9%">Açıklama</th>
+                                <th style="width: 9%"> </th>
+                                <th style="width: 9%"> </th>
+                                <th>İşlemtarihi</th>
+                                <th>Bayi</th>
+                            </tr>
+                        </thead>
+
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+
+
+    <div class="modal inmodal " id="UyeOl1" tabindex="-1" role="dialog" aria-labelledby="">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <br />
+                    <br />
+                    <p style="text-align:left; color: white; background-color: #2f4050;" class="btn btn-success btn-lg" id="myModalLabel"><font size="5">Seri No :  <label style="color: #ffccbc" id="HeaderSeriNo"></label> Marka: <label style="color: #ffccbc" id="HeaderMarka"> </label> Model: <label style="color: #ffccbc" id="HeaderModel"> </label> </font></p>
+
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+
+
+                    <div class="modal-body">
+                        <form class="form-horizontal" method="POST" commandName="announceBean">
+                            <input type="hidden" name="cafeId" value="" />
+                            <fieldset>
+                                <p><font size="5"> <strong> Açıklama :</strong>  <label id="aciklama1"> </label> </font></p>
+                                <p><font size="5"><strong>Teknisyen Açıklaması :</strong> <label id="Onrapor1"></label> </font></p>
+                                <p><font size="5"><strong>Arıza Tespit Açıklaması :</strong> <label id="ArizaTespit1"></label> </font></p>
+                                <p><font size="5"><strong>Onarım Rapor Durumu :</strong>  <label id="OnarimRapor1"></label></font></p>
+                                <p><font size="5"><strong>Tarih :</strong>  <label id="Tarih1"></label></font></p>
+
+                            </fieldset>
+
+                            <strong type="text"> <font size="5"><button style="background: #2f4050; color: white"> <label id="HeaderServisDurum"></label> </button> </font> </strong>
+
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+@section Styles {
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @Styles.Render("~/plugins/dateRangeStyles")
+    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @Styles.Render("~/plugins/dataPickerStyles")
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/plugins/tagInputsStyles")
+    @Styles.Render("~/plugins/duallistStyles")
+}
+
+@section Scripts {
+    @* @Scripts.Render("~/plugins/dataTables")*@
+    <script src="~/Content/DataTables/datatables.js"></script>
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @Scripts.Render("~/plugins/dateRange")
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/tagInputs")
+    @Scripts.Render("~/plugins/duallist")
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+    <script src="~/multiselect.min.js"></script>
+    <script src="~/Scripts/moment-with-locales.js"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
+
+
+    <script type="text/javascript">
+
+        var oTable;
+
+        $.fn.dataTableExt.afnFiltering.push(
+            function (oSettings, aData, iDataIndex) {
+
+
+
+                var min = moment(document.getElementById('min').value).format('YYYY.MM.DD');
+                var max = moment(document.getElementById('max').value).format('YYYY.MM.DD');
+
+
+                var iStartDateCol = 14;
+                var iEndDateCol = 14;
+
+
+
+
+                min = min.substring(0, 4) + min.substring(5, 7) + min.substring(8, 10);
+                max = max.substring(0, 4) + max.substring(5, 7) + max.substring(8, 10);
+
+
+
+                var datofini = aData[iStartDateCol].substring(6, 10) + aData[iStartDateCol].substring(3, 5) + aData[iStartDateCol].substring(0, 2);
+
+
+                var genel = true;
+                //return true
+
+                if (min === "" && max === "") {
+                }
+                else if (min <= datofini && max === "") {
+                }
+                else if (min <= datofini && max >= datofini) {
+                    //alert(1);
+                   
+                } else {
+                    genel = false;
+                }
+                var id2 = $("#ServisDurum").val();
+                var column2 = aData[9];
+                  
+                if (id2 === "" && column2 === "") {
+               
+                }
+                else if (id2 == "Tüm Durumlar") {
+               
+                }
+                else if (id2 != column2) {
+                    genel = false;
+                }
+
+                return genel;
+
+            }
+        );
+
+
+        function Durum2(id) {
+
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("SBilgi", "ServisList")/' + id,
+                success: function (gt) {
+                    if (gt.success) {
+                        $("#aciklama1").text(gt.data.Sikayet);
+                        $("#Onrapor1").text(gt.data.OnRapor);
+                        $("#ArizaTespit1").text(gt.data.ArizaTespit);
+                        $("#OnarimRapor1").text(gt.data.OnarimRapor);
+                        $("#Tarih1").text(gt.data.Tarih);
+                        $("#HeaderSeriNo").text(gt.data.Serino);
+                        $("#HeaderMarka").text(gt.data.Marka);
+                        $("#HeaderModel").text(gt.data.Model);
+                        $("#HeaderServisDurum").text(gt.data.Durum);
+                    }
+                }
+
+            });
+            $("#UyeOl1").modal('show');
+        }
+
+
+
+
+        function Goster(id) {
+
+            var sayi = '-2';
+            window.location.href = "/Servis/yeniServis?id=" + id;
+
+        }
+
+
+        function Yazdır(id) {
+
+            window.open("/Servis/ServisYazdir?ID=" + id);
+
+        }
+        function Filtre(durum) {
+
+
+            $("#ServisDurum").val(durum);
+            
+
+            oTable.draw();
+
+        }
+        function Durum(id) {
+
+
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("EkServisBilgi", "Servis")/' + id,
+                success: function(gt) {
+                    if (gt.success) {
+
+                        $("#DurumID").val(gt.data.Durum);
+                        $("#cID").val(id);
+                        $('#UyeOl').modal('show');
+                    }
+                }
+
+            });
+        }
+
+
+        function Delete(id) {
+
+            swal({
+                title: "[Silme Onayı]",
+                text: "Seçili servisi silmek istediğinizden emin misiniz?",
+                icon: "warning",
+                dangerMode: true,
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                cancelButtonText: "Hayır",
+                confirmButtonText: "Evet",
+                closeOnCancel: true,
+                closeOnConfirm: true,
+
+                preConfirm: function() {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("DeleteServis", "Servis")/' + id,
+                        success: function(data) {
+                            if (data.success) {
+                                oTable.ajax.reload();
+                                Temizle();
+                            } else {
+                                swal("Uyarı", "Üzerinde işlem yapılan servis silinemez.", "warning");
+                            }
+                        }
+
+                    });
+                }
+
+            })
+        }
+
+
+        $("#veri").on("submit",
+            function(event) {
+                event.preventDefault();
+
+                var obj = {
+                    Durum: $("#DurumID :selected").text(),
+                    Tarih: $("#Tarih1").val(),
+                    PersonelID: $("#PersonelID").val(),
+                    CihazID: $("#cID").val(),
+                    Aciklama: $("#Aciklama1").val()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: '/Servis/yeniDurum',
+                    data: obj,
+                    dataType: "json",
+                    success: function(gelenDeg) {
+
+                        if (gelenDeg.sonuc == "0") {
+                            $('#UyeOl').modal('hide');
+                            swal("Uyarı", gelenDeg.Message, "warning")
+                                .then((value) => {
+                                    $('#UyeOl').modal('show');
+
+                                });
+                        } else if (gelenDeg.sonuc == "3") {
+                            $('#UyeOl').modal('hide');
+                            swal("Hata",gelenDeg.Message,"error")
+                                .then((value) => {
+                                    $('#UyeOl').modal('show');
+
+                                });
+                        } else if (gelenDeg.sonuc == "1") {
+                            swal("Başarılı", gelenDeg.Message, "success");
+                            {
+                                $('#UyeOl').modal('hide');
+                                oTable.ajax.reload();
+
+                            }
+
+                        }
+
+                    },
+                    error: function() {
+                        swal("Hata", "Kayıt Eklenirken Hata Oluştu!", "error");
+                    }
+                });
+            });
+
+
+        $(document).ready(function () {
+
+
+            $("#PersonelTeknik").change(function () {
+
+                $.fn.dataTableExt.afnFiltering.push(
+                    function (oSettings, aData, iDataIndex) {
+
+                        var id = document.getElementById('PersonelTeknik').value;
+
+                        var column = aData[15];
+
+
+                        if (id === "" && column === "") {
+                            return true;
+                        }
+                        else if (id === column) {
+                            return true;
+                        }
+                        else if (id == "") {
+                            return true;
+                        }
+                        return false;
+
+                    });
+
+                oTable.draw();
+
+            });
+
+            $("#Bayi").change(function () {
+
+                $.fn.dataTableExt.afnFiltering.push(
+                    function (oSettings, aData, iDataIndex) {
+
+                        var id = document.getElementById('Bayi').value;
+
+                        var column = aData[16];
+
+
+                        if (id === "" && column === "") {
+                            return true;
+                        }
+                        else if (id === column) {
+                            return true;
+                        } else if (id == "") {
+                            return true;
+                        }
+                        return false;
+
+                    });
+
+                oTable.draw();
+
+            });
+            
+            $("#min").change(function () {
+                var end = this.value;
+                //alert(end);
+                oTable.draw();
+
+            });
+            $("#max").change(function () {
+                var end = this.value;
+                //alert(this.value);
+                oTable.draw();
+
+            });
+            $("#ServisDurum").change(function () {
+                var end = this.value;
+                //alert(this.value);
+                oTable.draw();
+
+            });
+
+            $("#ParaBirimi").change(function () {
+
+                $.fn.dataTableExt.afnFiltering.push(
+                    function (oSettings, aData, iDataIndex) {
+
+                        var id = document.getElementById('ParaBirimi').value;
+
+                        var column = aData[10];
+
+
+                        if (id === "" && column === "") {
+                            return true;
+                        }
+                        else if (id === column) {
+                            return true;
+                        }
+                        else if (id == "Seciniz") {
+                            return true;
+                        }
+                        return false;
+
+                    });
+
+                oTable.draw();
+
+            });
+
+
+            $(".select2_demo_3").select2({
+                allowClear: true
+            });
+
+            oTable = $('.dataTables-example').DataTable({
+                "scrollX": true,
+                pageLength: 25,
+                "ajax": {
+                    "url": "/Servis/GetServis",
+                    "type": "GET",
+                    "datatype": "json",
+                },
+                buttons: true,
+                dom: '<"html5buttons"B>lTfgit',
+                "columns": [
+                    {
+                        "data": "ServisIslemNo",
+                        "render": function(data, type, meta) {
+                            if (data != null) {
+                                return "<a style='font-size:smaller;' ><b> " + (data) + " </b></a><br />";
+
+                            } else {
+                                return "<a style='font-size:smaller;color:crimson'><b>" + " " + "</b></a><br />";
+                            }
+                        }
+
+                    },
+                    {
+                        "data": "Serino",
+                        "render": function(data, type, meta) {
+                            if (data != null) {
+                                return "<a style='font-size:smaller;' ><b> " + (data) + " </b></a><br />";
+
+                            } else {
+                                return "<a style='font-size:smaller;color:crimson'><b>  </b></a><br />";
+                            }
+                        }
+
+                    },
+                    {
+                        "data": "CariUnvan",
+                        "render": function(data, type, meta) {
+                            if (data != null) {
+                                return "<a style='font-size:smaller;' ><b> " + (data) + " </b></a><br />";
+
+                            } else {
+                                return "<a style='font-size:smaller;color:crimson'><b>  </b></a><br />";
+                            }
+                        }
+                    },
+                    {
+                        "data": "Teknisyen",
+                        "render": function(data, type, meta) {
+                            if (data != null) {
+                                return "<a style='font-size:smaller;' ><b> " + (data) + " </b></a><br />";
+
+                            } else {
+                                return "<a style='font-size:smaller;color:crimson'><b> xfbfd </b></a><br />";
+                            }
+                        }
+                    },
+                    {
+                        "data": "Tarih",
+                        "render": function(data, type, row, meta) {
+                            if (data != null && data != "") {
+                                return "<a style='font-size:smaller;color:crimson' class='label'><b> " +
+                                    moment(data).format('DD.MM.YYYY') +
+                                    " </b></a><br />";
+
+                            } else {
+                                return "<a style='font-size:smaller;color:crimson' class='label'><b>  </b></a><br />";
+                            }
+
+                        }
+                    },
+                    {
+                        "data": "Marka",
+                        "render": function(data, type, meta) {
+                            if (data != null) {
+                                return "<a style='font-size:smaller;' ><b> " + (data) + " </b></a><br />";
+
+                            } else {
+                                return "<a style='font-size:smaller;color:crimson'><b>" +
+                                    moment(data) +
+                                    "</b></a><br />";
+                            }
+                        }
+
+                    },
+                    {
+                        "data": "Model",
+                        "render": function(data, type, meta) {
+                            if (data != null) {
+                                return "<a style='font-size:smaller;' ><b> " + data + " </b></a><br />";
+
+                            } else {
+                                return "<a style='font-size:smaller;color:crimson'><b>boş değer</b></a><br />";
+                            }
+                        }
+                    },
+                    {
+                        "data": "GenelToplam",
+                        className: "text-right"
+                    },
+                    {
+                        "data": "ParaBirimi"
+                    },
+                    {
+                        "data": "Durum"
+                    },
+                    {
+                        "data": "CihazAdresi", 
+                    },
+                    {
+                        "data": "Aciklama",
+                    },
+                    {
+                        "data": null,
+                        "render": function (data, type, row) {
+
+
+
+                            if (row.Durum == "TESLİM EDİLDİ") {
+
+                                return "  <div class='dropdown'>" +
+                                    " <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>" +
+                                    " İşlemler" +
+                                    " </button>" +
+                                    "<div class='dropdown-menu'>" +
+                                    "<a class='btn btn-xs dropdown-item' style='background-color:#ffc107; color:black' onclick=Durum2(" +
+                                    row.ID +
+                                    ")	id='duzenle' >Detay</a>" +
+                                    "<a class='btn btn-xs dropdown-item' style='background-color:#dc3545; color:white' onclick=Delete(" +
+                                    row.ID +
+                                    ") >Sil</a>" +
+                                    "<a class='btn btn-xs dropdown-item' style='background-color:#007bff; color:white' onclick=Durum(" +
+                                    row.ID +
+                                    ")>Durum</a>" +
+                                    " </div>" +
+                                    " </div>";
+                            } else {
+                                return "  <div class='dropdown'>" +
+                                    " <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>" +
+                                    " İşlemler" +
+                                    " </button>" +
+                                    "<div class='dropdown-menu'>" +
+                                    "<a class='btn btn-xs dropdown-item' style='background-color:#ffc107; color:black' onclick=Goster(" +
+                                    row.ID +
+                                    ")	id='duzenle' >Düzenle</a>" +
+                                    "<a class='btn btn-xs dropdown-item' style='background-color:#dc3545; color:white' onclick=Delete(" +
+                                    row.ID +
+                                    ") >Sil</a>" +
+                                    "<a class='btn btn-xs dropdown-item' style='background-color:#007bff; color:white' onclick=Durum(" +
+                                    row.ID +
+                                    ")>Durum</a>" +
+                                    " </div>" +
+                                    " </div>";
+
+                            }
+                        },
+
+                    },
+                    {
+                        "data": null,
+                        "render": function(data, type, row) {
+
+                            if (row.Durum == "TESLİM EDİLDİ") {
+                                return " <div class='btn-group'> " +
+                                     "<a onclick=Yazdır(" + row.ID +") style='color:black;margin-left:2px' class='btn-outline-primary btn btn-xs'>Yazdır</a></div>" +
+                                    "</div>";
+                            } else {
+                                return " <div class='btn-group'> " +
+                                     "<a onclick=Yazdır(" +row.ID +") style='color:white;margin-left:2px' class='btn-primary btn btn-xs'>Yazdır</a></div>" +
+                                    "</div>";
+                            }
+                        },
+
+                    },
+                    {
+                        "data": "IslemTarihiF", "visible": false
+
+                    },
+                    {
+                        "data": "PersonelID", "visible": false
+
+                    },
+                    {
+                        "data": "BayiID", "visible": false
+
+                    },
+                ],
+
+
+                "language": {
+                    "sDecimal": ",",
+                    "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                    "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                    "sInfoEmpty": "Kayıt yok",
+                    "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                    "sLoadingRecords": "Yükleniyor...",
+                    "sProcessing": "İşleniyor...",
+                    "sSearch": "Ara:",
+                    "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                    "oPaginate": {
+                        "sFirst": "İlk",
+                        "sLast": "Son",
+                        "sNext": "Sonraki",
+                        "sPrevious": "Önceki"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                        "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                    },
+                    "select": {
+                        "rows": {
+                            "_": "%d kayıt seçildi",
+                            "0": "",
+                            "1": "1 kayıt seçildi"
+                        }
+                    }
+                },
+
+                buttons: [
+                    { extend: 'excel', title: 'ExampleFile' },
+                    { extend: 'pdf', title: 'ExampleFile' },
+                ]
+
+            });
+            $(function () {
+                $.contextMenu({
+                    selector: '.dataTables-example td',
+                    callback: function (key, options) {
+                        var m = "clicked: " + key;
+                        var row = this.closest('tr');
+                        var data = oTable.row(this).data();
+
+                        switch (key) {
+                            case "yeni":
+                                var url = '@Url.Action("yeniServis", "Servis")';
+                                window.location.href = url;
+                                break;
+                            case "edit":
+                                Goster(data.ID);
+                                break;
+                            case "delete":
+                                Delete(data.ID);
+                                break;
+                            case "move":
+                                Yazdır(data.ID);
+                                break;
+                            case "durum":
+                                Durum(data.ID);
+                                break;
+
+
+                        }
+                    },
+                    items: {
+                        "yeni": { name: "Yeni Servis Kaydı", icon: "edit" },
+                        "edit": { name: "Düzenle", icon: "edit" },
+                        "delete": { name: "Sil", icon: "delete" },
+                        "move": { name: "Yazdır", icon: "paste" },
+                        "durum": { name: "Durum", icon: "paste" },
+                        "sep1": "---------",
+                        "quit": {
+                            name: "Çıkış", icon: function () {
+                                return 'context-menu-icon context-menu-icon-quit';
+                            }
+                        }
+                    }
+                });
+
+                $('.context-menu-one').on('click', function (e) {
+                    console.log('clicked', this);
+                })
+            });
+
+
+
+
+            $('#example tbody').on('dblclick', 'tr', function () {
+                     
+                var data = oTable.row(this).data();
+
+                        
+                Goster(data.ID);
+
+            });
+            
+        });
+
+    </script>
+
+
+}

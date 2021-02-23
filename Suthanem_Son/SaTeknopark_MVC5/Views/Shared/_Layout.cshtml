@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SA | @ViewBag.Title</title>
+    <link rel="shortcut icon" href="~/Content/LOGO.png" type="image/x-icon" />
+    <!-- Add local styles, mostly for plugins css file -->
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+    <!-- Add jQuery Style direct - used for jQGrid plugin -->
+    <link href="@Url.Content("~/Scripts/plugins/jquery-ui/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
+    <!-- Primary Inspinia style -->
+    @Styles.Render("~/font-awesome/css")
+    @Styles.Render("~/Content/css")
+
+    <style>
+        .navbar-static-top{
+            box-shadow:4px 5px 10px gray;
+           padding-bottom:10px;
+        }
+        .wrapper{
+            padding-top:20px;
+        }
+    </style>
+
+</head>
+<body class="light-skin">
+    <!-- Skin configuration box -->
+    <!-- @Html.Partial("_SkinConfig") -->
+    <!-- Wrapper-->
+    <!-- PageClass give you ability to specify custom style for specific view based on action -->
+    <div id="wrapper" class="@Html.PageClass()">
+        <!-- Navigation -->
+        @Html.Partial("_Navigation")
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
+            <!-- Top Navbar -->
+            @Html.Partial("_TopNavbar")
+            <!-- Main view  -->
+            @RenderBody()
+            <!-- Footer -->
+            @Html.Partial("_Footer")
+        </div>
+        <!-- End page wrapper-->
+        <!-- Right Sidebar -->
+        @Html.Partial("_RightSidebar")
+    </div>
+    <!-- End wrapper-->
+    <!-- Section for main scripts render -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/plugins/slimScroll")
+    @Scripts.Render("~/bundles/inspinia")
+    <!-- Skin config script - only for demo purpose-->
+    @Scripts.Render("~/bundles/skinConfig")
+    <!-- Handler for local scripts -->
+    @RenderSection("scripts", required: false)
+
+    @*<div class="small-chat-box fadeInRight animated">
+            <div class="heading" draggable="true">
+                <small class="chat-date float-right">
+                    <i> @DateTime.Now.ToString("dd-MM-yyyy") </i>
+                </small>
+               <i class="fa fa-phone-square"></i>  Bize Ulaşın
+            </div>
+            <div class="content" style="font-size:14px; font-family:Arial">
+                <div class="left">
+                    <div class="author-name">
+                        SA YAZILIM <small class="chat-date">
+                                       <i> @DateTime.Now.ToString("HH:mm") </i>
+                        </small>
+                    </div>
+                    <div class="chat-message active">
+                        SA Muhasebe Programına Hoşgeldiniz;
+                        Programlarımızı 15 Gün Ücretsiz Deneyebilirsiniz.
+                        Paketlerimiz hakkında detaylı bilgi almak ve satın almak için lütfen bize ulaşın.
+                        <br /><br />
+                        <i> <b> E-Mail: </b>info@sayazilim.com </i><br />
+                        <i><b> Telefon: </b>0 850 346 91 72  </i>
+                     </div>
+                </div>
+                @*<div class="right">
+                    <div class="author-name">
+                        Mick Smith
+                        <small class="chat-date">
+                            11:24 am
+                        </small>
+                    </div>
+                    <div class="chat-message">
+                        Lorem Ipsum is simpl.
+                    </div>
+                </div>
+                <div class="left">
+                    <div class="author-name">
+                        Alice Novak
+                        <small class="chat-date">
+                            08:45 pm
+                        </small>
+                    </div>
+                    <div class="chat-message active">
+                        Check this stock char.
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="author-name">
+                        Anna Lamson
+                        <small class="chat-date">
+                            11:24 am
+                        </small>
+                    </div>
+                    <div class="chat-message">
+                        The standard chunk of Lorem Ipsum
+                    </div>
+                </div>
+                <div class="left">
+                    <div class="author-name">
+                        Mick Lane
+                        <small class="chat-date">
+                            08:45 pm
+                        </small>
+                    </div>
+                    <div class="chat-message active">
+                        I belive that. Lorem Ipsum is simply dummy text.
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-chat">
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control"> <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button">
+                            Gönder
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div id="small-chat">
+            <span class="badge badge-warning float-right">1</span>
+            <a href="#" class="open-small-chat">
+                <i class="fa fa-comments"></i>
+            </a>
+        </div>*@
+
+
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function () {
+        var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = 'https://embed.tawk.to/59eb11324854b82732ff6d4f/default';
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        s0.parentNode.insertBefore(s1, s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+
+</body>
+</html>

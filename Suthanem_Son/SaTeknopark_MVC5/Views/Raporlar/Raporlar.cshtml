@@ -1,0 +1,578 @@
+﻿@{
+    ViewBag.Title = "Raporlar";
+}
+
+
+
+@*<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h3></h3>
+        <ol class="breadcrumb">
+            @if (AyarMetot.ProTerminal == "Süthanem")
+            {
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action("AnaSayfa2", "AnaSayfa")">Anasayfa</a>
+                </li>
+            }
+            else
+            {
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action("OnMuhasebeAnaSayfa", "AnaSayfa")">Anasayfa</a>
+                </li>
+            }
+            <li class="active breadcrumb-item">
+                <strong>Raporlar</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>*@
+
+<div class="row pr-5 pb-5" style="align-content:center">
+
+
+    @if (Session["PaketTipi"].ToString() == "Servis" || Session["PaketTipi"].ToString() == "Servis1")
+    {
+        <div class="col-4">
+            <div class="courses-container">
+                <div class="course">
+                    <div class="course-preview" style="background-color:#2f4050">
+
+                        <h2 style="font-family:'Muli',sans-serif"><b>Servis Raporları</b></h2>
+
+                    </div>
+                    <div class="course-info">
+                        <div class="progress-container">
+                            <div class="progress"></div>
+                            <span class="progress-text">
+                                1 Rapor
+                            </span>
+                        </div>
+                        <br />
+                        <h5>Durum analizleri,Garanti Takibi,Görsel Analizler...</h5>
+                        <br />
+
+
+                        <a style="float:right;border-radius:8px" href="/Raporlar/DurumAnalizi" class="btn btn-outline-danger btn-xs">Görüntüle</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+    <div class="col-4">
+        <div class="courses-container">
+            <div class="course">
+                <div class="course-preview" style="background-color:#2f4050">
+
+                    <h2 style="font-family:'Muli',sans-serif"><b>Fatura Raporları</b></h2>
+
+                </div>
+                <div class="course-info">
+                    <div class="progress-container">
+                        <div class="progress"></div>
+                        <span class="progress-text">
+                            4 Rapor
+                        </span>
+                    </div>
+                    <br />
+                    <h5>Fatura Karlılık,Aylık Alımlar,Kdv Raporu...</h5>
+                    <br />
+
+
+                    <a style="float:right;border-radius:8px" href="/Raporlar/FaturaRapor" class="btn btn-outline-danger btn-xs">Görüntüle</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    @if (Session["PaketTipi"].ToString() == "hizlisatis")
+    {
+        <div class="col-4">
+            <div class="courses-container">
+                <div class="course">
+                    <div class="course-preview" style="background-color:#2f4050">
+
+                        <h2 style="font-family:'Muli',sans-serif"><b>Perakende Raporları</b></h2>
+
+                    </div>
+                    <div class="course-info">
+                        <div class="progress-container">
+                            <div class="progress"></div>
+                            <span class="progress-text">
+                                5 Rapor
+                            </span>
+                        </div>
+                        <br />
+                        <h5>Müşteri Perakende Analizi,Aylık Analiz...</h5>
+                        <br />
+
+
+                        <a style="float:right;border-radius:8px" href="/Perakende/GunSonuRaporu" class="btn btn-outline-danger btn-xs">Görüntüle</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+    <div class="col-4">
+        <div class="courses-container">
+            <div class="course">
+                <div class="course-preview" style="background-color:#2f4050">
+                    <h2 style="font-family:'Muli',sans-serif"><b>Cari Raporları</b></h2>
+
+                </div>
+                <div class="course-info">
+                    <div class="progress-container">
+                        <div class="progress"></div>
+                        <span class="progress-text">
+                            4 Rapor
+                        </span>
+                    </div>
+                    <br />
+                    <h5>Adres Tel Defteri,Stok-Cari Satış Analizi...</h5>
+                    <br />
+
+
+                    <a style="float:right;border-radius:8px" href="/Raporlar/CariRapor" class="btn btn-outline-danger btn-xs">Görüntüle</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-4">
+        <div class="courses-container">
+            <div class="course">
+                <div class="course-preview" style="background-color:#2f4050">
+                    <h2 style="font-family:'Muli',sans-serif"><b>Stok Raporları</b></h2>
+
+                </div>
+                <div class="course-info">
+                    <div class="progress-container">
+                        <div class="progress"></div>
+                        <span class="progress-text">
+                            3 Rapor
+                        </span>
+                    </div>
+                    <br />
+                    <h5>Stok Envanter,Alımlar,Stok Fiyat Analizi,..</h5>
+                    <br />
+
+
+                    <a style="float:right;border-radius:8px" class="btn btn-outline-danger btn-xs" href="/Raporlar/StokRapor">Görüntüle</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Session["PaketTipi"].ToString() == "Perakende")
+    {
+        <div class="col-4">
+            <div class="courses-container">
+                <div class="course">
+                    <div class="course-preview" style="background-color:rgba(100, 100,100, 0.5);">
+                        <h2 style="font-family:'Muli',sans-serif"><b>Finansal Raporları</b></h2>
+
+                    </div>
+                    <div class="course-info">
+                        <div class="progress-container">
+                            <div class="progress"></div>
+                            <span class="progress-text">
+                                1 Rapor
+                            </span>
+                        </div>
+                        <br />
+                        <h5>Genel Analiz</h5>
+                        <br />
+
+
+                        <button style="float:right;border-radius:8px" class="btn btn-outline-danger btn-xs">Görüntüle</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+    <div class="col-4">
+        <div class="courses-container">
+            <div class="course">
+                <div class="course-preview" style="background-color: #2f4050">
+
+                    <h2 style="font-family: 'Muli', sans-serif"><b>Personel Raporları</b></h2>
+
+                </div>
+                <div class="course-info">
+                    <div class="progress-container">
+                        <div class="progress"></div>
+                        <span class="progress-text">
+                            5 Rapor
+                        </span>
+                    </div>
+                    <br />
+                    <h5>Borç Analizi,Satış Raporu...</h5>
+                    <br />
+
+
+                    <a style="float:right;border-radius:8px" href="/Raporlar/PersonelRaporlar" class="btn btn-outline-danger btn-xs">Görüntüle</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @if (Session["PaketTipi"].ToString() == "Muhasebe2")
+    {
+        <div class="col-4">
+            <div class="courses-container">
+                c
+                <div class="course">
+                    <div class="course-preview" style="background-color:#2f4050">
+                        <h2 style="font-family:'Muli',sans-serif"><b>Çek/Senet Raporları</b></h2>
+                    </div>
+                    <div class="course-info">
+                        <div class="progress-container">
+                            <div class="progress"></div>
+                            <span class="progress-text">
+                                1 Rapor
+                            </span>
+                        </div>
+                        <br />
+                        <h5>Çek/Senet Bilgileri</h5>
+                        <br />
+
+
+                        <a style="float:right;border-radius:8px" href="/Payroll/Cekler" class="btn btn-outline-danger btn-xs">Görüntüle</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+    <div class="col-4">
+        <div class="courses-container">
+            <div class="course">
+                <div class="course-preview" style="background-color:#2f4050">
+                    <h2 style="font-family:'Muli',sans-serif"><b>Kdv Raporları</b></h2>
+
+                </div>
+                <div class="course-info">
+                    <div class="progress-container">
+                        <div class="progress"></div>
+                        <span class="progress-text">
+                            1 Rapor
+                        </span>
+                    </div>
+                    <br />
+                    <h5>Kdv Analizi</h5>
+                    <br />
+
+
+                    <a style="float:right;border-radius:8px" class="btn btn-outline-danger btn-xs" href="/Raporlar/KdvRapor">Görüntüle</a>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="col-4">
+    <div class="courses-container">
+        <div class="course">
+            <div class="course-preview" style="background-color:#2f4050">
+                <h2 style="font-family:'Muli',sans-serif"><b>Aylık Ödeme/ Tahsilat Rapoları</b></h2>
+
+            </div>
+            <div class="course-info">
+                <div class="progress-container">
+                    <div class="progress"></div>
+                    <span class="progress-text">
+                        1 Rapor
+                    </span>
+                </div>
+                <br />
+                <h5>Aylık Ödeme/Tahsilat Analizi</h5>
+                <br />
+
+
+                <a style="float:right;border-radius:8px" class="btn btn-outline-danger btn-xs" href="/Raporlar/AylikOdemeRapor">Görüntüle</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Session["PaketTipi"].ToString() == "Servis" || Session["PaketTipi"].ToString() == "Servis1")
+{
+    <div class="col-4">
+        <div class="courses-container">
+            <div class="course">
+                <div class="course-preview" style="background-color:#2f4050">
+
+                    <h2 style="font-family:'Muli',sans-serif"><b>Servis Malzeme Raporları</b></h2>
+
+                </div>
+                <div class="course-info">
+                    <div class="progress-container">
+                        <div class="progress"></div>
+                        <span class="progress-text">
+                            1 Rapor
+                        </span>
+                    </div>
+                    <br />
+                    <h5>Serviste Kullanılan Malzeme Raporları...</h5>
+                    <br />
+
+
+                    <a style="float:right;border-radius:8px" href="/Raporlar/MalzemeList" class="btn btn-outline-danger btn-xs">Görüntüle</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+</div>
+
+<link href="~/Content/muli.css" rel="stylesheet" />
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+
+
+
+    .course {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+        display: flex;
+        max-width: 100%;
+        margin: 20px;
+        overflow: hidden;
+        width: 700px;
+    }
+
+        .course h6 {
+            opacity: 0.6;
+            margin: 0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .course h2 {
+            letter-spacing: 1px;
+            margin: 10px 0;
+        }
+
+    .course-preview {
+        background-color: #2A265F;
+        color: #fff;
+        padding: 30px;
+        max-width: 250px;
+    }
+
+        .course-preview a {
+            color: #fff;
+            display: inline-block;
+            font-size: 12px;
+            opacity: 0.6;
+            margin-top: 30px;
+            text-decoration: none;
+        }
+
+    .course-info {
+        padding: 30px;
+        position: relative;
+        width: 100%;
+    }
+
+    .progress-container {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        text-align: right;
+        width: 150px;
+    }
+
+    .progress {
+        background-color: #ddd;
+        border-radius: 3px;
+        height: 5px;
+        width: 100%;
+    }
+
+        .progress::after {
+            border-radius: 3px;
+            background-color: #2A265F;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 5px;
+            width: 66%;
+        }
+
+    .progress-text {
+        font-size: 10px;
+        opacity: 0.6;
+        letter-spacing: 1px;
+    }
+
+    /* SOCIAL PANEL CSS */
+    .social-panel-container {
+        position: fixed;
+        right: 0;
+        bottom: 80px;
+        transform: translateX(100%);
+        transition: transform 0.4s ease-in-out;
+    }
+
+        .social-panel-container.visible {
+            transform: translateX(-10px);
+        }
+
+    .social-panel {
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 16px 31px -17px rgba(0,31,97,0.6);
+        border: 5px solid #001F61;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Muli';
+        position: relative;
+        height: 169px;
+        width: 370px;
+        max-width: calc(100% - 10px);
+    }
+
+        .social-panel button.close-btn {
+            border: 0;
+            color: #97A5CE;
+            cursor: pointer;
+            font-size: 20px;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+
+            .social-panel button.close-btn:focus {
+                outline: none;
+            }
+
+        .social-panel p {
+            background-color: #001F61;
+            border-radius: 0 0 10px 10px;
+            color: #fff;
+            font-size: 14px;
+            line-height: 18px;
+            padding: 2px 17px 6px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            margin: 0;
+            transform: translateX(-50%);
+            text-align: center;
+            width: 235px;
+        }
+
+            .social-panel p i {
+                margin: 0 5px;
+            }
+
+            .social-panel p a {
+                color: #FF7500;
+                text-decoration: none;
+            }
+
+        .social-panel h4 {
+            margin: 20px 0;
+            color: #97A5CE;
+            font-family: 'Muli';
+            font-size: 14px;
+            line-height: 18px;
+            text-transform: uppercase;
+        }
+
+        .social-panel ul {
+            display: flex;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .social-panel ul li {
+                margin: 0 10px;
+            }
+
+                .social-panel ul li a {
+                    border: 1px solid #DCE1F2;
+                    border-radius: 50%;
+                    color: #001F61;
+                    font-size: 20px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 50px;
+                    width: 50px;
+                    text-decoration: none;
+                }
+
+                    .social-panel ul li a:hover {
+                        border-color: #FF6A00;
+                        box-shadow: 0 9px 12px -9px #FF6A00;
+                    }
+
+    .floating-btn {
+        border-radius: 26.5px;
+        background-color: #001F61;
+        border: 1px solid #001F61;
+        box-shadow: 0 16px 22px -17px #03153B;
+        color: #fff;
+        cursor: pointer;
+        font-size: 16px;
+        line-height: 20px;
+        padding: 12px 20px;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 999;
+    }
+
+        .floating-btn:hover {
+            background-color: #ffffff;
+            color: #001F61;
+        }
+
+        .floating-btn:focus {
+            outline: none;
+        }
+
+    .floating-text {
+        background-color: #001F61;
+        border-radius: 10px 10px 0 0;
+        color: #fff;
+        font-family: 'Muli';
+        padding: 7px 15px;
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        z-index: 998;
+    }
+
+        .floating-text a {
+            color: #FF7500;
+            text-decoration: none;
+        }
+</style>

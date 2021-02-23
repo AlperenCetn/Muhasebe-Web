@@ -1,0 +1,70 @@
+﻿
+
+
+<h1><input type="text" value="@ViewBag.Barkod" disabled/></h1>
+
+<div style="float: left; border: 4px solid #ccc; padding: 5px; width:350px">
+    <video autoplay width="180" height="160"></video>
+    <button id="live" style="cursor:pointer">
+        Enable Camera
+    </button>
+    <button id="snap" style="cursor:pointer">
+        Capture Photo
+    </button>
+    <img style="vertical-align:top" id="imgCapture" width="180" height="160" />
+</div>
+
+<script>
+
+    var video = document.querySelector('video');
+    document.getElementById('live').onclick = function () {
+        navigator.mediaDevices.getUserMedia({
+            video: true
+        }).then(stream => video.srcObject = stream);
+    };
+
+    var canvas = document.createElement('canvas');
+    var img = document.querySelector('img');
+
+
+    document.getElementById('snap').onclick = function () {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext('2d').drawImage(video, 0, 0);
+        video.srcObject.getTracks().forEach(track => track.stop());
+        // Other browsers will fall back to image/png
+        $("#imgCapture").css("visibility", "visible");
+        $("#imgCapture").attr("src", canvas.toDataURL('image/png'));
+        $('#capture_photo').val(canvas.toDataURL('image/png'));
+        PostImage();
+    }
+    var imagebase64 = "";
+    function PostImage() {
+        var photoVal = document.getElementById('imgCapture').getAttribute('src');
+
+        if (photoVal != "") {
+
+            $.ajax({
+                type: "POST",
+                url: '/Photo/PhotoCapture',
+                dataType: "json",
+                data: { resim: photoVal} ,
+                success: function (r) {
+                    $("#imgCapture").css("visibility", "visible");
+                    $("#imgCapture").attr("src", r);
+                    $('#capture_photo').val(r);
+
+
+                    var url = '@Url.Action("yeniServis","Servis")';
+                    window.location.href=url;
+
+                },
+                failure: function (response) {
+                    alert(response.d);
+                }
+            });
+        }
+
+    }
+
+</script>

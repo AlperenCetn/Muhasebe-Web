@@ -1,0 +1,235 @@
+﻿
+@{
+
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="muhasebe, teknik servis, ön muhasebe, cari, fatura, ön muhasebe takip, e-fatura, e-irsaliye, sa yazılım, takipsa, web muhasebe, muhsaebe takip">
+    <meta name="description" content="SA Yazılım | Profesyonel Yazılım Çözümlerimiz İle Yanınızdayız">
+    <meta name="robots" content="no
+          ,nofollow">
+    <title>SA MUHASEBE</title>
+    <link rel="canonical" href="https://www.wrappixel.com/templates/xtremeadmin/" />
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">
+    <!-- Custom CSS -->
+    <link href="../../dist/css/style.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <div class="preloader">
+            <div class="lds-ripple">
+                <div class="lds-pos"></div>
+                <div class="lds-pos"></div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Login box.scss -->
+        <!-- ============================================================== -->
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url(../../assets/images/big/auth-bg.jpg) no-repeat center center;">
+            <div class="auth-box">
+                <div>
+                    <div class="logo">
+                        <span class="db"><img src="~/Content/LOGO.png" width="150px" alt="logo" /></span>
+                        <h5 class="font-medium mb-3">Kayıt Ol</h5>
+                    </div>
+                    <!-- Form -->
+                    <div class="row">
+                        <div class="col-12">
+
+                            <form action="/Login/Register" method="post">
+                               
+                                <div class="container-fluid p-0">
+
+                                    <div class="row" align="left">
+                                        <div class="custom-control custom-radio custom-control-inline col-md-6 col-sm-6">
+                                            <input name="Muhasebe1" id="Muhasebe1" type="radio" class="custom-control-input" value="Muhasebe1">
+                                            <label for="Muhasebe1" class="custom-control-label">Ön Muhasebe-1</label>
+                                        </div>
+
+                                        <div class="custom-control custom-radio custom-control-inline col-md-6 col-sm-6">
+                                            <input name="Muhasebe2" id="Muhasebe2" type="radio" class="custom-control-input" value="Muhasebe2">
+                                            <label for="Muhasebe2" class="custom-control-label">Ön Muhasebe 2</label>
+                                        </div>
+
+                                        <div class="custom-control custom-radio custom-control-inline col-md-6 col-sm-6">
+                                            <input name="Servis1" id="Servis1" type="radio" class="custom-control-input" value="Servis1">
+                                            <label for="Servis1" class="custom-control-label">Teknik Servis 1</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline col-md-6 col-sm-6">
+                                            <input name="Servis2" id="Servis2" type="radio" class="custom-control-input" value="Servis2">
+                                            <label for="Servis2" class="custom-control-label">Teknik Servis 2</label>
+                                        </div>
+
+                                        <div class="custom-control custom-radio custom-control-inline col-md-6 col-sm-6">
+                                            <input name="hizlisatis" id="hizlisatis" type="radio" class="custom-control-input" value="hizlisatis">
+                                            <label for="hizlisatis" class="custom-control-label">Perakende Satış</label>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-4 px-1">
+                                        <div class="form-group">
+                                            @Html.DropDownList("Pakettipi", new SelectList(AyarMetot.PaketList(), "Value", "Text", "Servis1"), new { @id = "Pakettipi", @name = "Pakettipi", @class = "form-control", @style = "display:none" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container-fluid p-0">
+                                    <div class="row">
+
+                                        <div class="form-group col-md-6 col-sm-6 pl-0">
+                                            <input type="text" name="FirmaIsmi" id="FirmaIsmi" class="form-control" placeholder="Firma İsmi" required>
+                                        </div>
+                                        <div class="form-group col-md-6 col-sm-6 pl-0">
+                                            <input type="number" name="FirmaTel" id="mahmut" class="form-control mahmut" placeholder="Telefon" required minlength="10" maxlenght="11">
+                                        </div>
+
+                                        <div class="form-group col-md-6 col-sm-6 pl-0">
+                                            <input type="text" name="KullaniciAdi" id="KullaniciAdi" class="form-control" placeholder="Kullanıcı Adı" required>
+                                        </div>
+                                        <div class="form-group col-md-6 col-sm-6 pl-0">
+                                            <input type="password" name="Password" id="Password" class="form-control" placeholder="Şifre" required>
+                                        </div>
+                                        <div class="form-group col-md-6 col-sm-6 pl-0">
+                                            <input type="email" name="Email" id="Email" class="form-control" placeholder="Email" required>
+                                        </div>
+                                        <div class="form-group col-md-6 col-sm-6 pl-0">
+                                            <textarea type="text" name="Aciklama" id="Aciklama" class="form-control" placeholder="Açıklama"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group text-center">
+                                    <div class="col-xs-12 pb-3">
+                                        <button id="go" onclick="onay" class="Onayla btn btn-block btn-lg btn-info" type="submit">Kaydol</button>
+                                    </div>
+                                </div>
+
+                                <br />
+                                <br><small> </small><a href="@Url.Action("Login","Login" )" class="signup">Giriş Ekranına Dön</a>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- Login box.scss -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper scss in scafholding.scss -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper scss in scafholding.scss -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right Sidebar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right Sidebar -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- All Required js -->
+    <!-- ============================================================== -->
+    <script src="../../assets/libs/jquery/dist/jquery.min.js "></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="../../assets/libs/popper.js/dist/umd/popper.min.js "></script>
+    <script src="../../assets/libs/bootstrap/dist/js/bootstrap.min.js "></script>
+    <!-- ============================================================== -->
+    <!-- This page plugin js -->
+    <!-- ============================================================== -->
+    <script>
+        $('[data-toggle="tooltip "]').tooltip();
+        $(".preloader ").fadeOut();
+    </script>
+</body>
+
+</html>
+
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+<link href="https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet" />
+<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+<script src="~/Scripts/Fonksiyonlar.js"></script>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        document.getElementById("Muhasebe1").checked = true;
+
+
+        $('input[type="radio"]').click(function () {
+            if ($(this).attr("value") == "Muhasebe1") {
+                $("#Pakettipi").val("Muhasebe1");
+                document.getElementById("Muhasebe2").checked = false;
+                document.getElementById("Servis1").checked = false;
+                document.getElementById("hizlisatis").checked = false;
+                document.getElementById("Servis2").checked = false;
+            }
+            else if ($(this).attr("value") == "Muhasebe2") {
+                $("#Pakettipi").val("Muhasebe2");
+                document.getElementById("Muhasebe1").checked = false;
+                document.getElementById("Servis1").checked = false;
+                document.getElementById("hizlisatis").checked = false;
+                document.getElementById("Servis2").checked = false;
+            }
+            else if ($(this).attr("value") == "Servis1") {
+                $("#Pakettipi").val("Servis1");
+                document.getElementById("Muhasebe1").checked = false;
+                document.getElementById("Muhasebe2").checked = false;
+                document.getElementById("hizlisatis").checked = false;
+                document.getElementById("Servis2").checked = false;
+            }
+            else if ($(this).attr("value") == "Servis2") {
+                $("#Pakettipi").val("Servis2");
+                document.getElementById("Muhasebe1").checked = false;
+                document.getElementById("Muhasebe2").checked = false;
+                document.getElementById("hizlisatis").checked = false;
+                document.getElementById("Servis1").checked = false; 
+            }
+            else if ($(this).attr("value") == "hizlisatis") {
+                $("#Pakettipi").val("hizlisatis");
+                document.getElementById("Muhasebe1").checked = false;
+                document.getElementById("Muhasebe2").checked = false;
+                document.getElementById("Servis1").checked = false;
+                document.getElementById("Servis2").checked = false;
+            }
+            else
+            {
+                $("#Pakettipi").val("Muhasebe1");
+            }
+        });
+
+
+
+
+    });
+
+
+
+</script>

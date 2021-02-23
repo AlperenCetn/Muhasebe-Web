@@ -1,0 +1,2016 @@
+﻿@model SaTeknopark_MVC5.Models.OFFER
+
+@{
+    ViewBag.Title = "YeniTeklif";
+}
+
+
+@*<div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h3></h3>
+            <ol class="breadcrumb">
+                @if (AyarMetot.ProTerminal == "Simge" && AyarMetot.ProTerminal == "Süthanem")
+                {
+                    <li class="breadcrumb-item">
+                        <a href="@Url.Action("AnaSayfa2", "AnaSayfa" )">Anasayfa</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="breadcrumb-item">
+                        <a href="@Url.Action("OnMuhasebeAnaSayfa", "AnaSayfa" )">Anasayfa</a>
+                    </li>
+                }
+                <li class="active breadcrumb-item">
+                    <strong style="color : black">@ViewBag.Title</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-2">
+
+        </div>
+    </div>*@
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+
+        <div class="tabs-container px-3  pb-4" style="width:100%">
+            <ul class="nav nav-tabs">
+                <li><a class="nav-link active" data-toggle="tab" href="#tab-1">Yeni Teklif</a></li>
+            </ul>
+            <div class="tab-content" style="box-shadow: 8px 14px 12px gray">
+                <div id="tab-1" class="tab-pane active">
+                    <div class="panel-body">
+
+                        <div id="veri">
+
+                            <div class="row">
+                                <div class="offset-4 col-sm-8">
+                                    <button type="button" style="float:right;" class="nakitSatis btn btn-lg btn-outline-primary">Kaydet <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                                    <button type="button" style="float:right;" class="btn btn btn-lg pull-right btn-outline-danger">Vazgeç <i class="fa fa-close"></i></button>
+                                </div>
+                            </div>
+                            <br />
+
+                            <!--Modal Başlangıç-->
+                            <div class="modal inmodal " id="UyeOl" tabindex="-1" role="dialog" aria-labelledby="">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content animated bounceInRight">
+                                        <div class="modal-header">
+                                            <a style="text-align:left; color:white" class="btn btn-danger btn-xs" id="myModalLabel">CARİ KARTI</a>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true" onclick="Yenile()">×</span>
+                                            </button>
+
+                                        </div>
+                                        <form id="cariveri" method="post" action="/Tables/YeniCari">
+                                            <div class="modal-body">
+
+
+                                                <div class="row">
+                                                    <div class="col-md-6 px-1">
+                                                        <div class="form-group">
+                                                            <label><b>Firma Adı</b></label>
+                                                            <input style="background-color:lightgoldenrodyellow" id="CariU" name="CariU" type="text" class="form-control" value="@ViewBag.Sıradaki">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 px-1">
+                                                        <div class="form-group">
+                                                            <label>Firma Kodu</label>
+                                                            <input id="FirmaK" name="FirmaK" type="text" class="form-control" value="@ViewBag.CariKoduSiradaki">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="px-1">
+                                                    <div class="tabs-container">
+                                                        <ul class="nav nav-tabs">
+                                                            <li><a class="nav-link active" data-toggle="tab" href="#genelbilgi">Genel Bilgiler</a></li>
+                                                            <li><a class="nav-link" data-toggle="tab" href="#diger">Diğer Bilgiler</a></li>
+                                                            @*<li><a class="nav-link " data-toggle="tab" href="#tab-3">Ek Bilgiler</a></li>*@
+                                                            @*<li><a class="nav-link" data-toggle="tab" href="#tab-4">Ek Bİlgiler</a></li>*@
+                                                        </ul>
+                                                        <div class="tab-content">
+
+                                                            @*Genel Sayfası*@
+                                                            <div id="genelbilgi" class="tab-pane active">
+                                                                <div class="panel-body row">
+                                                                    <div class="row">
+                                                                        <div class="col-md-4 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Vergi Dairesi</label>
+                                                                                <input id="VergiDr" name="VergiDr" type="text" class="form-control" value="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>VergiNo/Tckn</label>
+                                                                                <input id="VergiNo" name="VergiNo" type="text" class="form-control" value="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Yetkili</label>
+                                                                                <input id="Yetkili" name="Yetkili" type="text" class="form-control" value="">
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-4 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>İl</label>
+                                                                                <input id="Il" name="Il" type="text" class="form-control" placeholder="" value="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>İlçe</label>
+                                                                                <input id="Ilce" name="Ilce" type="text" class="form-control" placeholder="" value="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Posta Kodu</label>
+                                                                                <input id="PostaKodu" name="PostaKodu" type="text" class="form-control" placeholder="" value="">
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div class="col-md-12 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Adres</label>
+                                                                                <input id="Adres" name="Adres" type="text" class="form-control" placeholder="Adres" value="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Ülkeler</label>
+                                                                                @Html.DropDownList("Ülke", new SelectList(AyarMetot.Ulkeler(), "Value", "Text", "TR"), "Ülke Seçiniz", new { @id = "Ulke", @class = "form-control" })
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Alacak</label>
+                                                                                <input id="alacakB" name="alacakB" type="text" class="form-control" placeholder="Tutar" value="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Borc</label>
+                                                                                <input id="borcB" name="borcB" type="text" class="form-control" placeholder="Tutar" value="">
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4 px-1">
+                                                                            <div class="form-group">
+                                                                                <label for="exampleInputEmail1">Email</label>
+                                                                                <input id="EPos" name="EPos" type="email" class="form-control" value="">
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-4 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Cep Telefonu</label>
+                                                                                <input id="Gsm" name="Gsm" type="text" class="form-control" placeholder="" value="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Sabit Telefon</label>
+                                                                                <input id="Telefon1" name="Telefon1" type="text" class="form-control" placeholder="" value="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Faks Numarası</label>
+                                                                                <input id="Faks" name="Faks" type="text" class="form-control" placeholder="Faks" value="">
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                    </div>
+
+
+                                                                </div>
+                                                            </div>
+
+                                                            @*Fiyatlar SAyfası*@
+                                                            <div id="diger" class="tab-pane">
+                                                                <div class="panel-body">
+
+                                                                    <div class="tab-content p-3" id="pills-tabContent">
+                                                                        <div class="tab-pane fade show active" id="pills-genel" role="tabpanel" aria-labelledby="pills-home-tab">
+
+                                                                            <div class="row">
+                                                                                <div class="col-md-12 px-1">
+                                                                                    <div class="form-group">
+                                                                                        <label>Ek Bilgi</label>
+                                                                                        <input id="EkBilgi" name="EkBilgi" type="text" class="form-control" placeholder="Açıklama" value="">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-4 px-1">
+                                                                                    <div class="form-group">
+                                                                                        <label>Cari Tipi</label>
+                                                                                        @Html.DropDownList("KTip", new List<SelectListItem>
+                                                                                        {
+                                                                                            new SelectListItem {Text = "MÜŞTERİ", Value = "MÜŞTERİ", Selected = @ViewBag.bayi == true ? false : true},
+                                                                                            new SelectListItem {Text = "TOPTANCI", Value = "TOPTANCI"},
+                                                                                            new SelectListItem {Text = "ALICI-SATICI", Value = "ALICI-SATICI"},
+                                                                                            new SelectListItem {Text = "BAYİİ", Value = "BAYİİ", Selected = @ViewBag.bayi == true ? true : false},
+                                                                                            new SelectListItem {Text = "TEDARİKÇİ", Value = "TEDARİKÇİ"},
+                                                                                            new SelectListItem {Text = "PAZARLAMACI", Value = "PAZARLAMACI"},
+                                                                                            new SelectListItem {Text = "YÖNETİCİ", Value = "YÖNETİCİ"},
+                                                                                        }, new
+                                                                                        {
+                                                                                            @id = "KTip",
+                                                                                            @class = "form-control",
+                                                                                            @style = "background-color:#F9E79F"
+                                                                                        })
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-4 px-1">
+                                                                                    <div class="form-group">
+                                                                                        <label>Stok FG</label>
+                                                                                        @Html.DropDownList("StokFG", new List<SelectListItem>
+                                                                                        {
+                                                                                            new SelectListItem {Text = "1.Fiyat", Value = "1.Fiyat", Selected = true},
+                                                                                            new SelectListItem {Text = "2.Fiyat", Value = "2.Fiyat"},
+                                                                                            new SelectListItem {Text = "3.Fiyat", Value = "3.Fiyat"},
+                                                                                            new SelectListItem {Text = "4.Fiyat", Value = "4.Fiyat"},
+                                                                                            new SelectListItem {Text = "5.Fiyat", Value = "5.Fiyat"},
+                                                                                            new SelectListItem {Text = "6.Fiyat", Value = "6.Fiyat"},
+                                                                                            new SelectListItem {Text = "7.Fiyat", Value = "7.Fiyat"},
+                                                                                            new SelectListItem {Text = "8.Fiyat", Value = "8.Fiyat"},
+                                                                                            new SelectListItem {Text = "9.Fiyat", Value = "9.Fiyat"},
+                                                                                            new SelectListItem {Text = "10.Fiyat", Value = "10.Fiyat"},
+                                                                                        }, new
+                                                                                        {
+                                                                                            @id = "StokFG",
+                                                                                            @class = "form-control",
+                                                                                            @style = "background-color:#F9E79F"
+                                                                                        })
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-4 px-1">
+                                                                                    <div class="form-group">
+                                                                                        <label>Cari Grubu</label>
+                                                                                        @Html.DropDownList("CariGrubu", new SelectList(AyarMetot.CariKategori(Session["FirmaID"].ToString()), "Value", "Text", 1), new { @id = "CariGrubu", @class = "form-control col-lg-12", @style = "color:black" })
+                                                                                    </div>
+                                                                                </div>
+
+
+
+                                                                                <div class="col-md-4 px-1">
+                                                                                    <label>Para Birimi</label>
+                                                                                    <div class="form-group">
+
+                                                                                        @Html.DropDownList("Para Birimi", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", "TL"), new { @id = "paraBirimi", @class = "form-control col-lg-12" })
+
+                                                                                    </div>
+                                                                                </div>
+
+
+                                                                                <div class="col-md-4 px-1">
+                                                                                    <div class="form-group">
+                                                                                        <label>Iskonto</label>
+                                                                                        <input id="Iskonto" name="Iskonto" type="number" class="form-control" value="">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-4 px-1">
+                                                                                    <div class="form-group">
+                                                                                        <label>Mersis No</label>
+                                                                                        <input id="MersisNo" name="MersisNo" type="text" class="form-control" value="">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-4 px-1">
+                                                                                    <div class="form-group">
+                                                                                        <label>Ticaret Sicil No</label>
+                                                                                        <input id="TicaretSicilNo" name="TicaretSicilNo" type="text" class="form-control" value="">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-4 px-1">
+                                                                                    <div class="form-group">
+                                                                                        <label>Müsteri Temsilcisi</label>
+                                                                                        @Html.DropDownList("MusteriTemsilcisi", new SelectList(AyarMetot.MusteriTemsilcileri(Session["FirmaID"].ToString()), "Value", "Text", "Alperen"), new { @id = "MusteriTemsilcisi", @class = "form-control col-lg-12" })
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+
+                                                                                <div class="col-md-4 px-1">
+                                                                                    <div class="form-group">
+                                                                                        <label>Web Kullanıcı Adı </label>
+                                                                                        <input id="WebKA" name="WebKA" type="text" class="form-control" value="">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-4 px-1">
+                                                                                    <div class="form-group">
+                                                                                        <label>Web Şifre</label>
+                                                                                        <input id="WebSifre" name="WebSifre" type="password" class="form-control" value="">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                            @*Kategoriler SAyfası*@
+                                                            <div id="tab-3" class="tab-pane">
+                                                                <div class="panel-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-5 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Grup Kodu 2</label>
+                                                                                <input id="ozelAlan2" name="ozelAlan2" type="text" class="form-control" value="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-5 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Grup Kodu 3</label>
+                                                                                <input id="ozelAlan3" name="ozelAlan3" type="text" class="form-control" value="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-5 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Grup Kodu 4</label>
+                                                                                <input id="ozelAlan4" name="ozelAlan4" type="text" class="form-control" value="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-5 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Grup Kodu 5</label>
+                                                                                <input id="ozelAlan5" name="ozelAlan5" type="text" class="form-control" value="">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    @*
+                                                                        <div class="row">
+                                                                            <div class="col-md-5 px-1">
+                                                                                <div class="form-group">
+                                                                                    <label>Web Kullanıcı Adı</label>
+                                                                                    <input id="WebKA" name="WebKA" type="text" class="form-control" value="">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-5 px-1">
+                                                                                <div class="form-group">
+                                                                                    <label>Web Şifre</label>
+                                                                                    <input id="WebSifre" name="WebSifre" type="text" class="form-control" value="">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    *@
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div class="form-group">
+                                                    @Html.Hidden("cID", -1)
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div class="form-group">
+                                                    <input id="YeniCari" style="display: none" value="@ViewBag.YeniCari" />
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                                                <button type="submit" class="btn btn-primary">Kaydet</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row container-fluid">
+
+                                <div class="col-sm-6 col-md-9 pb-3">
+
+                                    <div class="input-group">
+                                        <button onclick="Temizle()" style='background-color:#e9ecef; color:black' type="button" class="btn-outline-info btn btn-xs" data-toggle="modal" data-target="#UyeOl">
+                                            Yeni Cari
+                                        </button>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="col-sm-6 col-md-4">
+                                    <label for="FaturaTipi" class="col-form-label">Teklif Tipi</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-file-text"></i>
+                                            </div>
+                                        </div>
+
+
+                                        @Html.DropDownList("IslemTipi", new List<SelectListItem>
+                                            {
+                                            new SelectListItem { Text="Seçiniz", Value="", Selected=true},
+                                            new SelectListItem { Text="Alınan Teklif", Value="Alınan Teklif"},
+                                            new SelectListItem { Text="Verilen Teklif", Value="Verilen Teklif"},
+
+                                            }, new
+                                            {
+                                                @id = "IslemTipi",
+                                                @class = "form-control",
+                                                @value = Model.IslemTipi,
+                                            })
+
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-md-2">
+                                    <label for="ParaBirimi" class="col-form-label">Para Birimi</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-money"></i>
+                                            </div>
+                                        </div>
+                                        @Html.DropDownList("ParaBirimi", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", "TL"), new { @id = "ParaBirimi", @class = "form-control" })
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-md-2">
+                                    <label for="aciklama" class="col-form-label">KDV (D/H) :</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-money"></i>
+                                            </div>
+                                        </div>
+                                        @Html.DropDownList("KdvDh", new SelectList(AyarMetot.KdvDh(), "Value", "Text", "H"), new { @id = "KdvDh", @class = "form-control" })
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-md-4">
+                                    <label for="Depo" class="col-form-label">Cari</label>
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-user-circle-o"></i>
+                                        </div>
+                                        @Html.DropDownList("CariID", new SelectList(AyarMetot.Cariler(Session["FirmaID"].ToString()), "Value", "Text"),
+                                        "Tüm Cariler", new { @id = "CariID", @class = "select2_demo_3 form-control", @style = "font-size:small" })
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-md-4 pt-3">
+                                    <label for="FaturaTipi" class="col-form-label">Tarih </label>
+                                    <div class="input-group ">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-clock-o"></i>
+                                            </div>
+                                        </div>
+                                        @if (Model.ID == 0)
+                                        {
+                                            <input type="date" id="IslemTarihi" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="IslemTarihi">
+                                        }
+                                        else
+                                        {
+                                            <input type="date" id="IslemTarihi" class="form-control" value="@Convert.ToDateTime(Model.IslemTarihi).ToString("yyyy-MM-dd")" name="IslemTarihi">
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-md-4 pt-3">
+                                    <label for="FaturaTipi" class="col-form-label">Vade Tarihi</label>
+                                    <div class="input-group ">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-clock-o"></i>
+                                            </div>
+                                        </div>
+
+                                        @if (Model.ID == 0)
+                                        {
+                                            <input type="date" id="vadetarihi" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="vadetarihi">
+                                        }
+                                        else
+                                        {
+                                            <input type="date" id="vadetarihi" class="form-control" value="@Convert.ToDateTime(Model.VadeTarihi).ToString("yyyy-MM-dd")" name="vadetarihi">
+                                        }
+
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-md-4 pt-3 form-group">
+                                    <label for="FaturaTipi" class="col-form-label">Onay Tarihi </label>
+                                    <div class="input-group ">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-clock-o"></i>
+                                            </div>
+                                        </div>
+
+                                        @if (Model.ID == 0)
+                                        {
+                                            <input type="date" id="KayitTarih" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="KayitTarih">
+                                        }
+                                        else
+                                        {
+                                            <input type="date" id="KayitTarih" class="form-control" value="@Convert.ToDateTime(Model.KayitTarih).ToString("yyyy-MM-dd")" name="KayitTarih">
+                                        }
+
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-md-4 pt-3">
+                                    <label for="Depo" class="col-form-label">Personel</label>
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-user"></i>
+                                        </div>
+                                        @Html.DropDownList("PersonelID", new SelectList(AyarMetot.Personeller(Session["FirmaID"].ToString()), "Value", "Text", @Session["PersonelID"].ToString()),
+                                        "Tüm Personeller", new { @id = "PersonelID", @class = "select2_demo_3 form-control", @style = "font-size:x-small" })
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-md-4 pt-3">
+                                    <label for="FaturaTipi" class="col-form-label">İşlem No </label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-sort-numeric-asc"></i>
+                                            </div>
+                                        </div>
+                                        @if (Model.ID == 0)
+                                        {
+                                            <input id="IslemNo" name="IslemNo" value="@ViewBag.TeklifKoduSiradaki" type="text" class="form-control">
+                                        }
+                                        else
+                                        {
+
+                                            <input id="IslemNo" name="IslemNo" value="@Model.TeklifNo" type="text" class="form-control">
+                                        }
+                                    </div>
+                                </div>
+
+                                @*<div class="col-sm-6 col-md-4 pt-3">
+                                        <label for="FaturaTipi" class="col-form-label">Vade Tarihi</label>
+                                        <div class="input-group ">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="fa fa-clock-o"></i>
+                                                </div>
+                                            </div>
+
+                                            @if (Model.ID == 0)
+                                            {
+                                                <input type="date" id="vadetarihi" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="vadetarihi">
+                                            }
+                                            else
+                                            {
+                                                <input type="date" id="vadetarihi" class="form-control" value="@Convert.ToDateTime(Model.VadeTarihi).ToString("yyyy-MM-dd")" name="vadetarihi">
+                                            }
+
+
+                                        </div>
+                                    </div>*@
+
+                                <div class="col-sm-6 col-md-4 pt-3">
+                                    <label for="aciklama" class="col-form-label">Açıklama </label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-font"></i>
+                                            </div>
+                                        </div>
+                                        <input id="Aciklama" name="aciklama" value="@Model.Aciklama" type="text" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-md-4 pt-3">
+                                    <label for="aciklama" class="col-form-label">Ödeme Şekli :</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-font"></i>
+                                            </div>
+                                        </div>
+                                        <input id="TOdemeSekli" name="TOdemeSekli" value="@Model.TOdemeSekli" type="text" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-md-4 pt-3">
+                                    <label for="aciklama" class="col-form-label">Teslimat Süresi </label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-calendar-times-o"></i>
+                                            </div>
+                                        </div>
+                                        <input id="TeklifSuresi" name="TeklifSuresi" type="text" value="@Model.TeklifSuresi" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-md-4 pt-3">
+                                    <label for="aciklama" class="col-form-label">Teslimat </label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fa fa-font"></i>
+                                            </div>
+                                        </div>
+                                        <input id="Teslimat" name="Teslimat" type="text" value="@Model.Teslimat" class="form-control">
+                                    </div>
+                                </div>
+
+                                @*<div class="col-sm-6 col-md-3 pt-3">
+                                        <label for="aciklama" class="col-form-label">KDV (D/H) :</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="fa fa-money"></i>
+                                                </div>
+                                            </div>
+                                            @Html.DropDownList("KdvDh", new SelectList(AyarMetot.KdvDh(), "Value", "Text", "H"), new { @id = "KdvDh", @class = "form-control" })
+
+                                        </div>
+                                    </div>*@
+                            </div>
+
+
+                            <div class="col-md-3 px-1">
+                                <div class="form-group">
+                                    @if (Model.ID == 0)
+                                    {
+                                        @Html.Hidden("teklifID", -1)
+                                    }
+                                    else
+                                    {
+                                        @Html.Hidden("teklifID", Model.ID)
+                                    }
+
+                                </div>
+                            </div>
+                            <br />
+
+
+                            <div class="container-fluid">
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <button onclick="Temizle()" style='background-color:#e9ecef; color:black' type="button" class="btn-outline-info btn btn-xs" data-toggle="modal" data-target="#stokid">
+                                            Yeni Stok
+                                        </button>
+                                        <div class="modal inmodal" id="stokid" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content animated bounceInRight">
+                                                    <div class="modal-header">
+                                                        <a style="text-align:left; color:white" class="btn btn-danger btn-xs" id="myModalLabel">STOK KARTI</a>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+
+                                                    </div>
+                                                    <form id="stokveri" method="post" action="/Stok/YeniStok">
+                                                        <div class="modal-body">
+
+
+                                                            <div class="row">
+
+                                                                <div class="col-md-5 px-1">
+                                                                    <div class="form-group">
+                                                                        <label><b>Ürün Adı</b></label>
+                                                                        <input required style="background-color:lightgoldenrodyellow" id="UrunA" name="UrunA" type="text" class="form-control" value="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3 px-1">
+                                                                    <div class="form-group">
+                                                                        <label>Stok Kodu</label>
+                                                                        <input id="StokK" name="StokK" type="text" class="form-control" value="@ViewBag.StokKoduSiradaki">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 px-1">
+                                                                    <div class="form-group">
+                                                                        <label>Barkod No</label>
+                                                                        <input id="Barkod" name="Barkod" type="text" class="form-control" value="">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="px-1">
+                                                                    <div class="tabs-container">
+                                                                        <ul class="nav nav-tabs">
+                                                                            <li><a class="nav-link active" data-toggle="tab" href="#stok1">Genel</a></li>
+                                                                            <li><a class="nav-link" data-toggle="tab" href="#stok2">Fiyatlar</a></li>
+                                                                            <li><a class="nav-link " data-toggle="tab" href="#stok3">Kategoriler</a></li>
+                                                                            <li><a class="nav-link " data-toggle="tab" href="#stok4">Barkodlar</a></li>
+                                                                            @*<li><a class="nav-link" data-toggle="tab" href="#tab-4">Ek Bİlgiler</a></li>*@
+                                                                        </ul>
+                                                                        <div class="tab-content">
+
+                                                                            @*Genel Sayfası*@
+                                                                            <div id="stok1" class="tab-pane active">
+                                                                                <div class="panel-body row">
+
+                                                                                    <div class="col-md-6 pb-3">
+                                                                                        <strong>Stokta Kalan</strong>
+                                                                                        <input id="StoktaKalan" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="0.00">
+                                                                                    </div>
+
+                                                                                    <div class="col-md-6 pb-3">
+                                                                                        <strong>Alış Fiyatı</strong>
+                                                                                        <input id="AlishFiyat" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="0.00">
+                                                                                    </div>
+
+                                                                                    @*<div class="col-md-6 pb-3"> ????
+                                                                                        <strong>Kar Oranı %</strong>
+                                                                                        <input required id="KdvOrani" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="0.00">
+                                                                                        </div>*@
+                                                                                    <div class="col-md-6 pb-3">
+                                                                                        <strong>Satış Fiyatı</strong>
+                                                                                        <input id="SatishFiyat" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="0.00">
+                                                                                    </div>
+                                                                                    <div class="col-md-6 pb-3">
+                                                                                        <strong>Marka</strong>
+                                                                                        <input id="Marka" name="Marka" type="text" class="form-control" value="">
+
+                                                                                    </div>
+
+                                                                                    <div class="col-md-6 pb-3">
+                                                                                        <strong>Ürün Grubu</strong>
+                                                                                        <input id="Grubu" name="Grubu" type="text" class="form-control" value="">
+
+                                                                                    </div>
+
+
+                                                                                    <div class="col-md-6 pb-3">
+                                                                                        <strong>KDV</strong>
+                                                                                        <select id="KDV" name="select" class="custom-select">
+                                                                                            <option selected value="18">18</option>
+                                                                                            <option value="8">8</option>
+                                                                                            <option value="1">1</option>
+                                                                                            <option value="0">0</option>
+                                                                                        </select>
+                                                                                    </div>
+
+                                                                                    <div class="col-md-6 pb-3">
+                                                                                        <strong>Birimi</strong>
+                                                                                        @*<select id="Birimi" name="select" class="custom-select">
+                                                                                            </select>*@
+                                                                                        @Html.DropDownList("Birimi", new SelectList(AyarMetot.Birimler(), "Value", "Text", "Adet")
+                                                                                            , new { @id = "Birimi", @class = "form-control custom-select ", @style = "font-size:x-small" })
+                                                                                    </div>
+
+                                                                                    <div class="col-md-6 pb-3">
+                                                                                        <strong>Para Birimi</strong>
+
+
+                                                                                        @Html.DropDownList("Para Birimi", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", "TL")
+                                                                                          , new { @id = "ParaBirimi", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+
+                                                                                    </div>
+
+                                                                                    <div class="col-md-6 pb-3">
+                                                                                        <strong>Ürün türü</strong>
+                                                                                        <select id="UrunTuru" name="select" class="custom-select">
+                                                                                            <option selected value="18">Ticari Mal</option>
+                                                                                            <option value="Ticari Mal">Ticari Mal</option>
+                                                                                            <option value="Makine">Makine</option>
+                                                                                            <option value="Donatım Malı">Donatım Malı</option>
+                                                                                            <option value="Fabrika Malı">Fabrika Malı</option>
+                                                                                            <option value="Yardımcı Mal">Yardımcı Mal</option>
+                                                                                            <option value="İşletme Gereci">İşletme Gereci</option>
+                                                                                            <option value="İkinci El">İkinci El</option>
+                                                                                            <option value="Hizmet">Hizmet</option>
+                                                                                            <option value="Demirbaş">Demirbaş</option>
+                                                                                            <option value="Nihai Ürün">Nihai Ürün</option>
+                                                                                            <option value="Yarı Mamül">Yarı Mamül</option>
+                                                                                            <option value="Ara Mamül">Ara Mamül</option>
+                                                                                            <option value="Hammadde">Hammadde</option>
+                                                                                            <option value="Mamül">Mamül</option>
+                                                                                        </select>
+                                                                                    </div>
+
+                                                                                    <div class="col-md-6 pb-3">
+                                                                                        <strong>Kalan Stok Uyarısı</strong>
+                                                                                        <input id="KalanStkU" name="KalanStkU" type="text" class="form-control" value="">
+                                                                                    </div>
+
+                                                                                    <div style="display:none">
+
+                                                                                        <div class="col-md-6 pb-3">
+                                                                                            <strong>Ürün Kısa Kod</strong>
+                                                                                            <textarea id="KisaKod" name="ArizaTespit" class="form-control textarea"></textarea>
+                                                                                        </div>
+                                                                                        <div class="col-md-6 pb-3">
+                                                                                            <strong>Parti No</strong>
+                                                                                            <textarea id="PartiNo" name="ArizaTespit" class="form-control textarea"></textarea>
+                                                                                        </div>
+
+                                                                                        <div class="col-md-6 pb-3">
+                                                                                            <strong>Ürün Detayları</strong>
+                                                                                            <textarea id="Detay2" style="height:75px" name="ArizaTespit" class="form-control textarea"></textarea>
+                                                                                        </div>
+                                                                                        <div class="col-md-6 pb-3">
+                                                                                            <strong>OEM Kodu</strong>
+                                                                                            <textarea id="OEM" name="ArizaTespit" class="form-control textarea"></textarea>
+                                                                                        </div>
+
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            @*Fiyatlar SAyfası*@
+                                                                            <div id="stok2" class="tab-pane">
+                                                                                <div class="panel-body">
+
+                                                                                    <div class="tab-content p-3" id="pills-tabContent">
+                                                                                        <div class="tab-pane fade show active" id="pills-genel" role="tabpanel" aria-labelledby="pills-home-tab">
+                                                                                            @*Başlıklar*@
+                                                                                            <div class="row">
+                                                                                                <label class="pl-2 pr-3 pt-1 col-md-3 form-control" style="float:left; text-align:center; background-color:gray; color:black">
+                                                                                                    <b style="font-size:smaller"> Fiyat Tipi</b>
+                                                                                                </label>
+                                                                                                <div class="col-md-2 form-control" style="float:left; background-color:gray; text-align:center; color:black">
+                                                                                                    <b style="font-size:smaller">Fiyat</b>
+                                                                                                </div>
+                                                                                                <div class="col-md-1 form-control" style="float:left; background-color:gray; text-align:center; color:black">
+                                                                                                    <b style="font-size:smaller">P.Birimi</b>
+                                                                                                </div>
+                                                                                                <div class="col-md-1 form-control" style="float:left; background-color:gray; text-align:center; color:black">
+                                                                                                    <b style="font-size:smaller">Birimi</b>
+                                                                                                </div>
+                                                                                                <div class="col-md-2 form-control" style="float:left; background-color:gray; text-align:center; color:black">
+                                                                                                    <b style="font-size:smaller">İçerik Miktarı</b>
+                                                                                                </div>
+
+                                                                                                <div class="col-md-3 pb-3 form-control" style="float:left; background-color:gray; text-align:center; color:black">
+                                                                                                    <b style="font-size:smaller">Barkod</b>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                <label class="pl-2 pr-3 pt-1 col-md-3 form-control" style="float:left; width:50px; background-color:; color:black">
+                                                                                                    <b> Fiyat - 2</b>
+                                                                                                </label>
+                                                                                                <div class="col-md-2 p-0">
+                                                                                                    <input required id="F2" name="text" type="number" class="form-control px-2" onchange="setTwoNumberDecimal" min="0" step="0.01" value="0.00">
+                                                                                                </div>
+                                                                                                <div class="col-md-1 p-0">
+
+                                                                                                    @Html.DropDownList("P2", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", "TL"),
+                                                                                                         new { @id = "P2", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                                                                </div>
+                                                                                                <div class="col-md-1 p-0">
+
+                                                                                                    @Html.DropDownList("BRM2", new SelectList(AyarMetot.Birimler(), "Value", "Text", "Adet"),
+                                                                                                        "Birimi", new { @id = "BRM2", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                                                                </div>
+                                                                                                <div class="col-md-2 p-0">
+                                                                                                    <input required id="nbadet2" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="1" value="1.00">
+                                                                                                </div>
+
+                                                                                                <div class="col-md-3 p-0">
+                                                                                                    <input id="Brkd2" name="BarkodNo" class="form-control " type="text"></input>
+                                                                                                </div>
+                                                                                            </div>
+
+
+                                                                                            <div class="row">
+                                                                                                <label class="pl-2 pr-3 pt-1 col-md-3 form-control" style="float:left; width:50px; background-color:; color:black">
+                                                                                                    <b> Fiyat - 3</b>
+                                                                                                </label>
+                                                                                                <div class="col-md-2 p-0">
+                                                                                                    <input required id="F3" name="text" placeholder="Fiyat" type="number" class="form-control px-2" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                                                                </div>
+                                                                                                <div class="col-md-1 p-0">
+
+                                                                                                    @Html.DropDownList("P3", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", "TL"), new { @id = "P3", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                                                                </div>
+                                                                                                <div class="col-md-1 p-0">
+                                                                                                    @Html.DropDownList("BRM3", new SelectList(AyarMetot.Birimler(), "Value", "Text", "Adet"), new { @id = "BRM3", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                                                                </div>
+                                                                                                <div class="col-md-2 p-0">
+                                                                                                    <input required id="nbadet3" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                                                                </div>
+
+                                                                                                <div class="col-md-3 p-0">
+                                                                                                    <input id="Brkd3" name="BarkodNo" class="form-control " type="text"></input>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <!--3-->
+                                                                                            <div class="row">
+                                                                                                <label class="pl-2 pr-3 pt-1 col-md-3 form-control" style="float:left; width:50px; background-color:; color:black">
+                                                                                                    <b> Fiyat - 4</b>
+                                                                                                </label>
+                                                                                                <div class="col-md-2 p-0">
+                                                                                                    <input required id="F4" name="text" type="number" class="form-control px-2" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                                                                </div>
+                                                                                                <div class="col-md-1 p-0">
+
+                                                                                                    @Html.DropDownList("P4", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", "TL"), new { @id = "P4", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                                                                </div>
+                                                                                                <div class="col-md-1 p-0">
+
+                                                                                                    @Html.DropDownList("BRM4", new SelectList(AyarMetot.Birimler(), "Value", "Text", "Adet"), new { @id = "BRM4", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                                                                </div>
+                                                                                                <div class="col-md-2 p-0">
+                                                                                                    <input required id="nbadet4" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                                                                </div>
+
+                                                                                                <div class="col-md-3 p-0">
+                                                                                                    <input id="Brkd4" name="BarkodNo" class="form-control " type="text"></input>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <!--4-->
+                                                                                            <div class="row">
+                                                                                                <label class="pl-2 pr-3 pt-1 col-md-3 form-control" style="float:left; width:50px; background-color:; color:black">
+                                                                                                    <b> Fiyat - 5</b>
+                                                                                                </label>
+                                                                                                <div class="col-md-2 p-0">
+                                                                                                    <input style="background-color:azure;" id="F5" name="text" type="number" class="form-control px-2" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                                                                </div>
+                                                                                                <div class="col-md-1 p-0">
+
+                                                                                                    @Html.DropDownList("P5", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", "TL"), new { @id = "P5", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                                                                </div>
+                                                                                                <div class="col-md-1 p-0">
+
+                                                                                                    @Html.DropDownList("BRM5", new SelectList(AyarMetot.Birimler(), "Value", "Text", "Adet"), new { @id = "BRM5", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                                                                </div>
+                                                                                                <div class="col-md-2 p-0">
+                                                                                                    <input required id="nbadet5" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                                                                </div>
+
+                                                                                                <div class="col-md-3 p-0">
+                                                                                                    <input id="Brkd5" name="BarkodNo" class="form-control " type="text"></input>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <!--5-->
+                                                                                            <div class="row">
+                                                                                                <label class="pl-2 pr-3 pt-1 col-md-3 form-control" style="float:left; width:50px; background-color:; color:black">
+                                                                                                    <b> Fiyat - 6</b>
+                                                                                                </label>
+                                                                                                <div class="col-md-2 p-0">
+                                                                                                    <input id="F6" name="text" type="number" class="form-control px-2" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                                                                </div>
+                                                                                                <div class="col-md-1 p-0">
+
+                                                                                                    @Html.DropDownList("P6", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", "TL"), new { @id = "P6", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                                                                </div>
+                                                                                                <div class="col-md-1 p-0">
+
+                                                                                                    @Html.DropDownList("BRM6", new SelectList(AyarMetot.Birimler(), "Value", "Text", "Adet"), new { @id = "BRM6", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+
+                                                                                                </div>
+                                                                                                <div class="col-md-2 p-0">
+                                                                                                    <input required id="nbadet6" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                                                                </div>
+
+                                                                                                <div class="col-md-3 p-0">
+                                                                                                    <input id="Brkd6" name="BarkodNo" class="form-control " type="text"></input>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                <label class="pl-2 pr-3 pt-1 col-md-3 form-control" style="float:left; width:50px; background-color:; color:black">
+                                                                                                    <b> Fiyat - 7</b>
+                                                                                                </label>
+                                                                                                <div class="col-md-2 p-0">
+                                                                                                    <input required id="F7" name="text" placeholder="Fiyat" type="number" class="form-control px-2" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                                                                </div>
+                                                                                                <div class="col-md-1 p-0">
+
+                                                                                                    @Html.DropDownList("P7", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", "TL"), new { @id = "P7", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                                                                </div>
+                                                                                                <div class="col-md-1 p-0">
+                                                                                                    @Html.DropDownList("BRM7", new SelectList(AyarMetot.Birimler(), "Value", "Text", "Adet"), new { @id = "BRM7", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                                                                </div>
+                                                                                                <div class="col-md-2 p-0">
+                                                                                                    <input required id="nbadet7" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                                                                </div>
+
+                                                                                                <div class="col-md-3 p-0">
+                                                                                                    <input id="Brkd7" name="BarkodNo" class="form-control " type="text"></input>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                <label class="pl-2 pr-3 pt-1 col-md-3 form-control" style="float:left; width:50px; background-color:; color:black">
+                                                                                                    <b> Fiyat - 8</b>
+                                                                                                </label>
+                                                                                                <div class="col-md-2 p-0">
+                                                                                                    <input required id="F8" name="text" placeholder="Fiyat" type="number" class="form-control px-2" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                                                                </div>
+                                                                                                <div class="col-md-1 p-0">
+
+                                                                                                    @Html.DropDownList("P8", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", "TL"), new { @id = "P8", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                                                                </div>
+                                                                                                <div class="col-md-1 p-0">
+                                                                                                    @Html.DropDownList("BRM8", new SelectList(AyarMetot.Birimler(), "Value", "Text", "TL"), new { @id = "BRM8", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                                                                </div>
+                                                                                                <div class="col-md-2 p-0">
+                                                                                                    <input required id="nbadet8" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                                                                </div>
+
+                                                                                                <div class="col-md-3 p-0">
+                                                                                                    <input id="Brkd8" name="BarkodNo" class="form-control " type="text"></input>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                <label class="pl-2 pr-3 pt-1 col-md-3 form-control" style="float:left; width:50px; background-color:; color:black">
+                                                                                                    <b> Fiyat - 9</b>
+                                                                                                </label>
+                                                                                                <div class="col-md-2 p-0">
+                                                                                                    <input required id="F9" name="text" placeholder="Fiyat" type="number" class="form-control px-2" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                                                                </div>
+                                                                                                <div class="col-md-1 p-0">
+
+                                                                                                    @Html.DropDownList("P9", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", "TL"), new { @id = "P9", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                                                                </div>
+                                                                                                <div class="col-md-1 p-0">
+                                                                                                    @Html.DropDownList("BRM9", new SelectList(AyarMetot.Birimler(), "Value", "Text", "Adet"), new { @id = "BRM9", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                                                                </div>
+                                                                                                <div class="col-md-2 p-0">
+                                                                                                    <input required id="nbadet9" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                                                                </div>
+
+                                                                                                <div class="col-md-3 p-0">
+                                                                                                    <input id="Brkd9" name="BarkodNo" class="form-control " type="text"></input>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                <label class="pl-2 pr-3 pt-1 col-md-3 form-control" style="float:left; width:50px; background-color:; color:black">
+                                                                                                    <b> Fiyat - 10</b>
+                                                                                                </label>
+                                                                                                <div class="col-md-2 p-0">
+                                                                                                    <input required id="F10" name="text" placeholder="Fiyat" type="number" class="form-control px-2" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                                                                </div>
+                                                                                                <div class="col-md-1 p-0">
+
+                                                                                                    @Html.DropDownList("P10", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", "TL"), new { @id = "P10", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                                                                </div>
+                                                                                                <div class="col-md-1 p-0">
+                                                                                                    @Html.DropDownList("BRM10", new SelectList(AyarMetot.Birimler(), "Value", "Text", "Adet"), new { @id = "BRM10", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                                                                </div>
+                                                                                                <div class="col-md-2 p-0">
+                                                                                                    <input required id="nbadet10" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                                                                </div>
+
+                                                                                                <div class="col-md-3 p-0">
+                                                                                                    <input id="Brkd10" name="BarkodNo" class="form-control " type="text"></input>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                            @*Kategoriler SAyfası*@
+                                                                            <div id="stok3" class="tab-pane">
+                                                                                <div class="panel-body">
+                                                                                    <div class="row">
+
+                                                                                        <div class="col-md-12">
+                                                                                            <label class="pl-2 pr-3 pt-1 form-control" style="float:left; width:150px; background-color:; color:black">
+                                                                                                <b> @ViewBag.Kategori1</b>
+                                                                                            </label>
+                                                                                            <input type="text" id="Ktg1" name="Ktg1" style="width:50%" class="form-control " value="" />
+
+                                                                                        </div>
+
+                                                                                        <div class="col-md-12">
+                                                                                            <label class="pl-2 pr-3 pt-1 form-control" style="float:left; width:150px; background-color:; color:black">
+                                                                                                <b>  @ViewBag.Kategori2</b>
+                                                                                            </label>
+                                                                                            <input type="text" id="Ktg2" name="Ktg2" style="width:50%" class="form-control " value="" />
+                                                                                        </div>
+
+                                                                                        <div class="col-md-12">
+                                                                                            <label class="pl-2 pr-3 pt-1 form-control" style="float:left; width:150px; background-color:; color:black">
+                                                                                                <b> @ViewBag.Kategori3</b>
+                                                                                            </label>
+                                                                                            <input type="text" id="Ktg3" name="Ktg3" style="width:50%" class="form-control " value="" />
+                                                                                        </div>
+
+                                                                                        <div class="col-md-12">
+                                                                                            <label class="pl-2 pr-3 pt-1 form-control" style="float:left; width:150px; background-color:; color:black">
+                                                                                                <b> @ViewBag.Kategori4</b>
+                                                                                            </label>
+                                                                                            <input type="text" id="Ktg4" name="Ktg4" style="width:50%" class="form-control " value="" />
+                                                                                        </div>
+
+                                                                                        <div class="col-md-12">
+                                                                                            <label class="pl-2 pr-3 pt-1 form-control" style="float:left; width:150px; background-color:; color:black">
+                                                                                                <b> @ViewBag.Kategori5</b>
+                                                                                            </label>
+                                                                                            <input type="text" id="Ktg5" name="Ktg5" style="width:50%" class="form-control " value="" />
+                                                                                        </div>
+
+                                                                                        <div class="col-md-12">
+                                                                                            <label class="pl-2 pr-3 pt-1 form-control" style="float:left; width:150px; background-color:; color:black">
+                                                                                                <b> @ViewBag.Kategori6</b>
+                                                                                            </label>
+                                                                                            <input type="text" id="Ktg6" name="Ktg6" style="width:50%" class="form-control" value="" />
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            @*Ek Bilgiler SAyfası  *@
+                                                                            <div id="stok4" class="tab-pane">
+                                                                                <div class="panel-body">
+                                                                                    <div class="row">
+
+                                                                                        <div class="col-md-12">
+                                                                                            <label class="pl-2 pr-3 pt-1 form-control" style="float:left; width:150px; background-color:; color:black">
+                                                                                                <b> Barkod-2</b>
+                                                                                            </label>
+                                                                                            <input type="text" id="Brk2" name="Brk2" style="width:50%" class="form-control " value="" />
+
+                                                                                        </div>
+
+                                                                                        <div class="col-md-12">
+                                                                                            <label class="pl-2 pr-3 pt-1 form-control" style="float:left; width:150px; background-color:; color:black">
+                                                                                                <b>  Barkod-3</b>
+                                                                                            </label>
+                                                                                            <input type="text" id="Brk3" name="Brk3" style="width:50%" class="form-control " value="" />
+                                                                                        </div>
+
+                                                                                        <div class="col-md-12">
+                                                                                            <label class="pl-2 pr-3 pt-1 form-control" style="float:left; width:150px; background-color:; color:black">
+                                                                                                <b> Barkod-4</b>
+                                                                                            </label>
+                                                                                            <input type="text" id="Brk4" name="Brk4" style="width:50%" class="form-control " value="" />
+                                                                                        </div>
+
+                                                                                        <div class="col-md-12">
+                                                                                            <label class="pl-2 pr-3 pt-1 form-control" style="float:left; width:150px; background-color:; color:black">
+                                                                                                <b> Barkod-5</b>
+                                                                                            </label>
+                                                                                            <input type="text" id="Brk5" name="Brk5" style="width:50%" class="form-control " value="" />
+                                                                                        </div>
+
+                                                                                        <div class="col-md-12">
+                                                                                            <label class="pl-2 pr-3 pt-1 form-control" style="float:left; width:150px; background-color:; color:black">
+                                                                                                <b> Barkod-6</b>
+                                                                                            </label>
+                                                                                            <input type="text" id="Brk6" name="Brk6" style="width:50%" class="form-control " value="" />
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3 pl-1">
+                                                                        <div class="form-group">
+                                                                            @Html.Hidden("sID", -1)
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-3 pl-1">
+                                                                        <div class="form-group">
+                                                                            @Html.Hidden("Terminal", AyarMetot.ProTerminal)
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3 pl-1">
+                                                                        <div class="form-group">
+                                                                            <input id="YeniStok" style="display: none" value="@ViewBag.YeniStok" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                                                                <button type="submit" class="btn btn-primary">Kaydet</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row pl-3">
+                                    <div class="col-sm-3 col-md-3 pl-0">
+                                        <b>Ürün</b> <br />@Html.DropDownList("StokKodu", new SelectList(AyarMetot.Urunler(Session["FirmaID"].ToString()), "Value", "Text"),
+    "Tüm Ürünler", new { @id = "StokKodu", @class = "select2_demo_3 form-control", @style = "font-size:x-small" })
+                                    </div>
+                                    <div class="col-sm-2 col-md-2 pl-0">
+                                        <b>Barkod</b><br /><input id="BarkodUrun" name="text" type="text" class="form-control">
+                                    </div>
+                                    <div class="col-sm-1 col-md-1 pl-0">
+                                        <b>Miktar</b><br /><input required id="Miktar" name="text" placeholder="Miktar" type="number" class="form-control" onchange="GenelTopla(this)" min="0" step="1" value="1">
+                                    </div>
+                                    <div class="col-sm-1 col-md-1 pl-0">
+                                        <b>Birim</b><br /><input value="Adet" id="Birim" name="text" type="text" class="birim form-control">
+                                    </div>
+                                    <div class="col-sm-1 col-md-1 pl-0">
+                                        <b>Birim Fiyatı</b><br /><input onClick="this.setSelectionRange(0, this.value.length);" id="BirimFiyati" name="text" placeholder="BirimFiyati" type="text" class="digit form-control" onchange="GenelTopla(this)" min="0" step="0.01" value="0.00">
+                                    </div>
+                                    <div class="col-sm-1 col-md-1 pl-0">
+                                        <b>Tutar</b><br /><input id="Tutar" name="text" type="text" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="0.00" readonly>
+                                    </div>
+                                    <div class="col-sm-1 col-md-1 pl-0">
+                                        <b>KDV</b><br />
+                                        <select id="KDV2" name="select" class="form-control">
+                                            <option selected value="18">18</option>
+                                            <option value="8">8</option>
+                                            <option value="1">1</option>
+                                            <option value="0">0</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-1 col-md-1 pl-0">
+                                        <label> </label><br />
+                                        <button id="addRow" class="btn btn-outline btn-md btn-info px-1">EKLE <i class="fa fa-plus" aria-hidden="true"></i></button>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="row pl-0">
+                                    <div class="pt-5 col-md-12 pl-0">
+                                        <table id="example" class="display table table-striped table-hover" style="width:100%">
+                                            <thead style="color:white; background-color:cadetblue;">
+                                                <tr>
+                                                    <th style="width:20%">Ürün Adı</th>
+                                                    <th style="width:10%">Miktar</th>
+                                                    <th style="width:10%">Birim</th>
+                                                    <th style="width:10%">Birim Fiyati</th>
+                                                    <th style="width:10%">Tutar</th>
+                                                    <th style="width:10%">KDV</th>
+                                                    <th style="width:10%">Sil</th>
+                                                    <th style="width:5%; display:none">ID</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+
+
+                                                @if (Model.ID == 0)
+                                                {
+
+                                                }
+                                                else
+                                                {
+                                                    foreach (var item in ViewBag.OfferList)
+                                                    {
+                                                        string UrunAD = item.UrunID.ToString();
+                                                        <tr>
+                                                            <td style="width:20%">@AyarMetot.UrunAD(UrunAD)</td>
+                                                            <td style="width:10%">
+                                                                <input style='font-size:smaller' onchange='GenelTopla(this)' type='text' class='miktar form-control' value="@item.Miktar" />
+                                                            </td>
+                                                            <td style="width:10%">@item.Birim</td>
+                                                            <td style="width:10%">
+                                                                <input style='font-size:smaller' onchange='GenelTopla(this)' type='text' class='birimfiyat form-control' value="@item.Fiyat" />
+                                                            </td>
+                                                            <td style="width:10%">
+                                                                <input style='font-size:smaller' type='text' class='tutar form-control' value="@item.Tutar" />
+                                                            </td>
+                                                            <td style="width:10%">
+                                                                <input style='font-size:smaller' onchange='GenelTopla(this)' type='text' class='kdv form-control' value="@item.KDV" />
+                                                            </td>
+                                                            <td style="width:10%">
+                                                                <button style='background-color:indianred;margin:0px' type='button' value="@item.UrunID" class='btn btn-md btn-danger  sepetSil'> SİL   <i class='fa fa-trash' aria-hidden='true'></i></button>
+                                                            </td>
+                                                            <td style="width:10%; display:none"><button style='background-color:transparent;margin:0px' type='button' value='@item.ID' class='btn  SatirID'>@item.ID</button></td>
+                                                        </tr>
+                                                    }
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <br />
+
+                            </div>
+                        </div>
+
+
+                        <br />
+                        <div class="row">
+                            <div class="offset-4 col-8">
+                                <button id="btnKaydet" type="button" style="float:right;" class="nakitSatis btn btn-lg btn-outline-primary">Kaydet <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                                <button type="button" onclick="btnVazgec()" style="float:right;" class="btn btn btn-lg pull-right btn-outline-danger">Vazgeç <i class="fa fa-close"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="display:none" id="demo"></div>
+
+
+</div>
+
+
+
+@section Styles {
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/select2Styles")
+
+}
+@section Scripts {
+
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/dataTables")
+
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+    <script src="~/Scripts/mask.js"></script>
+    <script src="~/Scripts/musteri.js"></script>
+    <script src="~/Scripts/moment-with-locales.js"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+
+    <script type="text/javascript">
+
+        var t;
+
+        function FiyatGetir(id, brk) {
+            $.ajax({
+                type: "GET",
+                "datatype": "json",
+                url: '/Tables/StokBilgi?id=' + id + '&Brk=' + brk,
+                success: function (gt) {
+                    if (gt.success) {
+
+                        if (gt.kodbulundu) {
+                            $("#BarkodUrun").val(gt.data.Barkod);
+                        } else {
+                            $("#StokKodu").select2("val", gt.data.ID);
+                        }
+
+                        $("#Birim").val(gt.data.Birimi);
+                        $("#BirimFiyati").val(Number(gt.data.SatishFiyat).toFixed(2).replace(".", ","));
+                        if (gt.data.KDV != null || gt.data.KDV != "") {
+                            $("#KDV2").val(gt.data.KDV);
+                        }
+                        else {
+                            $("#KDV2").val("18");
+                        }
+                        Topla();
+
+                    }
+                }
+            });
+        }
+
+        function RaporGoster(id, type) {
+            var win = null;
+            if (type == "SI" || type == "YI") {
+                win = window.open("/Adv/IrsaliyeYazdir?ID=" + id);
+            } else if (type == "DI") {
+                win = window.open("/Adv/DepoIslemYazdir?ID=" + id);
+            } else if (type == "T" || type == "G" || type == "KKT") {
+                win = window.open("/Adv/TahsilatYazdir?ID=" + id);
+            }
+            win.focus();
+        }
+
+        function temizle() {
+            $("#CariID").select2("val", "0");
+            $("#IslemTipi").val("0");
+            $("#ParaBirimi").val("0");
+            $("#PersonelID").select2("val", "0");
+            $("#IslemNo").val("");
+            $("#Aciklama").val("");
+            $("#TOdemeSekli").val("");
+            $("#TeklifSuresi").val("");
+            $("#Teslimat").val("");
+        }
+
+        function btnVazgec() {
+            window.history.back();
+        }
+
+        function GenelTopla(event) {
+            var $row = $(event).closest("tr");
+
+            var Fiy = $row.find("td:eq(3) .birimfiyat").val().replace(",", ".");
+            var Mik = $row.find("td:eq(1) .miktar").val().replace(",", ".");
+
+            var total = 0;
+            total = parseFloat(Mik) * parseFloat(Fiy);
+
+
+            var sayi = total;
+            sayi = Number(sayi.toFixed(2));
+
+            $row.find("td:eq(4) .tutar").val(sayi);
+        }
+
+
+        function setTwoNumberDecimal(event) {
+            this.value = parseFloat(this.value).toFixed(2);
+        }
+
+
+        function CariGetir(id) {
+
+            $.ajax({
+                type: "GET",
+                "datatype": "json",
+                url: '/Fatura/CariBilgi?id=' + id,
+                success: function (gt) {
+                    if (gt.success) {
+
+                        $("#FTipi").val("1.Fiyat");
+
+                        if (gt.data.StokFG != null) {
+                            if (gt.data.StokFG != "") {
+                                $("#FTipi").val(gt.data.StokFG);
+                            }
+                        }
+
+                    }
+                }
+
+            });
+
+        }
+
+        var geneltoplam = 0;
+
+
+        $(document).on("click",
+            ".sepetSil",
+            function () {
+
+                var row = $(this).closest('tr');
+
+                swal({
+                    title: "[Silme Onayı]",
+                    text: "Seçili kaydı silmek istediğinizden emin misiniz?",
+                    icon: "warning",
+                    dangerMode: true,
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    cancelButtonText: "Hayır",
+                    confirmButtonText: "Evet",
+                    closeOnCancel: true,
+                    closeOnConfirm: true,
+
+                    preConfirm: function () {
+
+
+                        var id = row.find("td:eq(7) .SatirID").val();
+
+                        if (id != -1) {
+                            $.ajax({
+                                type: "POST",
+                                url: '@Url.Action("DeleteTeklifDetay", "OrderOffer")/' + id,
+                                success: function (data) {
+                                    if (data.success) {
+                                    }
+                                }
+                            });
+                        }
+
+                        row.fadeOut(500,
+                            function () {
+                                row.remove();
+                            })
+
+                    }
+
+                });
+
+
+            });
+
+
+        $(document).on("click",
+            ".nakitSatis",
+            function () {
+
+                var kaydet = true;
+
+
+                if ($("#CariID").val() == "" || $("#CariID").val() == "0" || $("#CariID").val() == null) {
+                    swal("Uyarı", "Cari Giriniz", "warning");
+                    kaydet = false;
+                }
+
+                if (kaydet) {
+
+                    var satir = [];
+
+
+                    var obj3;
+                    var obj1;
+                    var i = 0;
+
+
+                    $("#example tbody tr").each(function () {
+                        if (i == 0) {
+                            obj1 = null;
+                            obj3 = null;
+                            $("#demo").text("");
+                        }
+                        i++;
+                        var data = t.row(this).data();
+
+                        if (obj3 == null) {
+
+
+                            obj1 = {
+                                Miktar: $(this).find("td:eq(1) .miktar").val().replace(",", "."),
+                                Birim: data[2],
+                                Fiyat: $(this).find("td:eq(3) .birimfiyat").val().replace(",", "."),
+                                Kdv: $(this).find("td:eq(5) .kdv").val(),
+                                UrunID: $(this).find("td:eq(6) .sepetSil").val(),
+                                ID: $(this).find("td:eq(7) .SatirID").val(),
+                            };
+
+                            obj3 = obj1;
+                            $("#demo").append(JSON.stringify(obj3));
+
+                        } else {
+
+                            var obj2 = {
+                                Miktar: $(this).find("td:eq(1) .miktar").val().replace(",", "."),
+                                Birim: data[2],
+                                Fiyat: $(this).find("td:eq(3) .birimfiyat").val().replace(",", "."),
+                                Kdv: $(this).find("td:eq(5) .kdv").val(),
+                                UrunID: $(this).find("td:eq(6) .sepetSil").val(),
+                                ID: $(this).find("td:eq(7) .SatirID").val(),
+                            };
+
+                            $.extend(true, obj1, obj2);
+                            obj3 = obj1;
+                            $("#demo").append("," + JSON.stringify(obj3));
+
+                        }
+
+
+                    });
+                    var json = $("#demo").text();
+
+                    var obj = {
+                        ID: $("#teklifID").val(),
+                        CariID: $("#CariID").val(),
+                        IslemTipi: $("#IslemTipi").val(),
+                        ParaBirimi: $("#ParaBirimi").val(),
+                        PersonelID: $("#PersonelID").val(),
+                        IslemTarihi: $("#IslemTarihi").val(),
+
+                        VadeTarihi: $("#vadetarihi").val(),
+                        TeklifNo: $("#IslemNo").val(),
+                        KayitTarih: $("#KayitTarih").val(),
+                        Aciklama: $("#Aciklama").val(),
+                        TOdemeSekli: $("#TOdemeSekli").val(),
+                        TeklifSuresi: $("#TeklifSuresi").val(),
+                        Teslimat: $("#Teslimat").val(),
+                    };
+
+                    var kdv = $("#KdvDh").val();
+                    $.ajax({
+                        type: "POST",
+                        url: '/OrderOffer/YeniTeklif',
+                        data: { data: obj, json: json, KdvDh: kdv },
+
+
+                        dataType: "json",
+
+                        success: function (g) {
+                            if (g.sonuc == "1") {
+
+                                swal({
+                                    title: "Başarılı!",
+                                    text: g.Message,
+                                    type: "success"
+                                })
+                                temizle();
+                                window.location.href = "/OrderOffer/Teklif";
+                            } else if (g.sonuc == "0") {
+                                swal("Hata", "Kaydedilemedi", "success");
+                            } else if (g.sonuc == "2") {
+                                swal("Uyarı", g.Message, "warning");
+                            }
+                        },
+                        error: function () {
+                            swal("Hata", "HATA OLUŞTU!", "error");
+                        }
+
+                    });
+
+
+                }
+            });
+
+        function Topla() {
+            var age = Number(document.getElementById("Miktar").value.replace(",", "."));
+            var age1 = Number(document.getElementById("BirimFiyati").value.replace(",", "."));
+
+            var total = 0;
+            total = parseFloat(age) * parseFloat(age1);
+
+
+            var sayi = total;
+            sayi = Number(sayi.toFixed(2));
+
+
+            document.getElementById("Tutar").value = sayi.toFixed(2).replace(".", ",");
+        }
+
+        function TemizleRow() {
+
+
+            $("#StokKodu").val("");
+            $("#StokKodu").select2("val", "0");
+            $("#Birim").val("Adet");
+            $("#Miktar").val("1");
+            $("#BirimFiyati").val("0.00");
+            $("#Tutar").val("0.00");
+            $("#BarkodUrun").val("");
+
+        }
+        $(document).ready(function () {
+
+
+            $(".digit").keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && e.which != 44 && (e.which < 48 || e.which > 57)) {
+                    $("#errormsg").html("Digits Only").show().fadeOut("slow");
+                    return false;
+                }
+            });
+
+
+            $(".select2_demo_1").select2();
+            $(".select2_demo_2").select2();
+            $(".select2_demo_3").select2({
+                placeholder: "Seçiniz",
+                allowClear: true
+            });
+
+
+            var tID = $("#cID").val();
+
+
+            t = $('#example').DataTable({
+                dom: 't',
+
+
+                "language": {
+                    "sDecimal": ",",
+                    "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                    "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                    "sInfoEmpty": "Kayıt yok",
+                    "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                    "sLoadingRecords": "Yükleniyor...",
+                    "sProcessing": "İşleniyor...",
+                    "sSearch": "Ara:",
+                    "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                    "oPaginate": {
+                        "sFirst": "İlk",
+                        "sLast": "Son",
+                        "sNext": "Sonraki",
+                        "sPrevious": "Önceki"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                        "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                    },
+                    "select": {
+                        "rows": {
+                            "_": "%d kayıt seçildi",
+                            "0": "",
+                            "1": "1 kayıt seçildi"
+                        }
+                    }
+                },
+
+
+            });
+
+
+            $(document).on("click",
+                "#addRow",
+                function (event) {
+
+                    var StkKod = $("#StokKodu").val();
+                    var UrunAdi = $("#StokKodu :selected").text();
+                    var StkMiktar = $("#Miktar").val();
+                    var StkBirim = $("#Birim").val();
+                    var StkBirimFiyati = $("#BirimFiyati").val();
+                    var StkTutar = $("#Tutar").val();
+                    var StkKDV = $("#KDV2 :selected").text();
+
+                    StkMiktar = parseFloat(StkMiktar).toFixed(2);
+                    //t.row.add([
+                    //  '','','','','','','',''
+                    //]).draw(false);
+
+                    t.row.add([
+                        UrunAdi,
+                        '<input style="font-size:smaller" onchange="GenelTopla(this)" type="text" class="miktar form-control" value="' +
+                        StkMiktar +
+                        '" />',
+                        StkBirim,
+                        '<input  style="font-size:smaller" type="text" onchange="GenelTopla(this)" class=" birimfiyat form-control" value="' +
+                        StkBirimFiyati +
+                        '" />',
+                        '<input  style="font-size:smaller" type="text" disabled class=" tutar form-control" value="' +
+                        StkTutar +
+                        '" />',
+                        '<input style="font-size:smaller" type="text" class=" kdv form-control" value="' +
+                        StkKDV +
+                        '" />',
+                        '<button style="background-color:indianred;margin:0px" type="button" value="' +
+                        StkKod +
+                        '" class="btn btn-md btn-danger  sepetSil"> SİL   <i class="fa fa-trash" aria-hidden="true"></i></button>',
+                        '<button style="background-color:indianred;margin:0px; display:none" type="button" value="-1" class="btn SatirID">-1</button>'
+                    ]).draw(false);
+
+                    TemizleRow();
+                });
+
+        });
+
+
+        $('#Miktar').on("keyup",
+            function () {
+                Topla();
+            });
+
+        $("#StokKodu").change(function () {
+            var end = this.value;
+            FiyatGetir(end, "");
+
+        });
+
+        $("#CariID").change(function () {
+            var end = this.value;
+            CariGetir(end);
+
+        });
+
+        $('#BirimFiyati').on("keyup",
+            function () {
+                Topla();
+            });
+
+        $('#BarkodUrun').on("keyup",
+            function (event) {
+                var end = this.value;
+
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    FiyatGetir(-1, end);
+
+                }
+            });
+
+        $("#cariveri").on("submit",
+            function (event) {
+                event.preventDefault();
+
+                var obj = {
+                    id: $("#cID").val(),
+                    FirmaKodu: $("#FirmaK").val(),
+                    CariUnvan: $("#CariU").val(),
+                    Il: $("#Il").val(),
+                    EkBilgi: $("#EkBilgi").val(),
+                    Adres: $("#Adres").val(),
+                    EPosta: $("#EPos").val(),
+                    Gsm: $("#Gsm").val(),
+                    Telefon1: $("#Telefon1").val(),
+                    KTipi: $("#KTip").val(),
+                    StokFG: $("#StokFG").val(),
+                    CariGrubu: $("#CariGrubu").val(),
+                    VergiDr: $("#VergiDr").val(),
+                    VergiNo: $("#VergiNo").val(),
+                    PostaKodu: $("#PostaKodu").val(),
+                    Yetkili: $("#Yetkili").val(),
+                    Milleti: $("#Ulke").val(),
+                    Faks: $("#Faks").val(),
+                    Yetkili: $("#Yetkili").val(),
+                    ozelAlan1: $("#ozelAlan1").val(),
+                    ozelAlan2: $("#ozelAlan2").val(),
+                    ozelAlan3: $("#ozelAlan3").val(),
+                    ozelAlan4: $("#ozelAlan4").val(),
+                    ozelAlan5: $("#ozelAlan5").val(),
+                    TCNo: $("#TCNo").val(),
+                    ParaBirimi: $("#ParaBirimi").val(),
+                    Iskonto: $("#Iskonto").val(),
+                    MersisNo: $("#MersisNo").val(),
+                    TicaretSicilNo: $("#TicaretSicilNo").val(),
+                    BagkurNo: $("#BagkurNo").val(),
+                    WebKA: $("#WebKA").val(),
+                    WebSifre: $("#WebSifre").val(),
+                    Ilce: $("#Ilce").val(),
+                    WebSite: $("#WebSite").val(),
+                    MusteriTemsilcisi: $("#MusteriTemsilcisi").val(),
+                };
+                var alacakB = $("#alacakB").val();
+                var borcB = $("#borcB").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: '/Tables/YeniCari',
+                    data: { cr: obj, alacakINT: alacakB, borcINT: borcB },
+                    dataType: "json",
+                    success: function (gelenDeg) {
+
+                        if (gelenDeg.sonuc == "0") {
+                            setTimeout(oTable.ajax.reload(), 300);
+                            $('#UyeOl').modal('hide');
+                            swal("Uyarı", gelenDeg.Message, "warning")
+                                .then((value) => {
+                                    $('#UyeOl').modal('show');
+                                });
+                        } else if (gelenDeg.sonuc == "3") {
+                            setTimeout(oTable.ajax.reload(), 300);
+                            $('#UyeOl').modal('hide');
+                            swal("Hata", gelenDeg.Message, "error")
+                                .then((value) => {
+                                    $('#UyeOl').modal('show');
+                                });
+                        } else if (gelenDeg.sonuc == "1") {
+                            swal("Başarılı", gelenDeg.Message, "success");
+                            {
+                                $('#UyeOl').modal('hide');
+                                Temizle();
+                                setTimeout(oTable.ajax.reload(), 300);
+                                location.reload(true);
+                                window.location.href = "/OrderOffer/YeniTeklif";
+                            }
+
+                        }
+
+                    },
+                    error: function () {
+                        swal("Hata", "Kayıt Eklenirken Hata Oluştu!", "error");
+                    }
+                });
+            });
+
+
+        $("#stokveri").on("submit",
+            function (event) {
+                event.preventDefault();
+
+
+                var dg = {
+                    sf: $("#SatishFiyat").val(),
+                    af: $("#AlishFiyat").val(),
+                    F2: $("#F2").val(),
+                    F3: $("#F3").val(),
+                    F4: $("#F4").val(),
+                    F5: $("#F5").val(),
+                    F6: $("#F6").val(),
+
+                };
+
+                var obj = {
+                    id: $("#sID").val(),
+                    StokKodu: $("#StokK").val(),
+                    UrunAdi: $("#UrunA").val(),
+                    Barkod: $("#Barkod").val(),
+                    StoktaKalan: $("#StoktaKalan").val(),
+
+
+                    AlishFiyat: $("#AlishFiyat").val(),
+                    //buraya kar oranının kayıt edileceği yer gelecek
+                    SatishFiyat: $("#SatishFiyat").val(),
+                    Marka: $("#Marka").val(),
+                    Grubu: $("#Grubu").val(),
+                    KDV: $("#KDV").val(),
+                    Birimi: $("#Birimi").val(),
+                    ParaBirimi: $("#ParaBirimi").val(),
+                    UrunTuru: $("#UrunTuru").val(),
+                    KalanStkU: $("#KalanStkU").val(),
+                    //KisaKod: $("#KisaKod").val(),
+                    //PartiNo: $("#PartiNo").val(),
+                    //Detay2: $("#Detay2").val(),
+                    //OEM: $("#OEM").val(),
+
+
+                    //P2: $("#P2").val(),
+                    //P3: $("#P3").val(),
+                    //P4: $("#P4").val(),
+                    //P5: $("#P5").val(),
+                    //P6: $("#P6").val(),
+
+                    //BRM2: $("#BRM2").val(),
+                    //BRM3: $("#BRM3").val(),
+                    //BRM4: $("#BRM4").val(),
+                    //BRM5: $("#BRM5").val(),
+                    //BRM6: $("#BRM6").val(),
+
+                    //nbadet2: $("#nbadet2").val(),
+                    //nbadet3: $("#nbadet3").val(),
+                    //nbadet4: $("#nbadet4").val(),
+                    //nbadet5: $("#nbadet5").val(),
+                    //nbadet6: $("#nbadet6").val(),
+
+                    // Brkd2: $("#Brkd2").val(),
+                    // Brkd3: $("#Brkd3").val(),
+                    // Brkd4: $("#Brkd4").val(),
+                    // Brkd5: $("#Brkd5").val(),
+                    // Brkd6: $("#Brkd6").val(),
+
+                    //Marka: $("#Marka").val(),
+                    //Grubu: $("#Grubu").val(),
+                    //KDV: $("#KDV").val(),
+                    //Birimi: $("#Birimi").val(),
+                    //ParaBirimi: $("#ParaBirimi").val(),
+                    //UrunTuru: $("#UrunTuru").val(),
+                    //KisaKod: $("#KisaKod").val(),
+                    //PartiNo: $("#PartiNo").val(),
+                    //Detay2: $("#Detay2").val(),
+                    //OEM: $("#OEM").val(),
+                };
+
+
+                $.ajax({
+                    type: "POST",
+                    url: '/Stok/YeniStok',
+                    data: { st: obj, dg: dg },
+                    dataType: "json",
+                    success: function (gelenDeg) {
+
+                        if (gelenDeg.sonuc == "0") {
+                            swal("Uyarı", gelenDeg.Message, "warning");
+                            $('#UyeOl').modal('hide');
+                        } else if (gelenDeg.sonuc == "3") {
+                            swal("Hata", gelenDeg.Message, "error");
+                            $('#UyeOl').modal('hide');
+                        } else if (gelenDeg.sonuc == "1") {
+                            swal("Başarılı", gelenDeg.Message, "success");
+                            {
+                                window.location.href = "/OrderOffer/YeniTeklif";
+                                $('#stokid').modal('hide');
+                                Temizle();
+                                location.reload(true);
+                                setTimeout(oTable.ajax.reload(), 300);
+                            }
+
+                        }
+
+                    },
+                    error: function () {
+                        swal("Hata", "Kayıt Eklenirken Hata Oluştu!", "error");
+                    }
+                });
+            });
+
+
+        // Automatically add a first row of data
+        //$('#addRow').click();
+
+    </script>
+}
+
+

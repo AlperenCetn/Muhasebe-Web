@@ -1,0 +1,702 @@
+﻿
+@{
+    ViewBag.Title = "Notlar";
+}
+
+<style>
+    .select2-dropdown.increasedzindexclass {
+        z-index: 999999;
+    }
+</style>
+
+
+<div class="wrapper wrapper-content animated fadeInRight pb-0">
+    <div class="row aligncenter">
+        <div class="col-md-3">
+
+        </div>
+
+        <div class="col-md-3">
+            <div class="widget style1 navy-bg" style="box-shadow:8px 14px 12px gray">
+                <div class="row">
+                    <div class="col-4">
+                        <i class="fa fa-edit fa-5x"></i>
+                    </div>
+                    <div class="col-8 text-right">
+                        <span> Toplam Not Sayısı </span>
+                        <h2 class="font-bold">26</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="widget style1 lazur-bg" style="box-shadow:8px 14px 12px gray">
+                <div class="row">
+                    <div class="col-4">
+                        <i class="fa fa-list fa-5x"></i>
+                    </div>
+                    <div class="col-8 text-right">
+                        <span>Toplam Kategori Sayısı </span>
+                        <h2 class="font-bold">10</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="wrapper wrapper-content animated fadeInRight pb-0">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title" style="margin-bottom:50px; box-shadow:8px 14px 12px gray">
+                    <div class="row" style="background-color:white">
+
+                        <div class="col-md-3 pt-2">
+                            <div class="">
+                                <label><b>Başlangıç Tarihi</b></label>
+
+                                <input type="date" id="min" class="form-control" value="@Convert.ToDateTime(new DateTime(2020,1,1,0,0,0)).ToString("yyyy-MM-dd")" name="min">
+                            </div>
+
+                        </div>
+                        <div class="col-md-3 pt-2">
+                            <div class="pl-0">
+                                <label><b>Bitiş Tarihi</b></label>
+
+                                <input type="date" id="max" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="max">
+                            </div>
+
+                        </div>
+                        <div class="col-md-3 px-1 pt-2">
+                            <div class="form-group">
+                                <label><b>Kategori</b></label>
+                                @Html.DropDownList("PersonelTeknik", new SelectList(AyarMetot.NotKategoriList(Session["FirmaID"].ToString()), "Value", "Text"), "Seçiniz",
+                                        new { @id = "PersonelTeknik", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight pt-0">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox" style="box-shadow:8px 14px 12px 2px gray">
+                <div class="ibox-title ">
+                    <button onclick="Temizle()" id="Yeni" type="button" class="btn-outline-info btn btn-xs dim" data-toggle="modal" data-target="#UyeOl">
+                        <i class="fa fa-plus" aria-hidden="true"></i>  Yeni Not Ekle
+                    </button>
+
+                    <div class="modal inmodal " id="UyeOl" tabindex="-1" role="dialog" aria-labelledby="">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content animated bounceInRight">
+
+                                <div class="modal-header" style="background-color:#1eb19d7d">
+                                    <a style="text-align: left; color: white" class="btn btn-warning btn-sm" id="myModalLabel">NOTLAR KARTI</a>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+
+                                </div>
+                                <form id="veri" method="post" action="/Notlar/YeniNot">
+                                    <div class="modal-body" style="background-color:white">
+
+                                        <div class="row">
+
+                                            <div class="col-md-4 px-1">
+                                                <div class="form-group">
+                                                    <label><b><i class="fa fa-list pr-1" style="width:auto" aria-hidden="true"></i> Kategori  </b></label>
+                                                    @Html.DropDownList("NotKategoriID", new SelectList(AyarMetot.NotKategori(Session["FirmaID"].ToString()), "Value", "Text"),
+                                                            "Seçiniz", new { @id = "NotKategoriID", @class = " form-control", @style = "font-size:small" })
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4 px-1">
+                                                <div class="form-group">
+                                                    <label><b> <i class="fa fa-calendar pr-1" style="width:auto" aria-hidden="true"></i> Tarih</b></label>
+                                                    <input id="Tarih" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4 px-1">
+                                                <div class="form-group">
+                                                    <label><b> <i class="fa fa-user-circle pr-1" style="width:auto" aria-hidden="true"></i> Personeller   </b></label>
+                                                    @Html.DropDownList("PersonelID", new SelectList(AyarMetot.Personeller(Session["FirmaID"].ToString()), "Value", "Text"),
+                                                            "Seçiniz", new { @id = "PersonelID", @class = " form-control", @style = "font-size:small" })
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row pt-3">
+                                            <div class="col-md-9 px-1">
+                                                <div class="form-group">
+                                                    <label><b> <i class="fa fa-marker pr-1" style="width:auto" aria-hidden="true"></i> Not Başlığı</b></label>
+                                                    <input id="NotBasligi" type="text" class="form-control" value="">
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12 px-1 ">
+                                                <div class="ibox-content p-0">
+                                                    <div class="px-0">
+                                                        <div class="summernote" id="NotIcerik">
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-3 px-1">
+                                            <div class="form-group">
+                                                @Html.Hidden("cID", -1)
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="modal-footer" style="background-color:#1eb19d7d">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="Temizle()" id="Yeni2" type="button" class="btn-outline-primary btn btn-xs dim" data-toggle="modal" data-target="#Uyeol2">
+                        <i class="fa fa-edit pl-0" aria-hidden="true"></i>  Yeni Kategori Ekle
+                    </button>
+
+                    <div class="modal inmodal " id="Uyeol2" tabindex="-1" role="dialog" aria-labelledby="">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content animated bounceInRight">
+
+                                <div class="modal-header" style="background-color:#1eb19d7d">
+                                    <a style="text-align: left; color: white" class="btn btn-warning btn-sm" id="myModalLabel">KATEGORİ KARTI</a>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+
+                                </div>
+                                <form id="kategori" method="post" action="/Notlar/YeniNotKategori">
+                                    <div class="modal-body">
+
+
+                                        <div class="row">
+                                            <div class="col-md-4 px-1">
+                                                <div class="form-group">
+                                                    <label><b>Not Kategorisi</b></label>
+                                                    <input id="NotKategorisiBasligi" type="text" class="form-control" value="">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 px-1">
+                                            <div class="form-group">
+                                                @Html.Hidden("sID", -1)
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer" style="background-color:#1eb19d7d">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="ibox-content">
+
+                    <table class="table table-striped table-hover dataTables-example" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>Kategori Adı</th>
+                                <th>Not Başlığı</th>
+                                <th>Tarih</th>
+                                <th>Not İçeriği</th>
+                                <th>ID</th>
+                                <th> </th>
+                                <th> </th>
+                                <th> </th>
+
+                            </tr>
+                        </thead>
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Styles {
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/summernoteStyles")
+    @Styles.Render("~/plugins/select2Styles")
+}
+
+@section Scripts {
+    @Scripts.Render("~/plugins/summernote")
+    @Scripts.Render("~/plugins/select2")
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+    <script src="~/Scripts/mask.js"></script>
+    <script src="~/Scripts/musteri.js"></script>
+    <script src="~/Content/datatables.js"></script>
+    <script src="~/Scripts/moment-with-locales.js"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
+
+
+
+    <script type="text/javascript">
+
+                    var oTable;
+
+                    $.fn.dataTableExt.afnFiltering.push(
+                        function (oSettings, aData, iDataIndex) {
+                            var min = moment(document.getElementById('min').value).format('YYYY.MM.DD');
+                            var max = moment(document.getElementById('max').value).format('YYYY.MM.DD');
+
+
+
+                            var iStartDateCol = 6;
+                            var iEndDateCol = 6;
+
+                            min = min.substring(0, 4) + min.substring(5, 7) + min.substring(8, 10);
+                            max = max.substring(0, 4) + max.substring(5, 7) + max.substring(8, 10);
+                            var datofini = aData[iStartDateCol].substring(6, 10) + aData[iStartDateCol].substring(3, 5) + aData[iStartDateCol].substring(0, 2);
+
+
+                            //return true
+
+                            if (min === "" && max === "") {
+
+                                return true;
+                            }
+                            else if (min <= datofini && max === "") {
+
+                                return true;
+                            }
+                            else if (min <= datofini && max >= datofini) {
+                                //alert(1);
+                                return true;
+                            }
+
+                            return false;
+
+                        }
+                    );
+
+                    function Goster(id) {
+
+
+                        $.ajax({
+                            type: "GET",
+                            url: '@Url.Action("NotlarBilgi", "Notlar")/' + id,
+                            success: function (gt) {
+                                if (gt.success) {
+
+                                    $("#cID").val(gt.data.ID);
+                                    $("#NotKategoriID").val(gt.data.KategoriID);
+                                    $("#NotBasligi").val(gt.data.NotBasligi);
+                                    $("#Tarih").val(@ViewBag.NotTarih);
+                                    $("#NotIcerik").val(gt.data.NotIcerik);
+                                    $('#UyeOl').modal('show');
+                                }
+                            }
+
+                        });
+
+
+                    }
+
+
+                    function Temizle() {
+
+
+                        $("#cID").val("-1");
+                        $("#KodAdi").val("");
+                        $("#Borc").val("");
+                        $("#bakiye").val("");
+                        $("#paraBirimi").val("");
+                        $("#Borc").val("");
+                        $("#Alacak").val("");
+                        $("#Aciklama").val("");
+
+
+                    }
+
+
+
+                    function Delete(id) {
+
+                        swal({
+                            title: "[Silme Onayı]",
+                            text: "Seçili silmek istediğinizden emin misiniz?",
+                            icon: "warning",
+                            dangerMode: true,
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            cancelButtonText: "Hayır",
+                            confirmButtonText: "Evet",
+                            closeOnCancel: true,
+                            closeOnConfirm: true,
+
+                            preConfirm: function () {
+                                $.ajax({
+                                    type: "POST",
+                                    url: '@Url.Action("NotlarDelete", "Notlar")/' + id,
+                                    success: function (data) {
+                                        if (data.success) {
+                                            oTable.ajax.reload();
+                                            location.reload(true);
+                                            Temizle();
+                                        } else {
+                                            swal("Uyarı", data.message, "warning");
+                                        }
+                                    }
+
+
+                                });
+                            }
+
+                        });
+                    }
+
+
+                    $("#veri").on("submit",
+                        function (event) {
+                            event.preventDefault();
+
+                            var obj = {
+                                ID: $("#cID").val(),
+                                KategoriID: $("#NotKategoriID").val(),
+                                NotBasligi: $("#NotBasligi").val(),
+                                Tarih: $("#Tarih").val(),
+                                NotIcerik: $("#NotIcerik").text()
+                            };
+                            alert($('.summernote').summernote('code').text());
+                            @*$.ajax({
+                                type: "POST",
+                                url: '@Url.Action("YeniNot", "Notlar")',
+                                data: obj,
+                                dataType: "json",
+                                success: function (gelenDeg) {
+
+                                    if (gelenDeg.sonuc == "0")
+                                        swal("Uyarı", gelenDeg.Message, "warning");
+                                    else if (gelenDeg.sonuc == "3")
+                                        swal("Hata", gelenDeg.Message, "error");
+                                    else if (gelenDeg.sonuc == "1") {
+                                        swal("Başarılı", gelenDeg.Message, "success");
+                                        {
+                                            $('#UyeOl').modal('hide');
+                                            Temizle();
+                                            setTimeout(oTable.ajax.reload(), 300);
+                                            location.reload(true);
+                                        }
+
+                                    }
+
+                                },
+                                error: function () {
+                                    swal("Hata", "Kayıt Eklenirken Hata Oluştu!", "error");
+                                }
+                            });*@
+                        });
+
+
+                    var edit = function () {
+                        $('.click2edit').summernote({ focus: true });
+                    };
+
+                    var save = function () {
+                        var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
+                        $('.click2edit').destroy();
+                    };
+
+                    $(document).ready(function () {
+
+                        $(".select2_demo_2").select2({
+                            dropdownCssClass: "increasedzindexclass"
+                        });
+
+                        $(".select2_demo_2").select2({
+                            placeholder: "Seçiniz",
+                            allowClear: true
+                        });
+                        $(".select2_demo_3").select2({
+                            placeholder: "Seçiniz",
+                            allowClear: true
+                        });
+
+
+                        $('.summernote').summernote();
+
+                        $("#PersonelTeknik").change(function () {
+
+                            $.fn.dataTableExt.afnFiltering.push(
+                                function (oSettings, aData, iDataIndex) {
+
+                                    var id = document.getElementById('PersonelTeknik').value;
+
+                                    var column = aData[7];
+
+                                    if (id == "") {
+                                        return true;
+                                    }
+                                    if (id == "" || column == " ") {
+                                        return true;
+                                    }
+
+                                    else if (id == column) {
+                                        return true;
+                                    }
+                                    return false;
+
+                                });
+
+                            oTable.draw();
+
+                        });
+
+
+
+                        $("#min").change(function () {
+                            var end = this.value;
+                            //alert(end);
+                            oTable.draw();
+
+                        });
+                        $("#max").change(function () {
+                            var end = this.value;
+                            //alert(this.value);
+                            oTable.draw();
+
+                        });
+
+                        oTable = $('.dataTables-example').DataTable({
+                            "scrollX": true,
+
+
+                            pageLength: 10,
+
+                            "ajax": {
+                                "url": '@Url.Action("GetNotlarList", "Notlar")',
+                                "type": "GET",
+                                "datatype": "json",
+                            },
+
+                            dom: '<"html5buttons"B>lTfgti',
+                            "columns": [
+                                { "data": "KategoriAdi" },
+                                { "data": "NotBasligi" },
+                                { "data": "Tarih" },
+                                { "data": "Notİcerik" },
+                                { "data": "ID", visible: false },
+                                {
+                                    "data": null,
+                                    "render": function (data, type, row) {
+
+                                        return " <div class='btn-group'> " +
+                                            "<a onclick=Goster(" +
+                                            row.ID +
+                                            ") style='background-color:#f0ad4e;color:black' class='btn-white btn btn-xs'>Düzenle</a>" +
+                                            "<a onclick=Delete(" +
+                                            row.ID +
+                                            ") style='background-color:indianred;color:white' class='btn-white btn btn-xs'>Sil</a></div>" +
+                                            "</div>";
+
+                                    },
+
+                                },
+                                { "data": "TarihF2", visible: false },
+                                { "data": "KategoriID", visible: false },
+
+
+
+                            ],
+
+                            "language": {
+                                "sDecimal": ",",
+                                "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                                "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                                "sInfoEmpty": "Kayıt yok",
+                                "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                                "sInfoPostFix": "",
+                                "sInfoThousands": ".",
+                                "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                                "sLoadingRecords": "Yükleniyor...",
+                                "sProcessing": "İşleniyor...",
+                                "sSearch": "Ara:",
+                                "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                                "oPaginate": {
+                                    "sFirst": "İlk",
+                                    "sLast": "Son",
+                                    "sNext": "Sonraki",
+                                    "sPrevious": "Önceki"
+                                },
+                                "oAria": {
+                                    "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                                    "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                                },
+                                "select": {
+                                    "rows": {
+                                        "_": "%d kayıt seçildi",
+                                        "0": "",
+                                        "1": "1 kayıt seçildi"
+                                    }
+                                }
+                            },
+                            buttons: [
+                                { extend: 'copy' },
+                                { extend: 'csv' },
+                                { extend: 'excel', title: 'ExampleFile' },
+                                { extend: 'pdf', title: 'ExampleFile' },
+                                {
+                                    extend: 'print',
+                                    customize: function (win) {
+                                        $(win.document.body).addClass('white-bg');
+                                        $(win.document.body).css('font-size', '10px');
+
+                                        $(win.document.body).find('table')
+                                            .addClass('compact')
+                                            .css('font-size', 'inherit');
+                                    }
+                                }
+                            ]
+
+                        });
+
+
+                        $('#example tbody').on('dblclick',
+                            'tr',
+                            function () {
+
+                                var data = oTable.row(this).data();
+
+
+                                Goster(data.ID);
+
+                            });
+                    });
+
+                    $(function () {
+                        $.contextMenu({
+                            selector: '.dataTables-example td',
+                            callback: function (key, options) {
+                                var m = "clicked: " + key;
+                                var row = this.closest('tr');
+                                var data = oTable.row(this).data();
+
+                                switch (key) {
+                                    case "yeni":
+                                        document.getElementById('Yeni').click();
+                                        break;
+                                    case "new":
+                                        document.getElementById('Yeni2').click();
+                                        break;
+
+                                    case "edit":
+                                        Goster(data.ID);
+                                        break;
+                                    case "delete":
+                                        Delete(data.ID);
+                                        break;
+                                    case "move":
+
+                                        break;
+
+                                }
+                            },
+                            items: {
+                                "yeni": { name: "Yeni Not", icon: "edit" },
+                                "new": { name: "Yeni Kategori", icon: "delete" },
+                                "edit": { name: "Düzenle", icon: "edit" },
+                                "delete": { name: "Sil", icon: "delete" },
+                                "sep1": "---------",
+                                "quit": {
+                                    name: "Çıkış",
+                                    icon: function () {
+                                        return 'context-menu-icon context-menu-icon-quit';
+                                    }
+                                }
+                            }
+                        });
+
+                        $('.context-menu-one').on('click',
+                            function (e) {
+                                console.log('clicked', this);
+                            });
+                    });
+
+
+                    $("#kategori").on("submit",
+                        function (event) {
+                            event.preventDefault();
+
+                            var obj = {
+                                ID: $("#sID").val(),
+                                KategoriAdi: $("#NotKategorisiBasligi").val(),
+                            };
+
+
+                            $.ajax({
+                                type: "POST",
+                                url: '@Url.Action("YeniNotKategori", "Notlar")',
+                                data: obj,
+                                dataType: "json",
+                                success: function (gelenDeg) {
+
+                                    if (gelenDeg.sonuc == "0")
+                                        swal("Uyarı", gelenDeg.Message, "warning");
+                                    else if (gelenDeg.sonuc == "3")
+                                        swal("Hata", gelenDeg.Message, "error");
+                                    else if (gelenDeg.sonuc == "1") {
+                                        swal("Başarılı", gelenDeg.Message, "success");
+                                        {
+                                            $('#UyeOl').modal('hide');
+                                            Temizle();
+                                            setTimeout(oTable.ajax.reload(), 300);
+                                            location.reload(true);
+                                        }
+
+                                    }
+
+                                },
+                                error: function () {
+                                    swal("Hata", "Kayıt Eklenirken Hata Oluştu!", "error");
+                                }
+                            });
+                        });
+
+
+
+
+
+    </script>
+}

@@ -1,0 +1,1457 @@
+﻿@using System.Data.Entity.Migrations.Infrastructure
+@model SaTeknopark_MVC5.Models.FirmaDetail
+@{
+
+
+    ViewBag.Title = "Ayarlar";
+
+    int servissayi = Model.serviskat.Count;
+    int carikat1 = Model.carikat.Count;
+    int kat = Model.kat.Count;
+    int faturaKat = Model.FaturaList.Count;
+
+    int renki = 0;
+
+}
+
+
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="ibox-content ">
+
+                <div id="veri">
+
+                    <div class="tabs-container">
+
+                        <ul class="nav nav-tabs pt-4">
+                            <li class="nav-link">
+                                <a href="#home" class="nav-link active" data-toggle="tab"><b><strong>Firma Ayarları</strong></b></a>
+                            </li>
+                            <li class="nav-link">
+                                <a href="#Ekbilgi" class="nav-link " data-toggle="tab"><b><strong>Genel</strong></b></a>
+                            </li>
+                            <li class="nav-link">
+                                <a href="#Kategoriler" class="nav-link " data-toggle="tab"><b><strong>Stok Kategorileri</strong></b></a>
+                            </li>
+                            <li class="nav-link">
+                                <a href="#CariKategoriler" class="nav-link " data-toggle="tab"><b><strong>Cari Kategorileri</strong></b></a>
+                            </li>
+                            <li class="nav-link">
+                                <a href="#ServisKategoriler" class="nav-link " data-toggle="tab"><b><strong>Servis Kategori</strong></b></a>
+                            </li>
+                            <li class="nav-link">
+                                <a href="#FaturaKategoriler" class="nav-link " data-toggle="tab"><b><strong>Fatura Ek Bilgi</strong></b></a>
+                            </li>
+                            <li class="nav-link">
+                                <a href="#Sms-Eposta" class="nav-link " data-toggle="tab"><b><strong>SMS / E-POSTA </strong></b></a>
+                            </li>
+                            <li class="nav-link">
+                                <a href="#ParaBirimleri" class="nav-link " data-toggle="tab"><b><strong> Para Birimleri </strong></b></a>
+                            </li>
+                            <li class="nav-link">
+                                <a href="#Varyant" class="nav-link " data-toggle="tab"><b><strong> Varyant </strong></b></a>
+                            </li>
+                        </ul>
+
+                        <div style="margin:10px" class="tab-content">
+
+
+                            <div class="tab-pane active" id="home">
+
+                                <div class="panel-body">
+
+                                    <div class="container-fluid px-4">
+                                        <div class="row py-3 px-2">
+                                            <div class="col-md-3 px-1">
+                                                <div disabled>
+                                                    <div class="form-group">
+                                                        <label style="font-size: small; color: black"><strong> Firma İsmi</strong></label>
+
+                                                        <input id="FirmaAdi" required type="text" name="FirmaAdi" value="@Model.detail.FirmaAdi" class="form-control">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div>
+                                                    <div class="form-group">
+                                                        <label style="color: black"><strong>Vergi Dairesi </strong></label>
+                                                        <input id="VergiDairesi" name="VergiDairesi" type="text" class="form-control" value="@Model.detail.VergiDairesi">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div>
+                                                    <div class="form-group">
+                                                        <label style="color: black"><strong> Vergi Numarası </strong></label>
+                                                        <input id="VergiNo" name="VergiNo" type="text" class="form-control" value="@Model.detail.VergiNo">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div>
+                                                    <div class="form-group">
+                                                        <label style="color: black"><strong>Telefon Numarası </strong></label>
+                                                        <input id="Telefon" name="Telefon" type="text" class="form-control" value="@Model.detail.Telefon">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div>
+                                                    <div class="form-group">
+                                                        <label style="color: black"><strong> Faks Numarası </strong></label>
+                                                        <input id="Faks" name="Faks" type="text" class="form-control" value="@Model.detail.Faks">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div>
+                                                    <div class="form-group">
+                                                        <label style="color: black"><strong> E-Posta </strong></label>
+                                                        <input id="ePosta" name="ePosta" type="text" class="form-control" value="@Model.detail.ePosta">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div>
+                                                    <div class="form-group">
+                                                        <label style="color: black"><strong> Yetkili Kişi </strong></label>
+                                                        <input id="IlgiliKisi" name="IlgiliKisi" type="text" class="form-control" value="@Model.detail.IlgiliKisi">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div>
+                                                    <div class="form-group">
+                                                        <label style="color: black"><strong> İl </strong></label>
+                                                        <input id="Sehir" name="Sehir" type="text" class="form-control" value="@Model.detail.Sehir">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div>
+                                                    <div class="form-group">
+                                                        <label style="color: black"><strong> Ilce </strong></label>
+                                                        <input id="Ilce" name="Ilce" type="text" class="form-control" value="@Model.detail.Ilce">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div>
+                                                    <div class="form-group">
+                                                        <label style="color: black"><strong> Posta Kodu </strong></label>
+                                                        <input id="PostaKodu" name="PostaKodu" type="text" class="form-control" value="@Model.detail.PostaKodu">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div>
+                                                    <div class="form-group">
+                                                        <label style="color: black"><strong> Adres </strong></label>
+                                                        <input id="Adres" name="Adres" type="text" class="form-control" value="@Model.detail.Adres">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div>
+                                                    <div class="form-group">
+                                                        <label style="color: black"><strong> WebSite </strong></label>
+                                                        <input id="WebSite" name="WebSite" type="text" class="form-control" value="@Model.detail.WebSite">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div class="form-group">
+                                                    <label style="font-size: small; color: black"><strong> Mersis Numarası</strong></label>
+
+                                                    <input id="MersisNo" required type="text" name="MersisNo" value="@Model.detail.MersisNo" class="form-control">
+                                                    .
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div class="form-group">
+                                                    <label style="font-size: small; color: black"><strong> Ticaret Sicil Numarası</strong></label>
+
+                                                    <input id="TicaretSicilNo2" required type="text" name="TicaretSicilNo2" value="@Model.detail.TicaretSicilNo" class="form-control">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane " id="Ekbilgi">
+                                <div class="panel-body">
+                                    <div class="container-fluid">
+                                        <div class="row py-3 px-2">
+                                            <div class="col-md-3 px-1">
+                                                <div class="form-group">
+                                                    <label>Cari Tipi</label>
+                                                    @Html.DropDownList("Terminalturu", new List<SelectListItem>
+                                                {
+                                                    new SelectListItem {Text = "Seçilmedi", Value = "Seçilmedi", Selected = true},
+                                                    new SelectListItem {Text = "Mobilya", Value = "Mobilya"},
+                                                    new SelectListItem {Text = "Kozmetik", Value = "Kozmetik"},
+                                                    new SelectListItem {Text = "Bitkisel Ürünler", Value = "Bitkisel Ürünler"},
+                                                    new SelectListItem {Text = "Peyzaj", Value = "Peyzaj"},
+                                                    new SelectListItem {Text = "Mashining", Value = "Mashining"},
+                                                    new SelectListItem {Text = "Kırtasiye (Sayım)", Value = "Kırtasiye (Sayım)"},
+                                                    new SelectListItem {Text = "Düğün Salonu (Doa)", Value = "Düğün Salonu (Doa)"},
+                                                    new SelectListItem {Text = "Alpella", Value = "Alpella"},
+                                                    new SelectListItem {Text = "Düğün Salonu (Ek)", Value = "Düğün Salonu (Ek)"},
+                                                    new SelectListItem {Text = "Servis Mesaj", Value = "Servis Mesaj"},
+                                                    new SelectListItem {Text = "Orontes", Value = "Orontes"},
+                                                    new SelectListItem {Text = "Raysa", Value = "Raysa"},
+                                                    new SelectListItem {Text = "Flash-DST", Value = "Flash-DST"},
+                                                    new SelectListItem {Text = "Doğuş İnşaat", Value = "Doğuş İnşaat"},
+                                                    new SelectListItem {Text = "Akbulut", Value = "Akbulut"},
+                                                    new SelectListItem {Text = "Kur-Özel", Value = "Kur-Özel"},
+                                                    new SelectListItem {Text = "Kepenk", Value = "Kepenk"},
+                                                    new SelectListItem {Text = "TeraziEntegre", Value = "TeraziEntegre"},
+                                                    new SelectListItem {Text = "NakliyeTakip", Value = "NakliyeTakip"},
+                                                    new SelectListItem {Text = "Süthanem", Value = "Süthanem"},
+                                                    new SelectListItem {Text = "CamBalkon", Value = "CamBalkon"},
+                                                    new SelectListItem {Text = "Era", Value = "Era"},
+                                                    new SelectListItem {Text = "Teknik Servis Bayii", Value = "Teknik Servis Bayii"},
+                                                    new SelectListItem {Text = "Özel Üretim", Value = "Özel Üretim"},
+                                                    new SelectListItem {Text = "EkonomikAvm", Value = "EkonomikAvm"},
+                                                    new SelectListItem {Text = "StokUretimPlanlama", Value = "StokUretimPlanlama"},
+                                                    new SelectListItem {Text = "Okul", Value = "Okul"},
+                                                    new SelectListItem {Text = "Güven Düğün", Value = "Güven Düğün"},
+                                                    new SelectListItem {Text = "GazeteBayi", Value = "GazeteBayi"},
+                                                    new SelectListItem {Text = "OzelDovizMarket", Value = "OzelDovizMarket"},
+                                                    new SelectListItem {Text = "Simge", Value = "Simge"},
+                                                    new SelectListItem {Text = "EkonomikAvm", Value = "EkonomikAvm"},
+                                                    new SelectListItem {Text = "Gediz", Value = "Gediz"},
+
+                                                }, new
+                                                {
+                                                    @id = "Terminalturu",
+                                                    @class = "form-control",
+                                                    @style = "background-color:#F9E79F",
+                                                    @disabled = true,
+
+                                                })
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3 px-1">
+                                                <label style="font-size: small; color: black"><strong> Para Birimi</strong></label>
+                                                <div class="input-group">
+
+                                                    @Html.DropDownList("ParaBirimi", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", @Model.settings.vrsPBCode), new { @id = "ParaBirimi", @class = "form-control" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div class="form-group">
+                                                    <label style="font-size: small; color: black"><strong> Kurum Kodu</strong></label>
+
+                                                    <input id="KurumKodu" required type="text" name="KurumKodu" value="@Model.settings.KurumKodu" class="form-control">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div class="form-group">
+                                                    <label style="font-size: small; color: black"><strong> Entegratör</strong></label>
+
+                                                    <input id="Entegrator" required type="text" name="Entegrator" value="@Model.settings.Entegrator" class="form-control">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div class="form-group">
+                                                    <label style="font-size: small; color: black"><strong> E-Dönüşüm Geçiş </strong></label>
+
+                                                    <input id="EFatGecis" required type="text" name="EFatGecis" value="@Model.settings.EFatGecis" class="form-control">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div class="form-group">
+                                                    <label style="font-size: small; color: black"><strong> E-Fatura Kullanıcı Adı </strong></label>
+
+                                                    <input id="EFatKA" required type="text" name="EFatKA" value="@Model.settings.EFatKA" class="form-control">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div class="form-group">
+                                                    <label style="font-size: small; color: black"><strong> E-Fatura Şifre </strong></label>
+
+                                                    <input id="EFatSifre" required type="text" name="EFatSifre" value="@Model.settings.EFatSifre" class="form-control">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div class="form-group">
+                                                    <label style="font-size: small; color: black"><strong> E-Fatura Gönderici Birim Etiketi </strong></label>
+
+                                                    <input id="EFatGB" required type="text" name="EFatGB" value="@Model.settings.EFatGB" class="form-control">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div class="form-group">
+                                                    <label style="font-size: small; color: black"><strong> Fatura Gönderimi (Tipi) </strong></label>
+
+                                                    <input id="FaturaGonderimi" required type="text" name="FaturaGonderimi" value="@Model.settings.FaturaGonderimi" class="form-control">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div class="form-group">
+                                                    <label style="font-size: small; color: black"><strong> E-İrsaliye Gönderici Birim Etiketi </strong></label>
+
+                                                    <input id="EIrsGB" required type="text" name="EIrsGB" value="@Model.settings.EIrsGB" class="form-control">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div class="form-group">
+                                                    <label style="font-size: small; color: black"><strong> E-İrsaliye Kullanıcı Adı </strong></label>
+
+                                                    <input id="EIrsKA" required type="text" name="EIrsKA" value="@Model.settings.EIrsKA" class="form-control">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div class="form-group">
+                                                    <label style="font-size: small; color: black"><strong> E-İrsaliye Şifre </strong></label>
+
+                                                    <input id="EIrsSF" required type="text" name="EIrsSF" value="@Model.settings.EIrsSF" class="form-control">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1">
+                                                <div class="form-group">
+                                                    <label style="font-size: small; color: black"><strong> İrsaliye Numarası Oluşturma </strong></label>
+
+                                                    <input id="IrsaliyeAutoNo" required type="text" name="IrsaliyeAutoNo" value="@Model.settings.IrsaliyeAutoNo" class="form-control">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 px-1" style="visibility: hidden" id="Pakettipidiv">
+                                                <div class="form-group">
+                                                    <label style="color:black"><strong>Paket Tipi</strong></label>
+                                                    @Html.DropDownList("PaketTipi", new List<SelectListItem>
+                                                {
+                                                    new SelectListItem {Text = "Seçilmedi", Value = "Seçilmedi", Selected = true},
+                                                    new SelectListItem {Text = "Ön Muhasebe 1", Value = "Muhasebe1"},
+                                                    new SelectListItem {Text = "Ön Muhasebe 2", Value = "Muhasebe2"},
+                                                    new SelectListItem {Text = "Teknik Servis 1", Value = "Servis1"},
+                                                    new SelectListItem {Text = "Teknik Servis 2", Value = "Servis2"},
+                                                    new SelectListItem {Text = "Perkende Satış", Value = "hizlisatis"},
+
+                                                }, new
+                                                {
+                                                    @id = "PaketTipi",
+                                                    @class = "form-control",
+                                                    @style = "background-color:#F9E79F",
+
+                                                })
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane " id="Kategoriler">
+                                <div class="panel-body">
+                                    <div class="container-fluid">
+
+                                        <div class="row">
+                                            @if (Model.kat.Count > 0)
+                                        {
+                                                <div class="col-md-4">
+                                                    <label style="font-size:small; color: black"><strong>  Kategori 1  </strong></label>
+                                                    <input id="Kategori1" name="Kategori1" type="text" class="form-control" ids="@Model.kat[0].ID" value="@Model.kat[0].Name">
+                                                </div>
+                                        }
+                                            @if (Model.kat.Count > 1)
+                                        {
+                                                <div class="col-md-4">
+                                                    <label style="font-size:small; color: black"><strong>  Kategori 2 </strong></label>
+                                                    <input id="Kategori2" name="Kategori2" type="text" class="form-control" ids="@Model.kat[1].ID" value="@Model.kat[1].Name">
+                                                </div>
+                                        }
+                                            @if (Model.kat.Count > 1)
+                                        {
+                                                <div class="col-md-4">
+                                                    <label style="font-size:small; color: black"><strong>  Kategori 3 </strong></label>
+                                                    <input id="Kategori3" name="Kategori3" type="text" class="form-control" ids="@Model.kat[2].ID" value="@Model.kat[2].Name">
+                                                </div>
+                                        }
+                                            @if (Model.kat.Count > 1)
+                                        {
+                                                <div class="col-md-4 pt-3">
+                                                    <label style="font-size:small; color: black"><strong>  Kategori 4 </strong></label>
+                                                    <input id="Kategori4" name="Kategori4" type="text" class="form-control" ids="@Model.kat[3].ID" value="@Model.kat[3].Name">
+                                                </div>
+                                        }
+                                            @if (Model.kat.Count > 1)
+                                        {
+                                                <div class="col-md-4 pt-3">
+                                                    <label style="font-size:small; color: black"><strong>  Kategori 5 </strong></label>
+                                                    <input id="Kategori5" name="Kategori5" type="text" class="form-control" ids="@Model.kat[4].ID" value="@Model.kat[4].Name">
+                                                </div>
+                                        }
+                                            @if (Model.kat.Count > 1)
+                                        {
+                                                <div class="col-md-4 pt-3">
+                                                    <label style="font-size:small; color: black"><strong>  Kategori 6 </strong></label>
+                                                    <input id="Kategori6" name="Kategori6" type="text" class="form-control" ids="@Model.kat[5].ID" value="@Model.kat[5].Name">
+                                                </div>
+                                        }
+
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane " id="CariKategoriler">
+                                <div class="panel-body">
+                                    <div class="container-fluid">
+
+                                        <div class="row">
+
+                                            @if (Model.carikat.Count > 0)
+                                        {
+                                                <div class="col-md-4">
+                                                    <label style="font-size: small; color: black"><strong> Cari Kategori 1 </strong></label>
+                                                    <input id="CariKategori1" name="CariKategori1" type="text" class="form-control" ids="@Model.carikat[0].ID" value="@Model.carikat[0].Name">
+                                                </div>
+                                        }
+                                            @if (Model.carikat.Count > 1)
+                                        {
+                                                <div class="col-md-4">
+                                                    <label style="font-size:small; color: black"><strong> Cari Kategori 2 </strong></label>
+                                                    <input id="CariKategori2" name="CariKategori2" type="text" class="form-control" ids="@Model.carikat[1].ID" value="@Model.carikat[1].Name">
+                                                </div>
+                                        }
+                                            @if (Model.carikat.Count > 2)
+                                        {
+                                                <div class="col-md-4">
+                                                    <label style="font-size: small; color: black"><strong> Cari Kategori 3 </strong></label>
+                                                    <input id="CariKategori3" name="CariKategori3" type="text" class="form-control" ids="@Model.carikat[2].ID" value="@Model.carikat[2].Name">
+                                                </div>
+                                        }
+                                            @if (Model.carikat.Count > 3)
+                                        {
+                                                <div class="col-md-4 pt-3">
+                                                    <label style="font-size:small; color: black"><strong>  Kategori 4 </strong></label>
+                                                    <input id="CariKategori4" name="CariKategori4" type="text" class="form-control" ids="@Model.carikat[3].ID" value="@Model.carikat[3].Name">
+                                                </div>}
+                                            @if (Model.carikat.Count > 4)
+                                        {
+                                                <div class="col-md-4 pt-3">
+                                                    <label style="font-size:small; color: black"><strong>  Kategori 5 </strong></label>
+                                                    <input id="CariKategori5" name="CariKategori5" type="text" class="form-control" ids="@Model.carikat[4].ID" value="@Model.carikat[4].Name">
+                                                </div>}
+                                            @if (Model.carikat.Count > 5)
+                                        {
+                                                <div class="col-md-4 pt-3">
+                                                    <label style="font-size:small; color: black"><strong>  Kategori 6 </strong></label>
+                                                    <input id="CariKategori6" name="CariKategori6" type="text" class="form-control" ids="@Model.carikat[5].ID" value="@Model.carikat[5].Name">
+                                                </div>
+                                        }
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            @if (Model.serviskat.Count > 0)
+                        {
+                                <div class="tab-pane " id="ServisKategoriler">
+                                    <div class="panel-body">
+                                        <div class="container-fluid">
+
+                                            <div class="row">
+
+
+                                                @if (Model.serviskat.Count > 0)
+                                            {
+                                                    <div class="col-md-4">
+                                                        <label style="font-size: small; color: black"><strong> Servis Kategori 1 </strong></label>
+                                                        <input id="serviskat1" name="serviskat1" type="text" class="form-control" ids="@Model.serviskat[0].ID" value="@Model.serviskat[0].Name">
+                                                    </div>
+                                            }
+                                                @if (Model.serviskat.Count > 1)
+                                            {
+                                                    <div class="col-md-4">
+                                                        <label style="font-size:small; color: black"><strong> Servis Kategori 2 </strong></label>
+                                                        <input id="serviskat2" name="serviskat2" type="text" class="form-control" ids="@Model.serviskat[1].ID" value="@Model.serviskat[1].Name">
+                                                    </div>
+                                            }
+                                                @if (Model.serviskat.Count > 2)
+                                            {
+                                                    <div class="col-md-4">
+                                                        <label style="font-size: small; color: black"><strong> Servis Kategori 3 </strong></label>
+                                                        <input id="serviskat3" name="serviskat3" type="text" class="form-control" ids="@Model.serviskat[2].ID" value="@Model.serviskat[2].Name">
+                                                    </div>
+                                            }
+                                                @if (Model.serviskat.Count > 3)
+                                            {
+                                                    <div class="col-md-4 pt-3">
+                                                        <label style="font-size:small; color: black"><strong> Servis Kategori 4 </strong></label>
+                                                        <input id="serviskat4" name="serviskat4" type="text" class="form-control" ids="@Model.serviskat[3].ID" value="@Model.serviskat[3].Name">
+                                                    </div>}
+                                                @if (Model.serviskat.Count > 4)
+                                            {
+                                                    <div class="col-md-4 pt-3">
+                                                        <label style="font-size:small; color: black"><strong> Servis Kategori 5 </strong></label>
+                                                        <input id="serviskat5" name="serviskat5" type="text" class="form-control" ids="@Model.serviskat[4].ID" value="@Model.serviskat[4].Name">
+                                                    </div>}
+                                                @if (Model.serviskat.Count > 5)
+                                            {
+                                                    <div class="col-md-4 pt-3">
+                                                        <label style="font-size:small; color: black"><strong> Servis Kategori 6 </strong></label>
+                                                        <input id="serviskat6" name="serviskat6" type="text" class="form-control" ids="@Model.serviskat[5].ID" value="@Model.serviskat[5].Name">
+                                                    </div>
+                                            }
+                                                @if (Model.serviskat.Count > 6)
+                                            {
+                                                    <div class="col-md-4 pt-3">
+                                                        <label style="font-size:small; color: black"><strong> Servis Kategori 7 </strong></label>
+                                                        <input id="serviskat6" name="serviskat6" type="text" class="form-control" ids="@Model.serviskat[6].ID" value="@Model.serviskat[6].Name">
+                                                    </div>
+                                            }
+                                                @if (Model.serviskat.Count > 7)
+                                            {
+                                                    <div class="col-md-4 pt-3">
+                                                        <label style="font-size:small; color: black"><strong> Servis Kategori 8 </strong></label>
+                                                        <input id="serviskat6" name="serviskat6" type="text" class="form-control" ids="@Model.serviskat[7].ID" value="@Model.serviskat[7].Name">
+                                                    </div>
+                                            }
+                                                @if (Model.serviskat.Count > 8)
+                                            {
+                                                    <div class="col-md-4 pt-3">
+                                                        <label style="font-size:small; color: black"><strong> Servis Kategori 9</strong></label>
+                                                        <input id="serviskat6" name="serviskat6" type="text" class="form-control" ids="@Model.serviskat[8].ID" value="@Model.serviskat[8].Name">
+                                                    </div>
+                                            }
+                                                @if (Model.serviskat.Count > 9)
+                                            {
+                                                    <div class="col-md-4 pt-3">
+                                                        <label style="font-size:small; color: black"><strong> Servis Kategori 10 </strong></label>
+                                                        <input id="serviskat6" name="serviskat6" type="text" class="form-control" ids="@Model.serviskat[9].ID" value="@Model.serviskat[9].Name">
+                                                    </div>
+                                            }
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                        }
+
+
+                            @if (Model.FaturaList.Count > 0)
+                        {
+                                <div class="tab-pane " id="FaturaKategoriler">
+                                    <div class="panel-body">
+                                        <div class="container-fluid">
+
+                                            <div class="row">
+
+
+                                                @if (Model.FaturaList.Count > 0)
+                                            {
+                                                    <div class="col-md-4">
+                                                        <label style="font-size: small; color: black"><strong> Fature Ek Bilgiler 1 </strong></label>
+                                                        <input id="faturakat1" name="serviskat1" type="text" class="form-control" ids="@Model.FaturaList[0].ID" value="@Model.FaturaList[0].Name">
+                                                    </div>
+                                            }
+                                                @if (Model.FaturaList.Count > 1)
+                                            {
+                                                    <div class="col-md-4">
+                                                        <label style="font-size:small; color: black"><strong> Fature Ek Bilgiler 2 </strong></label>
+                                                        <input id="faturakat2" name="serviskat2" type="text" class="form-control" ids="@Model.FaturaList[1].ID" value="@Model.FaturaList[1].Name">
+                                                    </div>
+                                            }
+                                                @if (Model.FaturaList.Count > 2)
+                                            {
+                                                    <div class="col-md-4">
+                                                        <label style="font-size: small; color: black"><strong> Fature Ek Bilgiler 3 </strong></label>
+                                                        <input id="faturakat3" name="serviskat3" type="text" class="form-control" ids="@Model.FaturaList[2].ID" value="@Model.FaturaList[2].Name">
+                                                    </div>
+                                            }
+                                                @if (Model.FaturaList.Count > 3)
+                                            {
+                                                    <div class="col-md-4 pt-3">
+                                                        <label style="font-size:small; color: black"><strong> Fature Ek Bilgiler 4 </strong></label>
+                                                        <input id="faturakat4" name="serviskat4" type="text" class="form-control" ids="@Model.FaturaList[3].ID" value="@Model.FaturaList[3].Name">
+                                                    </div>}
+                                                @if (Model.FaturaList.Count > 4)
+                                            {
+                                                    <div class="col-md-4 pt-3">
+                                                        <label style="font-size:small; color: black"><strong> Fature Ek Bilgiler 5 </strong></label>
+                                                        <input id="faturakat5" name="serviskat5" type="text" class="form-control" ids="@Model.FaturaList[4].ID" value="@Model.FaturaList[4].Name">
+                                                    </div>}
+                                                @if (Model.FaturaList.Count > 5)
+                                            {
+                                                    <div class="col-md-4 pt-3">
+                                                        <label style="font-size:small; color: black"><strong> Fature Ek Bilgiler 6 </strong></label>
+                                                        <input id="faturakat6" name="serviskat6" type="text" class="form-control" ids="@Model.FaturaList[5].ID" value="@Model.FaturaList[5].Name">
+                                                    </div>
+                                            }
+                                                @if (Model.FaturaList.Count > 6)
+                                            {
+                                                    <div class="col-md-4 pt-3">
+                                                        <label style="font-size:small; color: black"><strong> Fature Ek Bilgiler 7 </strong></label>
+                                                        <input id="faturakat7" name="serviskat6" type="text" class="form-control" ids="@Model.FaturaList[6].ID" value="@Model.FaturaList[6].Name">
+                                                    </div>
+                                            }
+                                                @if (Model.FaturaList.Count > 7)
+                                            {
+                                                    <div class="col-md-4 pt-3">
+                                                        <label style="font-size:small; color: black"><strong> Fature Ek Bilgiler 8 </strong></label>
+                                                        <input id="faturakat8" name="serviskat6" type="text" class="form-control" ids="@Model.FaturaList[7].ID" value="@Model.FaturaList[7].Name">
+                                                    </div>
+                                            }
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                        }
+
+                            <div class="tab-pane " id="Sms-Eposta">
+                                <div class="panel-body">
+                                    <div class="container-fluid">
+                                        <div class="row py-3 px-2">
+                                            <div class="col-6">
+                                                <div class="col-md-12 px-1">
+                                                    <div class="form-group">
+                                                        <label style="font-size: small; color: black"><strong> SMS Başlığı</strong></label>
+
+                                                        <input id="SMSSender" required type="text" name="SMSSender" value="@Model.settings.SMSSender" class="form-control">
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 px-1">
+                                                    <div class="form-group">
+                                                        <label style="font-size: small; color: black"><strong> Kullanıcı Adı</strong></label>
+
+                                                        <input id="SMSUser" required type="text" name="SMSUser" value="@Model.settings.SMSUser" class="form-control">
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 px-1">
+                                                    <div class="form-group">
+                                                        <label style="font-size: small; color: black"><strong> Şifre </strong></label>
+
+                                                        <input id="SMSPass" required type="password" name="SMSPass" value="@Model.settings.SMSPass" class="form-control">
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 px-1">
+                                                    <div class="form-group">
+                                                        <label style="font-size: small; color: black"><strong> Sms Firması </strong></label>
+
+                                                        <input id="SmsFirma" required type="text" name="SmsFirma" value="@Model.settings.SmsFirma" class="form-control">
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 px-1">
+                                                    <div class="form-group">
+                                                        <label style="font-size: small; color: black"><strong> Borçlu SMS Sonu Ek </strong></label>
+
+                                                        <input id="BorcMesajSonu" required type="text" name="BorcMesajSonu" value="@Model.settings.BorcMesajSonu" class="form-control">
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 px-1">
+                                                    <div class="form-group">
+                                                        <label style="font-size: small; color: black"><strong> Tüm SMS Sonu Ek </strong></label>
+
+                                                        <input id="MesajSonu" required type="text" name="MesajSonu" value="@Model.settings.MesajSonu" class="form-control">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="col-md-12 px-1">
+                                                    <div class="form-group">
+                                                        <label style="font-size: small; color: black"><strong> E-Posta Sunucu Adı </strong></label>
+
+                                                        <input id="PostaSunucu" required type="text" name="PostaSunucu" value="@Model.settings.PostaSunucu" class="form-control">
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 px-1">
+                                                    <div class="form-group">
+                                                        <label style="font-size: small; color: black"><strong> Firma Adı </strong></label>
+
+                                                        <input id="fMailSender" required type="text" name="fMailSender" value="@Model.settings.fMailSender" class="form-control">
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 px-1">
+                                                    <div class="form-group">
+                                                        <label style="font-size: small; color: black"><strong> E-Posta Adresi </strong></label>
+
+                                                        <input id="fMail" required type="text" name="fMail" value="@Model.settings.fMail" class="form-control">
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 px-1">
+                                                    <div class="form-group">
+                                                        <label style="font-size: small; color: black"><strong> Şifre </strong></label>
+
+                                                        <input id="fMailSifre" required type="password" name="fMailSifre" value="@Model.settings.fMailSifre" class="form-control">
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 px-1">
+                                                    <div class="form-group">
+                                                        <label style="font-size: small; color: black"><strong> Port </strong></label>
+
+                                                        <input id="FPort" required type="number" name="FPort" value="@Model.settings.FPort" class="form-control">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="tab-pane " id="ParaBirimleri">
+                                <div class="panel-body">
+                                    <div class="container-fluid">
+                                        <div class="row py-3 px-2">
+                                            <div class="col-md-6 px-1">
+                                                <div class="row">
+                                                    @foreach (var item in Model.ParaBirimleri)
+                                                {
+                                                        <div class="col-md-6">
+                                                            <input type="checkbox" id="PB @item.ID" value="PB @item.ID" checked="checked" disabled="disabled">
+                                                            <label>@item.ParaBirimiN</label>
+                                                        </div>
+                                                }
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="tab-pane " id="Varyant">
+                                <div class="panel-body">
+                                    <div class="container-fluid">
+                                        <div class="row py-3 px-2">
+
+                                            <div class="col-md-4 pt-3" style="border: solid 0.5px #8080803b;">
+
+                                                <h3>Renk Tablosu Ekle</h3>
+
+                                                <div class="row pb-4 pt-3">
+                                                    <div class="col-md-10">
+                                                        <label style="">Renk</label>
+                                                        <input type="text" class="form-control" id="Renk" />
+                                                    </div>
+                                                    <div class="col-md-2 pt-4">
+                                                        <button id="AddRow" class="btn btn-sm btn-outline-primary"> Ekle </button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row ">
+                                                    <table id="example" class="display table table-striped table-hover pl-0">
+                                                        <thead style="color:white; background-color:cadetblue;">
+                                                            <tr>
+                                                                <th style="width:10px">-</th>
+                                                                <th style="width:150px">Renk</th>
+                                                                <th style="width:10px"> Sil</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var item in ViewBag.RenklerList)
+                                                        {
+                                                            renki++;
+                                                                <tr>
+                                                                    <td style="width:20%">@renki</td>
+                                                                    <td style="width:20%"><label class="Renk">@item.Name</label></td>
+                                                                    <td style="width:10%; display:block"><button style='background-color:transparent;margin:0px' type='button' value='@item.ID' class='btn btn-outline-danger  Sil'>Sil</button></td>
+                                                                </tr>
+                                                        }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                <div class="row" style="float:right">
+                                                    <div class="col-md-2 pt-3">
+                                                        <input class="btn RenkEkle" style="background-color: cadetblue; color:white" value="Kaydet" type="submit" id="RenkEkle" />
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="col-md-7 px-3 pt-3" style="border: solid 0.5px #8080803b; margin-left:15px ">
+
+                                                <h3>Beden Tablosu Ekle</h3>
+
+                                                <div class="row pb-4 pt-3">
+
+                                                    <div class="col-md-5">
+                                                        <label style="">İşlem Tipi</label>
+                                                        @Html.DropDownList("IslemTipi", new List<SelectListItem>
+                                                    {
+                                                        new SelectListItem { Text="Yeni Beden Tanımı", Value="YeniBeden", Selected=true},
+                                                        new SelectListItem { Text="Kayıt Güncelleme", Value="BedenGuncelle"},
+                                                    }, new
+                                                    {
+                                                        @id = "IslemTipi",
+                                                        @class = "form-control",
+                                                    })
+                                                    </div>
+
+
+                                                    <div class="col-md-5">
+
+                                                        <label style="">Beden Tanımı</label>
+                                                        @Html.DropDownList("BedenTanimi", new SelectList(AyarMetot.BedenListesi(Session["FirmaID"].ToString()), "Value", "Text"),"Seçiniz",
+                                                        new { @id = "BedenTanimi", @class = "form-control", @style = "" })
+
+                                                        <input type="text" class="form-control" id="BedenGir" />
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label style="margin:0px">Beden 1</label>
+                                                        <input type="text" class="form-control" id="BD1" />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label style="margin:0px">Beden 2</label>
+                                                        <input type="text" class="form-control" id="BD2" />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label style="margin:0px">Beden 3</label>
+                                                        <input type="text" class="form-control" id="BD3" />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label style="margin:0px">Beden 4</label>
+                                                        <input type="text" class="form-control" id="BD4" />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label style="margin:0px">Beden 5</label>
+                                                        <input type="text" class="form-control" id="BD5" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="row pt-3">
+                                                    <div class="col-md-2">
+                                                        <label style="margin:0px">Beden 6</label>
+                                                        <input type="text" class="form-control" id="BD6" />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label style="margin:0px">Beden 7</label>
+                                                        <input type="text" class="form-control" id="BD7" />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label style="margin:0px">Beden 8</label>
+                                                        <input type="text" class="form-control" id="BD8" />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label style="margin:0px">Beden 9</label>
+                                                        <input type="text" class="form-control" id="BD9" />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label style="margin:0px">Beden 10</label>
+                                                        <input type="text" class="form-control" id="BD10" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="row pt-5 pb-4">
+                                                    <div class="form-group">
+                                                        @Html.Hidden("BedenID", -1)
+                                                    </div>
+
+                                                    <div class="col-md-8">
+                                                        <label style="margin:0px">Açıklama</label>
+                                                        <input type="text" class="form-control" id="BDAciklama" />
+                                                    </div>
+                                                    <div class="col-md-2 pt-3">
+                                                        <input class="btn btn-success form-control" onclick="BedenKaydet()" style="background-color: cadetblue; color:white" value="Kaydet" type="button" />
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" onclick="Uyari()" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                            <button type="button" onclick="Kaydet()" class="btn btn-primary">Kaydet</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display:none" id="demoRenk"></div>
+
+        </div>
+    </div>
+
+</div>
+
+@section Styles {
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/select2Styles")
+
+}
+@section Scripts {
+
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/dataTables")
+
+    <script src="~/Scripts/shortcut.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+
+    <script type="text/javascript">
+        var t;
+
+        function Goster(id) {
+
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("BedenBilgi", "Settings")/' + id,
+                success: function(gt) {
+
+                    if (gt.success) {
+
+                        $("#BD1").val(gt.data.Beden1);
+                        $("#BD2").val(gt.data.Beden2);
+                        $("#BD3").val(gt.data.Beden3);
+                        $("#BD4").val(gt.data.Beden4);
+                        $("#BD5").val(gt.data.Beden5);
+                        $("#BD6").val(gt.data.Beden6);
+                        $("#BD7").val(gt.data.Beden7);
+                        $("#BD8").val(gt.data.Beden8);
+                        $("#BD9").val(gt.data.Beden9);
+                        $("#BD10").val(gt.data.Beden10);
+                        $("#BDAciklama").val(gt.data.Aciklama);
+
+                    }
+                }
+
+            });
+        }
+
+
+        function BedenKaydet() {
+            var kaydet = true;
+            if (kaydet) {
+                var obj;
+                obj = {
+                    ID: $("#BedenID").val(),
+                    Beden1: $("#BD1").val(),
+                    Beden2: $("#BD2").val(),
+                    Beden3: $("#BD3").val(),
+                    Beden4: $("#BD4").val(),
+                    Beden5: $("#BD5").val(),
+                    Beden6: $("#BD6").val(),
+                    Beden7: $("#BD7").val(),
+                    Beden8: $("#BD8").val(),
+                    Beden9: $("#BD9").val(),
+                    Beden10: $("#BD10").val(),
+                    BedenAdi: $("#BedenGir").val(),
+                    Aciklama: $("#BDAciklama").val(),
+
+                };
+                var bedentanimi = $("#BedenTanimi :selected").text();
+                var islemtipi = $("#IslemTipi").val();
+                if (islemtipi == "BedenGuncelle") {
+                    if (bedentanimi != "Seçiniz") {
+                        obj.ID = $("#BedenTanimi").val();
+
+                    }
+                }
+                $.ajax({
+                    type: "POST",
+                    url: '/Settings/BedenEkle',
+                    data: { bd: obj },
+                    success: function(g) {
+                        if (g.sonuc == "1") {
+
+                            swal({
+                                title: "Başarılı!",
+                                text: g.Message,
+                                type: "success"
+                            })
+                            window.location.href = "/Settings/Index";
+                        } else if (g.sonuc == "0") {
+                            swal("Hata", "Kaydedilemedi", "success");
+                        } else if (g.sonuc == "2") {
+                            swal("Uyarı", g.Message, "warning");
+                        }
+                    },
+                    error: function() {
+                        swal("Hata", "HATA OLUŞTU!", "error");
+                    }
+
+                });
+
+
+            }
+        }
+
+
+        function Uyari() {
+            swal({
+                title: "[Çıkış Onayı]",
+                text: "Servis Kaydedilmedi, çıkmak istediğinizden emin misiniz?",
+                icon: "warning",
+                dangerMode: true,
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                cancelButtonText: "Hayır",
+                confirmButtonText: "Evet",
+                closeOnCancel: true,
+                closeOnConfirm: true,
+
+                preConfirm: function() {
+                    window.history.back();
+                }
+
+            });
+        }
+
+        shortcut.add("Alt+F7", function() {
+            if (document.getElementById("Terminalturu").disabled == false) {
+            document.getElementById("Terminalturu").disabled = true;
+            document.getElementById("Pakettipidiv").style.visibility = "hidden";
+        }
+        else
+        {
+            swal("Başarılı", "Terminal Türünü ve Paket Tipini değiştirebilirsiniz.", "success");
+            document.getElementById("Terminalturu").disabled = false;
+            document.getElementById("Pakettipidiv").style.visibility = "visible";
+        }
+    });
+
+        function Kaydet() {
+
+            var obj1 = {
+
+                FirmaAdi: $("#FirmaAdi").val(),
+                VergiDairesi: $("#VergiDairesi").val(),
+                VergiNo: $("#VergiNo").val(),
+                Telefon: $("#Telefon").val(),
+                Faks: $("#Faks").val(),
+                ePosta: $("#ePosta").val(),
+                IlgiliKisi: $("#IlgiliKisi").val(),
+                Sehir: $("#Sehir").val(),
+                Ilce: $("#Ilce").val(),
+                PostaKodu: $("#PostaKodu").val(),
+                Adres: $("#Adres").val(),
+                TicaretSicilNo: $("#TicaretSicilNo2").val(),
+                WebSite: $("#WebSite").val(),
+                MersisNo: $("#MersisNo").val(),
+                Terminalturu: $("#Terminalturu").val(),
+
+            };
+            if ($("#PaketTipi").val() != "Seçilmedi") {
+                var obj2 = {
+                    EFatGecis: $("#EFatGecis").val(),
+                    EFatKA: $("#EFatKA").val(),
+                    EFatSifre: $("#EFatSifre").val(),
+                    EFatGB: $("#EFatGB").val(),
+                    FaturaGonderimi: $("#FaturaGonderimi").val(),
+                    EIrsGB: $("#EIrsGB").val(),
+                    EIrsKA: $("#EIrsKA").val(),
+                    EIrsSF: $("#EIrsSF").val(),
+                    IrsaliyeAutoNo: $("#IrsaliyeAutoNo").val(),
+                    Entegrator: $("#Entegrator").val(),
+                    KurumKodu: $("#KurumKodu").val(),
+                    vrsPBName: $("#ParaBirimi").val(),
+                    Terminalturu: $("#Terminalturu").val(),
+                    FPort: $("#FPort").val(),
+                    fMail: $("#fMail").val(),
+                    fMailSender: $("#fMailSender").val(),
+                    fMailSifre: $("#fMailSifre").val(),
+                    PostaSunucu: $("#PostaSunucu").val(),
+                    SmsFirma: $("#SmsFirma").val(),
+                    SMSPass: $("#SMSPass").val(),
+                    SMSSender: $("#SMSSender").val(),
+                    SMSUser: $("#SMSUser").val(),
+                    BorcMesajSonu: $("#BorcMesajSonu").val(),
+                    MesajSonu: $("#MesajSonu").val(),
+                    Version: $("#PaketTipi").val(),
+
+
+                };
+            } else {
+                var obj2 = {
+                    EFatGecis: $("#EFatGecis").val(),
+                    EFatKA: $("#EFatKA").val(),
+                    EFatSifre: $("#EFatSifre").val(),
+                    EFatGB: $("#EFatGB").val(),
+                    FaturaGonderimi: $("#FaturaGonderimi").val(),
+                    EIrsGB: $("#EIrsGB").val(),
+                    EIrsKA: $("#EIrsKA").val(),
+                    EIrsSF: $("#EIrsSF").val(),
+                    IrsaliyeAutoNo: $("#IrsaliyeAutoNo").val(),
+                    Entegrator: $("#Entegrator").val(),
+                    KurumKodu: $("#KurumKodu").val(),
+                    vrsPBName: $("#ParaBirimi").val(),
+                    Terminalturu: $("#Terminalturu").val(),
+                    FPort: $("#FPort").val(),
+                    fMail: $("#fMail").val(),
+                    fMailSender: $("#fMailSender").val(),
+                    fMailSifre: $("#fMailSifre").val(),
+                    PostaSunucu: $("#PostaSunucu").val(),
+                    SmsFirma: $("#SmsFirma").val(),
+                    SMSPass: $("#SMSPass").val(),
+                    SMSSender: $("#SMSSender").val(),
+                    SMSUser: $("#SMSUser").val(),
+                    BorcMesajSonu: $("#BorcMesajSonu").val(),
+                    MesajSonu: $("#MesajSonu").val(),
+
+
+                };
+            }
+           
+
+            var data = [];
+            var tr = 0;
+
+            for (var i = 1; i <= @kat; i++) {
+
+                data[tr] = new Array(2);
+                data[tr][1] = $("#Kategori" + i.toString()).val();
+                data[tr][0] = $("#Kategori" + i.toString()).attr("ids");
+                tr++;
+
+
+            }
+
+
+            var data2 = [];
+            var tr2 = 0;
+
+            for (var i = 1; i <= @carikat1; i++) {
+
+                data2[tr2] = new Array(2);
+
+                data2[tr2][1] = $("#CariKategori" + i.toString()).val();
+                data2[tr2][0] = $("#CariKategori" + i.toString()).attr("ids");
+
+                tr2++;
+
+
+            }
+            var data3 = [];
+            var tr3 = 0;
+
+            for (var i = 1; i <= @servissayi; i++) {
+
+                data3[tr3] = new Array(2);
+                data3[tr3][1] = $("#serviskat" + i.toString()).val();
+                data3[tr3][0] = $("#serviskat" + i.toString()).attr("ids");
+                tr3++;
+
+
+            }
+            var data4 = [];
+            var tr3 = 0;
+
+            for (var i = 1; i <= @faturaKat; i++) {
+
+                data4[tr3] = new Array(2);
+                data4[tr3][1] = $("#faturakat" + i.toString()).val();
+                data4[tr3][0] = $("#faturakat" + i.toString()).attr("ids");
+                tr3++;
+
+
+            }
+
+            var obj = {
+
+                detail: obj1,
+                settings: obj2,
+                kat: data,
+            };
+
+            $.ajax({
+                type: "POST",
+                url: '/Settings/UpdateSetting',
+                data: { dk: obj, data: data, carikat: data2, serviskat: data3 , faturakat : data4  },
+                dataType: "json",
+                success: function (gelenDeg) {
+
+                    if (gelenDeg.sonuc == "0")
+                        swal("Uyarı", gelenDeg.Message, "warning");
+                    else if (gelenDeg.sonuc == "3")
+                        swal("Hata", gelenDeg.Message, "error");
+                    else if (gelenDeg.sonuc == "1") {
+                        swal("Başarılı", gelenDeg.Message, "success");
+                        setTimeout(yonlendir(), 30000);
+
+
+
+
+                    }
+
+
+                },
+                error: function () {
+                    swal("Hata", "Kayıt Eklenirken Hata Oluştu!", "error");
+                }
+            });
+        }
+
+        function yonlendir() {
+            history.back()
+        }
+        
+
+        $(document).ready(function () {
+
+            t = $('#example').DataTable({
+                dom: 'tp',
+                ordering: false,
+                pageLength: 20,
+
+                "language": {
+                    "sDecimal": ",",
+                    "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                    "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                    "sInfoEmpty": "Kayıt yok",
+                    "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                    "sLoadingRecords": "Yükleniyor...",
+                    "sProcessing": "İşleniyor...",
+                    "sSearch": "Ara:",
+                    "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                    "oPaginate": {
+                        "sFirst": "İlk",
+                        "sLast": "Son",
+                        "sNext": "Sonraki",
+                        "sPrevious": "Önceki"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                        "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                    },
+                    "select": {
+                        "rows": {
+                            "_": "%d kayıt seçildi",
+                            "0": "",
+                            "1": "1 kayıt seçildi"
+                        }
+                    }
+                },
+            });
+
+            var counter=1;
+            $(document).on("click", "#AddRow", function (event) {
+
+                var Renk = $("#Renk").val();
+                t.row.add([
+                    counter,
+                    '<label class="Renk">' + Renk + ' </label>',
+                    '<button class="btn btn-outline-danger  Sil" value="-1" id="Sil"> Sil</button>'
+
+                ]).draw(false);
+
+                counter++;
+                $("#Renk").val("");
+            });
+
+            $(document).on("click", ".Sil", function () {
+
+                var row = $(this).closest('tr');
+
+                swal({
+                    title: "[Silme Onayı]",
+                    text: "Seçili kaydı silmek istediğinizden emin misiniz?",
+                    icon: "warning",
+                    dangerMode: true,
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    cancelButtonText: "Hayır",
+                    confirmButtonText: "Evet",
+                    closeOnCancel: true,
+                    closeOnConfirm: true,
+
+                    preConfirm: function () {
+
+
+                        var id = row.find("td:eq(2) .Sil").val();
+
+                        if (id != -1) {
+                            $.ajax({
+                                type: "POST",
+                                url: '@Url.Action("DeleteRenk", "Settings")/' + id,
+                                success: function (data) {
+                                    if (data.success) {
+                                    }
+                                }
+                            });
+                        }
+
+                        row.fadeOut(500, function () {
+                            row.remove();
+                        })
+
+                    }
+
+                });
+
+
+            });
+
+            if ( $("#IslemTipi").val() == "YeniBeden") {
+                var secilenID = document.getElementById('BedenTanimi');
+                secilenID.style.display = "none";
+            }
+
+            $("#IslemTipi").change(function () {
+                var end = this.value;
+                if (end=="YeniBeden") {
+                    var secilenID = document.getElementById('BedenTanimi');
+                    secilenID.style.display = "none";
+
+                    var secilen = document.getElementById('BedenGir');
+                    secilen.style.display = "block";
+                }
+                else{
+                    var secilenID = document.getElementById('BedenTanimi');
+                    secilenID.style.display = "block";
+
+                    var secilen = document.getElementById('BedenGir');
+                    secilen.style.display = "none";
+                }
+
+            });
+            $("#BedenTanimi").change(function () {
+                var end = this.value;
+                Goster(end);
+            });
+
+        });
+        $(document).on("click", ".RenkEkle", function () {
+
+            var kaydet = true;
+
+            if (kaydet) {
+
+                var satir = [];
+
+                var obj1;
+                var i = 0;
+                $("#example tbody tr").each(function () {
+
+                    if (i == 0) {
+                        obj1 = null;
+                        obj3 = null;
+                        $("#demoRenk").text("");
+                    }
+                    i++;
+
+                    var data = t.row(this).data();
+
+
+                    if (obj3 == null) {
+
+                        obj1 = {
+                            Name: $(this).find("td:eq(1) .Renk").text(),
+                            ID: $(this).find("td:eq(2) .Sil").val(),
+                        };
+
+                        obj3 = obj1;
+                        $("#demoRenk").append(JSON.stringify(obj3));
+
+                    }
+                    else {
+
+                        var obj2 = {
+                            Name: $(this).find("td:eq(1) .Renk").text(),
+                            ID: $(this).find("td:eq(2) .Sil").val(),
+                        };
+                        $.extend(true, obj1, obj2);
+                        obj3 = obj1;
+                        $("#demoRenk").append("," + JSON.stringify(obj3));
+                    }
+                });
+
+                var json = $("#demoRenk").text();
+
+                $.ajax({
+                    type: "POST",
+                    url: '/Settings/RenkEkle',
+                    data: {json: json },
+
+
+                    dataType: "json",
+
+                    success: function (g) {
+                        if (g.sonuc == "1") {
+
+                            swal({
+                                title: "Başarılı!",
+                                text: g.Message,
+                                type: "success"
+                            })
+                            window.location.href = "/Settings/Index";
+                        }
+                        else if (g.sonuc == "0") {
+                            swal("Hata", "Kaydedilemedi", "success");
+                        }
+                        else if (g.sonuc == "2") {
+                            swal("Uyarı", g.Message, "warning");
+                        }
+                    },
+                    error: function () {
+                        swal("Hata", "HATA OLUŞTU!", "error");
+                    }
+
+                });
+
+
+            }
+        });
+
+        $(document).on("click", ".BedenKaydet", function () {
+
+
+        });
+
+    </script>
+
+}

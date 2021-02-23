@@ -1,0 +1,468 @@
+﻿@{
+                /**/
+
+                ViewBag.Title = "Fatura Raporları";
+}
+
+@*<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h3></h3>
+        <ol class="breadcrumb">
+
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("Raporlar", "Raporlar")">Raporlar</a>
+            </li>
+
+
+
+
+            <li class="active breadcrumb-item">
+                <strong>Fatura Raporları</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>*@
+
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox ">
+                <div class="ibox-title ">
+
+
+                    <div id="veri">
+
+                        <div class="tabs-container">
+
+                            <ul class="nav nav-tabs pt-4">
+                                <li class="nav-link">
+                                    <a href="#home" class="nav-link active" data-toggle="tab"><b><strong>Fatura Karlılık</strong></b></a>
+                                </li>
+                                <li class="nav-link">
+                                    <a href="#Ekbilgi" class="nav-link " data-toggle="tab"><b><strong>Aylık Satışlar</strong></b></a>
+                                </li>
+                                <li class="nav-link">
+                                    <a href="#Kategoriler" class="nav-link " data-toggle="tab"><b><strong> Aylık Alımlar</strong></b></a>
+                                </li>
+
+
+                            </ul>
+
+                            <div style="margin:10px" class="tab-content">
+
+
+                                <div class="tab-pane active" id="home">
+                                    <div class="ibox-title ">
+
+                                        @*<h5>&nbsp;Cari Hareketleri Listesini görüntülemektesiniz</h5>*@
+
+                                        <div class="row" style="background-color:white">
+
+                                            <div class="col-sm-4">
+                                                <div class="">
+                                                    <label><b>Başlangıç Tarihi</b></label>
+
+                                                    <input type="date" id="min" class="form-control" value="@Convert.ToDateTime(new DateTime(2021,1,1,0,0,0)).ToString("yyyy-MM-dd")" name="min">
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="pl-0" ">
+                                                    <label><b>Bitiş Tarihi</b></label>
+
+                                                    <input type="date" id="max" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="max">
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="col-md-2 p-4">
+
+
+                                                <button class="btn btn-danger" onclick="Getir()"> Uygula</button>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                    <br />
+                                    <br />
+
+                                    <table class="table table-striped table-bordered table-hover dataTables-example">
+                                        <thead>
+                                            <tr>
+                                                <th>Tarih</th>
+                                                <th>Fatura No</th>
+                                                <th>Fatura Tipi</th>
+                                                <th style="visibility:visible">ID</th>
+                                                <th>Cari Kodu</th>
+                                                <th>Cari Unvanı</th>
+                                                <th>Net Tutar</th>
+                                                <th>Tutarı</th>
+                                                <th>Maliyet</th>
+                                                <th>Fatura Kârı</th>
+                                                <th>Kod Detayı</th>
+                                            </tr>
+                                        </thead>
+
+                                    </table>
+                                </div>
+
+
+                                <!--Ek Bilgiler-->
+                                <div class="tab-pane " id="Ekbilgi">
+
+                                    <table class="table table-striped table-bordered table-hover dataTables-example2">
+                                        <thead>
+                                            <tr>
+                                               
+                                                <th>Dönem</th>
+                                                <th>Brüt</th>
+                                                <th>Genel Toplam</th>
+                                                <th>İndirim</th>
+                                                <th>Kdv</th>
+                                                <th>Maaliyet</th>
+                                                <th>Kârlılık</th>
+                                                <th>Fatura Tahsilatı</th>
+                                                <th>Kalan</th>
+                                                <th>Dönem/Yıl</th>
+
+                                            </tr>
+                                        </thead>
+
+                                    </table>
+
+                                </div>
+                                <!--Ek Bilgiler-->
+                                <div class="tab-pane " id="Kategoriler">
+
+
+                                    <table class="table table-striped table-bordered table-hover dataTables-example3" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th style="visibility:visible">ID</th>
+                                                <th>Dönem</th>
+                                                <th>Brüt</th>
+                                                <th>Genel Toplam</th>
+                                                <th>İndirim</th>
+                                                <th>Kdv</th>
+                                                <th>Fatura Tahsilatı</th>
+                                                <th>Dönem / Yıl</th>
+                                            </tr>
+                                        </thead>
+
+                                    </table>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Styles {
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+
+}
+
+@section Scripts {
+
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+    <script src="~/Scripts/mask.js"></script>
+    <script src="~/Scripts/musteri.js"></script>
+    <script src="~/Content/datatables.js"></script>
+    <script src="~/Scripts/moment-with-locales.js"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+
+
+    <script type="text/javascript">
+
+        var oTable;
+        var oTable2;
+        var oTable3;
+
+
+        function Getir() {
+            oTable.ajax.reload();
+        }
+
+
+        $(document).ready(function () {
+
+            oTable = $('.dataTables-example').DataTable({
+
+                pageLength: 10,
+                'columnDefs': [
+                    {
+                        "targets": 2,
+                        "className": "text-right",
+                    }],
+                "ajax": {
+                    "url": "/Raporlar/GetFaturaKarlilik",
+                    "type": "GET",
+                    "datatype": "json",
+                    data: {
+                        bas: function () { return $('#min').val() },
+                        bit: function () { return $('#max').val() },
+
+                    }
+                },
+
+                dom: '<"html5buttons"B>lTfgit',
+                "columns": [
+                    {
+                        "data": "Tarih",
+                        "render": function (data, type, row, meta) {
+                            if (data != null) {
+                                return "<a style='font-size:smaller' class='label'><b> " + moment(data).format('DD.MM.YYYY') + " </b></a><br />";
+
+                            } else {
+                                return "<a style='font-size:smaller;color:crimson' class='label'><b>  </b></a><br />";
+                            }
+                        },
+                    },
+                    { "data": "FaturaNo" },
+                    { "data": "FaturaTipi" },
+                    { "data": "FaturaNo", visible: false },
+                    { "data": "CariKodu" },
+                    { "data": "CariUnvan" },
+                    { "data": "NetTutar", className: "text-right" },
+                    { "data": "Tutar", className: "text-right" },
+                    { "data": "Maliyet",className: "text-right" },
+                    { "data": "FaturaKari", className: "text-right" },
+                    { "data": "KodDetayi"},
+
+                ],
+
+                "language": {
+                    "sDecimal": ",",
+                    "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                    "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                    "sInfoEmpty": "Kayıt yok",
+                    "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                    "sLoadingRecords": "Yükleniyor...",
+                    "sProcessing": "İşleniyor...",
+                    "sSearch": "Ara:",
+                    "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                    "oPaginate": {
+                        "sFirst": "İlk",
+                        "sLast": "Son",
+                        "sNext": "Sonraki",
+                        "sPrevious": "Önceki"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                        "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                    },
+                    "select": {
+                        "rows": {
+                            "_": "%d kayıt seçildi",
+                            "0": "",
+                            "1": "1 kayıt seçildi"
+                        }
+                    }
+                },
+                buttons: [
+                    { extend: 'csv', text: 'Excel' },
+                    { extend: 'excel', title: 'ExampleFile' },
+                    { extend: 'pdf', title: 'ExampleFile' },
+
+                    {
+                        extend: 'print',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+            oTable2 = $('.dataTables-example2').DataTable({
+
+                pageLength: 10,
+
+                "ajax": {
+                    "url": "/Raporlar/GetFaturaAylik",
+                    "type": "GET",
+                    "datatype": "json",
+                },
+
+                dom: '<"html5buttons"B>lTfgit',
+                "columns": [
+                    
+                    { "data": "Donem"},
+                    { "data": "Brut" },
+                    { "data": "GenelToplam" },
+                    { "data": "Indirim" },
+                    { "data": "KDV", className: "text-right" },
+                    { "data": "Maliyet", className: "text-right"  },
+                    { "data": "Karlilik", className: "text-right"  },
+                    { "data": "FaturaTahsilati", className: "text-right"  },
+                    { "data": "Kalan",className: "text-right" },
+                    { "data": "donemyil" },
+                ],
+
+                "language": {
+                    "sDecimal": ",",
+                    "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                    "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                    "sInfoEmpty": "Kayıt yok",
+                    "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                    "sLoadingRecords": "Yükleniyor...",
+                    "sProcessing": "İşleniyor...",
+                    "sSearch": "Ara:",
+                    "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                    "oPaginate": {
+                        "sFirst": "İlk",
+                        "sLast": "Son",
+                        "sNext": "Sonraki",
+                        "sPrevious": "Önceki"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                        "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                    },
+                    "select": {
+                        "rows": {
+                            "_": "%d kayıt seçildi",
+                            "0": "",
+                            "1": "1 kayıt seçildi"
+                        }
+                    }
+                },
+                buttons: [
+                    { extend: 'copy' },
+                    { extend: 'csv' },
+                    { extend: 'excel', title: 'ExampleFile' },
+                    { extend: 'pdf', title: 'ExampleFile' },
+
+                    {
+                        extend: 'print',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+            oTable3 = $('.dataTables-example3').DataTable({
+                pageLength: 10,
+
+                "ajax": {
+                    "url": "/Raporlar/GetFaturaSatis",
+                    "type": "GET",
+                    "datatype": "json",
+                },
+
+                dom: '<"html5buttons"B>lTfgit',
+                "columns": [
+                    { "data": "Donem", visible: false },
+                    {
+                        "data": "Donem",
+                       
+                    },
+                    { "data": "Brut", className: "text-right" },
+                    { "data": "GenelToplam", className: "text-right" },
+                    { "data": "Indirim", className: "text-right" },
+                    { "data": "KDV", className: "text-right" },
+                    { "data": "FaturaTahsilati",  className: "text-right" },
+                    { "data": "donemyil" },
+
+
+                ],
+
+                "language": {
+                    "sDecimal": ",",
+                    "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                    "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                    "sInfoEmpty": "Kayıt yok",
+                    "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                    "sLoadingRecords": "Yükleniyor...",
+                    "sProcessing": "İşleniyor...",
+                    "sSearch": "Ara:",
+                    "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                    "oPaginate": {
+                        "sFirst": "İlk",
+                        "sLast": "Son",
+                        "sNext": "Sonraki",
+                        "sPrevious": "Önceki"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                        "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                    },
+                    "select": {
+                        "rows": {
+                            "_": "%d kayıt seçildi",
+                            "0": "",
+                            "1": "1 kayıt seçildi"
+                        }
+                    }
+                },
+                buttons: [
+                    { extend: 'csv', text: 'Excel' },
+                    { extend: 'excel', title: 'ExampleFile' },
+                    { extend: 'pdf', title: 'ExampleFile' },
+
+                    {
+                        extend: 'print',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+
+        });
+
+    </script>
+}
+
+
+
+
+
+

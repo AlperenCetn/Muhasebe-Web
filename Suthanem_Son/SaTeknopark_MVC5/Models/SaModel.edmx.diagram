@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="86df903accbe4f8990e4079de032143f" Name="Diagram1" ZoomLevel="63">
+        <EntityTypeShape EntityType="SaModel.BALANCE" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaModel.CARI_KATEGORI" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaModel.CASH_PAY" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaModel.COMPANY_DETAIL" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaModel.CURRENCY_LIST" Width="1.5" PointX="8.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaModel.INVOICE_DETAIL" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaModel.INVOICE_E" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaModel.OFFER" Width="1.5" PointX="14.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaModel.OFFER_DETAIL" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaModel.ORDERS_DETAIL" Width="1.5" PointX="6.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaModel.OzelKod" Width="1.5" PointX="16.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaModel.RETAIL" Width="1.5" PointX="18.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaModel.RETAIL_DETAIL" Width="1.5" PointX="20.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaModel.SALARYPERSON" Width="1.5" PointX="20.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaModel.SPECIAL_TECH" Width="1.5" PointX="20.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaModel.STK_KATEGORI" Width="1.5" PointX="22.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaModel.Stok" Width="1.5" PointX="22.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaModel.TECH_STATE" Width="1.5" PointX="24.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaModel.TECHNICAL_DETAIL" Width="1.5" PointX="12.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SaModel.Yetkiler" Width="1.5" PointX="27.375" PointY="3.75" />
+        <EntityTypeShape EntityType="SaModel.PRODUCT_HAREKET" Width="1.5" PointX="27.375" PointY="23.75" />
+        <EntityTypeShape EntityType="SaModel.BALANCE_BANK" Width="1.5" PointX="2.75" PointY="4.125" />
+        <EntityTypeShape EntityType="SaModel.BALANCE_KASA" Width="1.5" PointX="3.375" PointY="10.75" />
+        <EntityTypeShape EntityType="SaModel.KOD_BALANCE" Width="1.5" PointX="29.375" PointY="19.75" />
+        <EntityTypeShape EntityType="SaModel.TREE_PRODUCT" Width="1.5" PointX="5.375" PointY="30.75" />
+        <EntityTypeShape EntityType="SaModel.PAYROLL" Width="1.5" PointX="25.375" PointY="15.75" />
+        <EntityTypeShape EntityType="SaModel.PAYROLL_CS" Width="1.5" PointX="7.375" PointY="30.75" />
+        <EntityTypeShape EntityType="SaModel.PAYROLL_DETAIL_CS" Width="1.5" PointX="31.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SaModel.Banka" Width="1.5" PointX="31.375" PointY="29.75" />
+        <EntityTypeShape EntityType="SaModel.Kasa" Width="1.5" PointX="9.375" PointY="32.75" />
+        <EntityTypeShape EntityType="SaModel.STORE" Width="1.5" PointX="29.375" PointY="8.75" />
+        <EntityTypeShape EntityType="SaModel.INVOICE" Width="1.5" PointX="31.375" PointY="5.75" />
+        <EntityTypeShape EntityType="SaModel.ORDERS" Width="1.5" PointX="3.375" PointY="17.75" />
+        <EntityTypeShape EntityType="SaModel.Personel" Width="1.5" PointX="9.375" PointY="12.75" />
+        <EntityTypeShape EntityType="SaModel.TECHNICAL_PERIOD" Width="1.5" PointX="15.375" PointY="24.75" />
+        <EntityTypeShape EntityType="SaModel.STORE_PROCESS" Width="1.5" PointX="33.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SaModel.STORE_PROCESS_DETAIL" Width="1.5" PointX="33.375" PointY="7.75" />
+        <EntityTypeShape EntityType="SaModel.KDVRaporuTL" Width="1.5" PointX="33.375" PointY="15.75" />
+        <EntityTypeShape EntityType="SaModel.Bedenler" Width="1.5" PointX="19.375" PointY="33.75" />
+        <EntityTypeShape EntityType="SaModel.RENKLER" Width="1.5" PointX="3.375" PointY="14.75" />
+        <EntityTypeShape EntityType="SaModel.Ayarlar" Width="1.5" PointX="1" PointY="0.75" />
+        <EntityTypeShape EntityType="SaModel.VARIANT" Width="1.5" PointX="33.375" PointY="20.75" />
+        <EntityTypeShape EntityType="SaModel.INVOICE_OZEL" Width="1.5" PointX="27.375" PointY="15.75" />
+        <EntityTypeShape EntityType="SaModel.Cari" Width="1.5" PointX="33.375" PointY="33.75" />
+        <EntityTypeShape EntityType="SaModel.TECHNICAL" Width="1.5" PointX="15.375" PointY="28.75" />
+        <EntityTypeShape EntityType="SaModel.Dekont" Width="1.5" PointX="35.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SaModel.Not_Kategori" Width="1.5" PointX="3.375" PointY="7.75" />
+        <EntityTypeShape EntityType="SaModel.Notlar_Listesi" Width="1.5" PointX="33.375" PointY="29.75" />
+        <EntityTypeShape EntityType="SaModel.COUNTRIES" Width="1.5" PointX="9.375" PointY="6.75" />
+        <EntityTypeShape EntityType="SaModel.Firmalar" Width="1.5" PointX="33.375" PointY="25.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,372 @@
+﻿@{
+    ViewBag.Title = "AnaSayfa";
+    string goster = "";
+}
+
+@if (AyarMetot.ProTerminal != "Seçilmedi")
+{
+    goster = "display:none";
+}
+
+
+<div class="wrapper wrapper-content">
+
+
+    @*<a id="Report" target="_blank" href="#" onclick="RaporGoster();" style="margin-right:0px;margin-left:1px; margin-top:5px; color:black" class="btn btn-warning btn-sm">RAPOR GÖSTER</a>*@
+
+
+    <div class="row">
+        @if (AyarMetot.ProTerminal == "Seçilmedi")
+        {
+
+            <div class="col-lg-3">
+                <div class="ibox ">
+                    <div class="ibox-title">
+
+                        <a href="@Url.Action("yeniServis", "Servis")"><span style="width:150px" class="btn btn-primary btn-sm">YENİ SERVİS KAYDI</span> </a>
+
+                    </div>
+                    <div class="ibox-content">
+
+                        <div class="stat-percent font-bold text-success"> <i class="fa fa-2x fa-bolt"></i></div>
+                        <small>Yeni Servis Kaydeder</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="ibox ">
+                    <div class="ibox-title">
+
+
+                        <a href="@Url.Action("ServisKayitlari", "Servis")"><span style="width:150px" class="btn btn-danger btn-sm"><b>Servis Kayıtları</b> </span></a>
+                    </div>
+                    <div class="ibox-content">
+
+                        <div class="stat-percent font-bold text-info"><i class="fa fa-2x fa-level-down"></i></div>
+                        <small>Servis Kayıtları Listesi</small>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="col-lg-3">
+            <div class="ibox ">
+                <div class="ibox-title">
+
+                    <a href="@Url.Action("YeniSatis", "Fatura")"><span style="width:150px" class="btn btn-primary btn-sm">YENİ SATIŞ İŞLEMİ</span> </a>
+
+                </div>
+                <div class="ibox-content">
+
+                    <div class="stat-percent font-bold text-success"> <i class="fa fa-2x fa-bolt"></i></div>
+                    <small>Sevk İrsaliyesi Kaydeder</small>
+                </div>
+            </div>
+        </div>
+        
+            <div class="col-lg-3">
+                <div class="ibox ">
+                    <div class="ibox-title">
+
+                        <a href="@Url.Action("YeniMasraf", "Finans")"><span style="width:150px" class="btn btn-primary btn-sm">YENİ MASRAF İŞLEMİ</span> </a>
+
+                    </div>
+                    <div class="ibox-content">
+
+                        <div class="stat-percent font-bold text-success"> <i class="fa fa-2x fa-bolt"></i></div>
+                        <small>Yeni Masraf Kaydeder</small>
+                    </div>
+                </div>
+            </div>
+        
+        <div class="col-lg-3">
+            <div class="ibox ">
+                <div class="ibox-title">
+
+
+                    <a href="@Url.Action("YeniIade", "Fatura")"><span style="width:150px" class="btn btn-danger btn-sm"><b>İADE AL</b> </span></a>
+                </div>
+                <div class="ibox-content">
+
+                    <div class="stat-percent font-bold text-info"><i class="fa fa-2x fa-level-down"></i></div>
+                    <small>Alım İade İşlemi</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox ">
+                <div class="ibox-title">
+
+                    <a href="@Url.Action("YeniTahsilat", "Tables")"><span style="width:150px" class="btn btn-success btn-sm">YENİ TAHSİLAT</span> </a>
+                </div>
+                <div class="ibox-content">
+
+                    <div class="stat-percent font-bold text-navy"><i class="fa fa-2x fa-try"></i></div>
+                    <small>Nakit-Havale-Kredi Kartı</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox ">
+                <div class="ibox-title">
+
+                    <a href="@Url.Action("DepoTransfer", "Depo")"><span style="width:150px" class="btn btn-warning btn-sm"><b>DEPO TRANSFER</b> </span></a>
+                </div>
+                <div class="ibox-content">
+
+                    <div class="stat-percent font-bold text-danger"><i class="fa fa-2x fa-truck"></i></div>
+                    <small>Depo Giriş-Çıkış-Transfer</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox ">
+                <div class="ibox-title">
+
+                    <a href="@Url.Action("DataTables", "Tables")"><span style="width:150px" class="btn btn-info btn-sm">MÜŞTERİ LİSTESİ</span> </a>
+
+                </div>
+                <div class="ibox-content">
+
+                    <div class="stat-percent font-bold text-success"> <i class="fa fa-2x fa-list"></i></div>
+                    <small>Kayıtlı Müşteri Listesi</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox ">
+                <div class="ibox-title">
+
+                    <a href="@Url.Action("Urunler", "Stok")"><span style="width:150px" class="btn btn-warning btn-sm">ÜRÜN LİSTESİ</span> </a>
+                </div>
+                <div class="ibox-content">
+
+                    <div class="stat-percent font-bold text-info"><i class="fa fa-2x fa-list-alt"></i></div>
+                    <small>Kayıtlı Ürün Listesi</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox ">
+                <div class="ibox-title">
+
+                    <a href="@Url.Action("Islemler", "Tables")"><span style="width:150px" class="btn btn-info btn-sm">İŞLEM LİSTESİ</span> </a>
+                </div>
+                <div class="ibox-content">
+
+                    <div class="stat-percent font-bold text-info"><i class="fa fa-2x fa-table"></i></div>
+                    <small>İşlemler Listesi</small>
+                </div>
+            </div>
+        </div>
+         
+        <div class="col-lg-3">
+            <div class="ibox ">
+                <div class="ibox-title">
+
+                    <a href="@Url.Action("YeniSatis", "Fatura",new {FaturaTipi="Alım Faturası" })"><span style="width:150px" class="btn btn-primary btn-sm">YENİ ALIM FATURASI</span> </a>
+
+                </div>
+                <div class="ibox-content">
+
+                    <div class="stat-percent font-bold text-success"> <i class="fa fa-2x fa-bolt"></i></div>
+                    <small>Alım Faturası Kaydeder</small>
+                </div>
+            </div>
+        </div>
+        
+
+
+        <div class="col-lg-3">
+            <div class="ibox ">
+
+                @using (Html.BeginForm("LogOff", "User", FormMethod.Post, new { id = "logoutForm" }))
+                {
+
+                    @Html.AntiForgeryToken()
+
+                    <a href="javascript:document.getElementById('logoutForm').submit()">
+
+                        <div class="ibox-title">
+
+                            <span style="width:150px" class="btn btn-outline-danger btn-sm"><b>ÇIKIŞ</b> </span>
+                        </div>
+                        <div class="ibox-content">
+
+                            <div class="stat-percent font-bold text-danger"><i class="fa fa-2x fa-close"></i></div>
+                            <small>Kapat</small>
+                        </div>
+
+                    </a>
+
+                }
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+    <div >
+        <div class="ibox-content">
+
+            <table class="table table-striped table-bordered table-hover dataTables-example" style ="width: 100%">
+                <thead>
+                <tr>
+                    <th>Aylar</th>
+                    <th>Satış Faturası</th>
+                    <th>Alış Faturası</th>
+                    <th>Masraflar</th>
+                    <th>Tp</th>
+                    <th>Durum </th>
+
+                </tr>
+                </thead>
+
+
+            </table>
+
+        </div>
+    </div>
+
+
+
+
+
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+
+
+
+@section Styles {
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @Styles.Render("~/plugins/dateRangeStyles")
+    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @Styles.Render("~/plugins/dataPickerStyles")
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/plugins/tagInputsStyles")
+    @Styles.Render("~/plugins/duallistStyles")
+}
+
+@section Scripts {
+    @*@Scripts.Render("~/plugins/dataTables")*@
+    <script src="~/Content/DataTables/datatables.js"></script>
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @Scripts.Render("~/plugins/dateRange")
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/tagInputs")
+    @Scripts.Render("~/plugins/duallist")
+    <script>
+
+
+        $(document).ready(function () {
+
+            oTable = $('.dataTables-example').DataTable({
+                "scrollX": true,
+                pageLength: 25,
+                "ajax": {
+                    "url": "/Tables/GetKarZarar",
+                    "type": "GET",
+                    "datatype": "json",
+                },
+                buttons: true,
+                "scrollX": true,
+                dom: '<"html5buttons"B>lTfgit',
+                "columns": [
+
+                    {
+                        "data": "Ay" 
+                    },
+                    {
+                        "data": "SF", render: $.fn.dataTable.render.number('.', ',', 2, ''), className: "text-right"
+                    },
+                    {
+                        "data": "AF", render: $.fn.dataTable.render.number('.', ',', 2, ''), className: "text-right"
+                    },
+                    {
+                        "data": "MF", render: $.fn.dataTable.render.number('.', ',', 2, ''), className: "text-right"
+                    },
+                    {
+                        "data": "TP", render: $.fn.dataTable.render.number('.', ',', 2, ''), className: "text-right"
+                    },
+                    {
+                        "data": "Durum"
+                    },
+
+                ],
+
+
+
+                "language": {
+                    "sDecimal": ",",
+                    "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                    "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                    "sInfoEmpty": "Kayıt yok",
+                    "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                    "sLoadingRecords": "Yükleniyor...",
+                    "sProcessing": "İşleniyor...",
+                    "sSearch": "Ara:",
+                    "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                    "oPaginate": {
+                        "sFirst": "İlk",
+                        "sLast": "Son",
+                        "sNext": "Sonraki",
+                        "sPrevious": "Önceki"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                        "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                    },
+                    "select": {
+                        "rows": {
+                            "_": "%d kayıt seçildi",
+                            "0": "",
+                            "1": "1 kayıt seçildi"
+                        }
+                    }
+                },
+
+                buttons: [
+
+                    { extend: 'excel', title: 'ExampleFile' },
+                    { extend: 'pdf', title: 'ExampleFile' },
+
+                ]
+
+            });
+
+
+
+        });
+    </script>
+
+
+
+
+}

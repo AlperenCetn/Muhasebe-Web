@@ -1,0 +1,891 @@
+﻿
+@{
+    ViewBag.Title = "Cariler";
+}
+
+<style>
+    .alacak {
+        font-weight: bold;
+        color: #B51454;
+    }
+
+    .borc {
+        font-weight: bold;
+        color: green;
+    }
+</style>
+
+@*<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h3></h3>
+        <ol class="breadcrumb">
+
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("OnMuhasebeAnaSayfa", "AnaSayfa")">Anasayfa</a>
+            </li>
+
+            <li class="active breadcrumb-item">
+
+                <strong style="color : black">Cariler</strong>
+            </li>
+
+        </ol>
+    </div>
+</div>*@
+
+
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox " style="box-shadow: 8px 14px 12px gray">
+                <div class="ibox-title ">
+                    <button onclick="Temizle()" id="Yeni" style='background-color: #1ab394;color: white; box-shadow: 2px 2px 2px grey;' type="button" class="btn btn-xs" data-toggle="modal" data-target="#UyeOl">
+                        Yeni Cari Hesap
+                    </button>
+
+                    <div class="modal inmodal " id="UyeOl" tabindex="-1" role="dialog" aria-labelledby="">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content animated bounceInRight">
+                                <div class="modal-header">
+                                    <a style="text-align:left; color:white" class="btn btn-danger btn-xs" id="myModalLabel">CARİ KARTI</a>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true" onclick="Yenile()">×</span>
+                                    </button>
+
+                                </div>
+                                <form id="veri" method="post" action="/Tables/YeniCari">
+                                    <div class="modal-body">
+
+
+                                        <div class="row">
+                                            <div class="col-md-6 px-1">
+                                                <div class="form-group">
+                                                    <label><b>Firma Adı</b></label>
+                                                    <input style="background-color:lightgoldenrodyellow" id="CariU" name="CariU" type="text" class="form-control" value="@ViewBag.Sıradaki">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 px-1">
+                                                <div class="form-group">
+                                                    <label>Firma Kodu</label>
+                                                    <input id="FirmaK" name="FirmaK" type="text" class="form-control" value="@ViewBag.CariKoduSiradaki">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="px-1">
+                                            <div class="tabs-container">
+                                                <ul class="nav nav-tabs">
+                                                    <li><a class="nav-link active" data-toggle="tab" href="#tab-1">Genel Bilgiler</a></li>
+                                                    <li><a class="nav-link" data-toggle="tab" href="#tab-2">Diğer Bilgiler</a></li>
+                                                    @*<li><a class="nav-link " data-toggle="tab" href="#tab-3">Ek Bilgiler</a></li>*@
+                                                    @*<li><a class="nav-link" data-toggle="tab" href="#tab-4">Ek Bİlgiler</a></li>*@
+                                                </ul>
+                                                <div class="tab-content">
+
+                                                    @*Genel Sayfası*@
+                                                    <div id="tab-1" class="tab-pane active">
+                                                        <div class="panel-body row">
+                                                            <div class="row">
+                                                                <div class="col-md-4 px-1">
+                                                                    <div class="form-group">
+                                                                        <label>Vergi Dairesi</label>
+                                                                        <input id="VergiDr" name="VergiDr" type="text" class="form-control" value="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 px-1">
+                                                                    <div class="form-group">
+                                                                        <label>VergiNo/Tckn</label>
+                                                                        <input id="VergiNo" name="VergiNo" type="text" class="form-control" value="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 px-1">
+                                                                    <div class="form-group">
+                                                                        <label>Yetkili</label>
+                                                                        <input id="Yetkili" name="Yetkili" type="text" class="form-control" value="">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-4 px-1">
+                                                                    <div class="form-group">
+                                                                        <label>İl</label>
+                                                                        <input id="Il" name="Il" type="text" class="form-control" placeholder="" value="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 px-1">
+                                                                    <div class="form-group">
+                                                                        <label>İlçe</label>
+                                                                        <input id="Ilce" name="Ilce" type="text" class="form-control" placeholder="" value="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 px-1">
+                                                                    <div class="form-group">
+                                                                        <label>Posta Kodu</label>
+                                                                        <input id="PostaKodu" name="PostaKodu" type="text" class="form-control" placeholder="" value="">
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="col-md-12 px-1">
+                                                                    <div class="form-group">
+                                                                        <label>Adres</label>
+                                                                        <input id="Adres" name="Adres" type="text" class="form-control" placeholder="Adres" value="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 px-1">
+                                                                    <div class="form-group">
+                                                                        <label>Ülkeler</label>
+                                                                        @Html.DropDownList("Ülke", new SelectList(AyarMetot.Ulkeler(), "Value", "Text", "TR"), "Ülke Seçiniz", new { @id = "Ulke", @class = "form-control" })
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 px-1">
+                                                                    <div class="form-group">
+                                                                        <label>Alacak</label>
+                                                                        <input id="alacakB" name="alacakB" type="text" class="form-control" placeholder="Tutar" value="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 px-1">
+                                                                    <div class="form-group">
+                                                                        <label>Borc</label>
+                                                                        <input id="borcB" name="borcB" type="text" class="form-control" placeholder="Tutar" value="">
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4 px-1">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Email</label>
+                                                                        <input id="EPos" name="EPos" type="email" class="form-control" value="">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-4 px-1">
+                                                                    <div class="form-group">
+                                                                        <label>Cep Telefonu</label>
+                                                                        <input id="Gsm" name="Gsm" type="text" class="form-control" placeholder="" value="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 px-1">
+                                                                    <div class="form-group">
+                                                                        <label>Sabit Telefon</label>
+                                                                        <input id="Telefon1" name="Telefon1" type="text" class="form-control" placeholder="" value="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 px-1">
+                                                                    <div class="form-group">
+                                                                        <label>Faks Numarası</label>
+                                                                        <input id="Faks" name="Faks" type="text" class="form-control" placeholder="Faks" value="">
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+
+                                                    @*Fiyatlar SAyfası*@
+                                                    <div id="tab-2" class="tab-pane">
+                                                        <div class="panel-body">
+
+                                                            <div class="tab-content p-3" id="pills-tabContent">
+                                                                <div class="tab-pane fade show active" id="pills-genel" role="tabpanel" aria-labelledby="pills-home-tab">
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-12 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Ek Bilgi</label>
+                                                                                <input id="EkBilgi" name="EkBilgi" type="text" class="form-control" placeholder="Açıklama" value="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Cari Tipi</label>
+                                                                                @Html.DropDownList("KTip", new List<SelectListItem>
+                                                                                {
+                                                                                    new SelectListItem {Text = "MÜŞTERİ", Value = "MÜŞTERİ", Selected = @ViewBag.bayi == true ? false : true},
+                                                                                    new SelectListItem {Text = "TOPTANCI", Value = "TOPTANCI"},
+                                                                                    new SelectListItem {Text = "ALICI-SATICI", Value = "ALICI-SATICI"},
+                                                                                    new SelectListItem {Text = "BAYİİ", Value = "BAYİİ", Selected = @ViewBag.bayi == true ? true : false},
+                                                                                    new SelectListItem {Text = "TEDARİKÇİ", Value = "TEDARİKÇİ"},
+                                                                                    new SelectListItem {Text = "PAZARLAMACI", Value = "PAZARLAMACI"},
+                                                                                    new SelectListItem {Text = "YÖNETİCİ", Value = "YÖNETİCİ"},
+                                                                                }, new
+                                                                                {
+                                                                                    @id = "KTip",
+                                                                                    @class = "form-control",
+                                                                                    @style = "background-color:#F9E79F"
+                                                                                })
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-4 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Stok FG</label>
+                                                                                @Html.DropDownList("StokFG", new List<SelectListItem>
+                                                                                {
+                                                                                    new SelectListItem {Text = "1.Fiyat", Value = "1.Fiyat", Selected = true},
+                                                                                    new SelectListItem {Text = "2.Fiyat", Value = "2.Fiyat"},
+                                                                                    new SelectListItem {Text = "3.Fiyat", Value = "3.Fiyat"},
+                                                                                    new SelectListItem {Text = "4.Fiyat", Value = "4.Fiyat"},
+                                                                                    new SelectListItem {Text = "5.Fiyat", Value = "5.Fiyat"},
+                                                                                    new SelectListItem {Text = "6.Fiyat", Value = "6.Fiyat"},
+                                                                                    new SelectListItem {Text = "7.Fiyat", Value = "7.Fiyat"},
+                                                                                    new SelectListItem {Text = "8.Fiyat", Value = "8.Fiyat"},
+                                                                                    new SelectListItem {Text = "9.Fiyat", Value = "9.Fiyat"},
+                                                                                    new SelectListItem {Text = "10.Fiyat", Value = "10.Fiyat"},
+                                                                                }, new
+                                                                                {
+                                                                                    @id = "StokFG",
+                                                                                    @class = "form-control",
+                                                                                    @style = "background-color:#F9E79F"
+                                                                                })
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Cari Grubu</label>
+                                                                                @Html.DropDownList("CariGrubu", new SelectList(AyarMetot.CariKategori(Session["FirmaID"].ToString()), "Value", "Text", 1), new { @id = "CariGrubu", @class = "form-control col-lg-12", @style = "color:black" })
+                                                                            </div>
+                                                                        </div>
+
+
+
+                                                                        <div class="col-md-4 px-1">
+                                                                            <label>Para Birimi</label>
+                                                                            <div class="form-group">
+
+                                                                                @Html.DropDownList("paraBirimi", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", "TL"), new { @id = "paraBirimi", @class = "form-control col-lg-12" })
+
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div class="col-md-4 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Iskonto</label>
+                                                                                <input id="Iskonto" name="Iskonto" type="number" class="form-control" value="">
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-4 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Mersis No</label>
+                                                                                <input id="MersisNo" name="MersisNo" type="text" class="form-control" value="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Ticaret Sicil No</label>
+                                                                                <input id="TicaretSicilNo" name="TicaretSicilNo" type="text" class="form-control" value="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Müsteri Temsilcisi</label>
+                                                                                @Html.DropDownList("MusteriTemsilcisi", new SelectList(AyarMetot.MusteriTemsilcileri(Session["FirmaID"].ToString()), "Value", "Text", "Alperen"), new { @id = "MusteriTemsilcisi", @class = "form-control col-lg-12" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+
+                                                                        <div class="col-md-4 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Web Kullanıcı Adı </label>
+                                                                                <input id="WebKA" name="WebKA" type="text" class="form-control" value="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4 px-1">
+                                                                            <div class="form-group">
+                                                                                <label>Web Şifre</label>
+                                                                                <input id="WebSifre" name="WebSifre" type="password" class="form-control" value="">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    @*Kategoriler SAyfası*@
+                                                    <div id="tab-3" class="tab-pane">
+                                                        <div class="panel-body">
+                                                            <div class="row">
+                                                                <div class="col-md-5 px-1">
+                                                                    <div class="form-group">
+                                                                        <label>Grup Kodu 2</label>
+                                                                        <input id="ozelAlan2" name="ozelAlan2" type="text" class="form-control" value="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5 px-1">
+                                                                    <div class="form-group">
+                                                                        <label>Grup Kodu 3</label>
+                                                                        <input id="ozelAlan3" name="ozelAlan3" type="text" class="form-control" value="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5 px-1">
+                                                                    <div class="form-group">
+                                                                        <label>Grup Kodu 4</label>
+                                                                        <input id="ozelAlan4" name="ozelAlan4" type="text" class="form-control" value="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5 px-1">
+                                                                    <div class="form-group">
+                                                                        <label>Grup Kodu 5</label>
+                                                                        <input id="ozelAlan5" name="ozelAlan5" type="text" class="form-control" value="">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            @*
+                                                                <div class="row">
+                                                                    <div class="col-md-5 px-1">
+                                                                        <div class="form-group">
+                                                                            <label>Web Kullanıcı Adı</label>
+                                                                            <input id="WebKA" name="WebKA" type="text" class="form-control" value="">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-5 px-1">
+                                                                        <div class="form-group">
+                                                                            <label>Web Şifre</label>
+                                                                            <input id="WebSifre" name="WebSifre" type="text" class="form-control" value="">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            *@
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 px-1">
+                                        <div class="form-group">
+                                            @Html.Hidden("cID", -1)
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 px-1">
+                                        <div class="form-group">
+                                            <input id="YeniCari" style="display: none" value="@ViewBag.YeniCari" />
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <h5>&nbsp; Cari Listesini görüntülemektesiniz</h5>
+
+
+                </div>
+                <div class="ibox-content">
+
+                    <table class="table table-striped table-bordered table-hover dataTables-example" id="dataTables-example" style=" width: 100%">
+                        <thead>
+                            <tr>
+                                <th>Firma Kodu</th>
+                                <th>Cari Ünvan</th>
+                                <th>Grubu</th>
+
+                                <th align="right">Alacak</th>
+                                <th align="right">Borç</th>
+                                <th align="right">Bakiye</th>
+                                <th>Durumu</th>
+                                <th>PB</th>
+                                <th>C.Tipi</th>
+                                <th>İletişim</th>
+                                <th>E-Posta</th>
+                                <th> </th>
+                                <th> </th>
+
+                            </tr>
+                        </thead>
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Styles {
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+}
+
+@section Scripts {
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+    <script src="~/Scripts/mask.js"></script>
+    <script src="~/Scripts/musteri.js"></script>
+    <script src="~/Content/datatables.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
+
+
+
+
+
+    <script type="text/javascript">
+
+        var oTable;
+
+        function Goster(id) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("CariBilgi", "Tables")/' + id,
+                success: function(gt) {
+                    if (gt.success) {
+
+                        $("#cID").val(gt.data.ID);
+                        $("#FirmaK").val(gt.data.FirmaKodu);
+                        $("#CariU").val(gt.data.CariUnvan);
+                        $("#Il").val(gt.data.Il);
+                        $("#EkBilgi").val(gt.data.EkBilgi);
+                        $("#Adres").val(gt.data.Adres);
+                        $("#EPos").val(gt.data.EPosta);
+                        $("#Gsm").val(gt.data.GSM);
+                        $("#Telefon1").val(gt.data.Telefon1);
+                        $("#KTip").val(gt.data.KTipi);
+                        $("#StokFG").val(gt.data.StokFG);
+                        $("#CariGrubu").val(gt.data.CariGrubu);
+                        $("#VergiDr").val(gt.data.VergiDr);
+                        $("#VergiNo").val(gt.data.VergiNo);
+                        $("#PostaKodu").val(gt.data.PostaKodu);
+                        $("#Yetkili").val(gt.data.Yetkili);
+                        $("#Faks").val(gt.data.Faks);
+                        $("#Yetkili").val(gt.data.Yetkili);
+                        $("#ozelAlan1").val(gt.data.ozelAlan1);
+                        $("#ozelAlan2").val(gt.data.ozelAlan2);
+                        $("#ozelAlan3").val(gt.data.ozelAlan3);
+                        $("#ozelAlan4").val(gt.data.ozelAlan4);
+                        $("#ozelAlan5").val(gt.data.ozelAlan5);
+                        $("#TCNo").val(gt.data.TCNo);
+                        $("#paraBirimi").val(gt.data.paraBirimi);
+                        $("#Iskonto").val(gt.data.Iskonto);
+                        $("#MersisNo").val(gt.data.MersisNo);
+                        $("#TicaretSicilNo").val(gt.data.TicaretSicilNo);
+                        $("#BagkurNo").val(gt.data.BagkurNo);
+                        $("#WebKA").val(gt.data.WebKA);
+                        $("#WebSifre").val(gt.data.WebSifre);
+                        $("#Ilce").val(gt.data.Ilce);
+                        $("#WebSite").val(gt.data.WebSite);
+                        $("#Ulke").val(gt.data.Milleti);
+                        $("#MusteriTemsilcisi").val(gt.data.MusteriTemsilcisi);
+                        $("#borcB").val(gt.bl.borcB);
+                        $("#alacakB").val(gt.bl.alacakB);
+                        document.getElementById("alacakB").disabled = true;
+                        document.getElementById("borcB").disabled = true;
+                   
+                        $('#UyeOl').modal('show');
+                    }
+                }
+            });
+        }
+        function Goster2(id) {
+            window.location.href = "/Tables/CariHareketler?id=" + id;
+        }
+        function Yenile() {
+            location.reload(true);
+        }
+        function Temizle() {
+            $("#cID").val("-1");
+            $("#CariU").val("");
+            $("#Il").val("");
+            $("#EkBilgi").val("");
+            $("#Adres").val("");
+            $("#EPos").val("");
+            $("#Gsm").val("");
+            $("#Telefon1").val("");
+            $("#KTip").val("MÜŞTERİ");
+            $("#StokFG").val("1.Fiyat");
+            $("#VergiDr").val("");
+            $("#VergiNo").val("");
+            $("#PostaKodu").val("");
+            $("#Yetkili").val("");
+            $("#Ulke").val("");
+            $("#Faks").val("");
+            $("#Yetkili").val("");
+            $("#ozelAlan1").val("");
+            $("#ozelAlan2").val("");
+            $("#ozelAlan3").val("");
+            $("#ozelAlan4").val("");
+            $("#ozelAlan5").val("");
+            $("#TCNo").val("");
+            $("#paraBirimi").val("");
+            $("#Iskonto").val("");
+            $("#MersisNo").val("");
+            $("#TicaretSicilNo").val("");
+            $("#BagkurNo").val("");
+            $("#WebKA").val("");
+            $("#WebSifre").val("");
+            $("#Ilce").val("");
+            $("#MusteriTemsilcisi").val(@Session["PersonelID"]);
+        }
+
+        function Delete(id) {
+
+            swal({
+                title: "[Silme Onayı]",
+                text: "Seçili müşteriyi silmek istediğinizden emin misiniz?",
+                icon: "warning",
+                dangerMode: true,
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                cancelButtonText: "Hayır",
+                confirmButtonText: "Evet",
+                closeOnCancel: true,
+                closeOnConfirm: true,
+
+                preConfirm: function() {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("DeleteCari", "Tables")/' + id,
+                        success: function(data) {
+                            if (data.success) {
+                                oTable.ajax.reload();
+                                Temizle();
+                            } else {
+                                swal("Uyarı", data.message, "warning");
+                            }
+                        }
+
+                    });
+                }
+
+            })
+        }
+
+
+        $("#veri").on("submit",
+            function(event) {
+                event.preventDefault();
+
+                var obj = {
+                    id: $("#cID").val(),
+                    FirmaKodu: $("#FirmaK").val(),
+                    CariUnvan: $("#CariU").val(),
+                    Il: $("#Il").val(),
+                    EkBilgi: $("#EkBilgi").val(),
+                    Adres: $("#Adres").val(),
+                    EPosta: $("#EPos").val(),
+                    Gsm: $("#Gsm").val(),
+                    Telefon1: $("#Telefon1").val(),
+                    KTipi: $("#KTip").val(),
+                    StokFG: $("#StokFG").val(),
+                    CariGrubu: $("#CariGrubu").val(),
+                    VergiDr: $("#VergiDr").val(),
+                    VergiNo: $("#VergiNo").val(),
+                    PostaKodu: $("#PostaKodu").val(),
+                    Yetkili: $("#Yetkili").val(),
+                    Milleti: $("#Ulke").val(),
+                    Faks: $("#Faks").val(),
+                    Yetkili: $("#Yetkili").val(),
+                    ozelAlan1: $("#ozelAlan1").val(),
+                    ozelAlan2: $("#ozelAlan2").val(),
+                    ozelAlan3: $("#ozelAlan3").val(),
+                    ozelAlan4: $("#ozelAlan4").val(),
+                    ozelAlan5: $("#ozelAlan5").val(),
+                    TCNo: $("#TCNo").val(),
+                    paraBirimi: $("#paraBirimi").val(),
+                    Iskonto: $("#Iskonto").val(),
+                    MersisNo: $("#MersisNo").val(),
+                    TicaretSicilNo: $("#TicaretSicilNo").val(),
+                    BagkurNo: $("#BagkurNo").val(),
+                    WebKA: $("#WebKA").val(),
+                    WebSifre: $("#WebSifre").val(),
+                    Ilce: $("#Ilce").val(),
+                    WebSite: $("#WebSite").val(),
+                    MusteriTemsilcisi: $("#MusteriTemsilcisi").val(),
+                };
+                var alacakB = $("#alacakB").val();
+                var borcB = $("#borcB").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: '/Tables/YeniCari',
+                    data: { cr: obj, alacakINT: alacakB, borcINT: borcB },
+                    dataType: "json",
+                    success: function(gelenDeg) {
+
+                        if (gelenDeg.sonuc == "0") {
+                            setTimeout(oTable.ajax.reload(), 300);
+                            $('#UyeOl').modal('hide');
+                            swal("Uyarı",gelenDeg.Message,"warning")
+                                .then((value) => {
+                                    $('#UyeOl').modal('show');
+                                });
+                        }
+                        else if (gelenDeg.sonuc == "3") {
+                            setTimeout(oTable.ajax.reload(), 300);
+                            $('#UyeOl').modal('hide');
+                            swal("Hata",gelenDeg.Message,"error")
+                                .then((value) => {
+                                    $('#UyeOl').modal('show');
+                                });
+                        }
+                        else if (gelenDeg.sonuc == "1") {
+                            swal("Başarılı", gelenDeg.Message, "success");
+                            {
+                                $('#UyeOl').modal('hide');
+                                Temizle();
+                                setTimeout(oTable.ajax.reload(), 300);
+                                window.location.href = "/Tables/DataTables";
+
+
+                            }
+
+                        }
+
+                    },
+                    error: function() {
+                        swal("Hata", "Kayıt Eklenirken Hata Oluştu!", "error");
+                    }
+                });
+            });
+
+
+        $("#Belge").on("submit",
+            function(event) {
+                event.preventDefault();
+                alert($("#photo").val());
+                id: $("#photo").val(),
+                    $.ajax({
+                        type: "POST",
+                        url: '/Tables/Upload',
+                        data: id,
+                        dataType: "json",
+                        success: function(gelenDeg) {
+
+                            if (gelenDeg.sonuc == "0")
+                                swal("Uyarı", gelenDeg.Message, "warning");
+                            else if (gelenDeg.sonuc == "3")
+                                swal("Hata", gelenDeg.Message, "error");
+                            else if (gelenDeg.sonuc == "1") {
+                                swal("Başarılı", gelenDeg.Message, "success");
+                                {
+
+                                    //window.location.href = "/Tables/DataTables";
+
+                                }
+
+                            }
+
+                        },
+                        error: function() {
+                            swal("Hata", "Kayıt Eklenirken Hata Oluştu!", "error");
+                        }
+                    });
+            });
+
+
+        $(document).ready(function() {
+            var id = 0;
+            oTable = $('.dataTables-example').DataTable({
+                "fnRowCallback": function(nRow, aData, iDisplayIndex) {
+                    /* Append the grade to the default row class name */
+                    if (aData.SonDurum == "(A)") {
+                        $('td:eq(4)', nRow).css('color', '#C50D18');
+
+                    } else {
+
+                        $('td:eq(4)', nRow).css('color', '#1E8828');
+                    }
+
+                    $('td:eq(4)', nRow).css('font-weight', 'bold');
+                },
+                "scrollX": true,
+                pageLength: 25,
+                "jQueryUI": true,
+                'columnDefs': [
+                    {
+                        "targets": 2,
+                        "className": "text-right",
+                    }
+                ],
+                "ajax": {
+                    "url": "/Tables/GetGorusme?id="+id,
+                    "type": "GET",
+                    "datatype": "json",
+                },
+
+                dom: '<"html5buttons"B>lTfgit<"H"R>',
+                "columns": [
+                    { "data": "FirmaKodu", "visible": false },
+                    { "data": "CariUnvan", className: "text-left" },
+                    { "data": "CariGrubu", className: "text-center" },
+                    {
+                        "data": "Alacak",
+                        render: $.fn.dataTable.render.number('.', ',', 2, ''),
+                        className: "text-right",
+                    },
+                    { "data": "Borc", render: $.fn.dataTable.render.number('.', ',', 2, ''), className: "text-right" },
+                    {
+                        "data": "Bakiye",
+                        render: $.fn.dataTable.render.number('.', ',', 2, ''),
+                        className: "text-right"
+                    },
+                    { "data": "SonDurum", className: "text-center" },
+                    { "data": "paraBirimi", className: "text-center", className: "text-right" },
+                    { "data": "KTipi", className: "text-center" },
+                    { "data": "Iletisim", className: "text-center" },
+                    { "data": "EPosta", className: "text-center" },
+                    { "data": "ID", "visible": false },
+                    {
+                        "data": null,
+                        "render": function(data, type, row) {
+
+                            return " <div class='btn-group'> " +
+                                "<a onclick=Goster2(" +
+                                row.ID +
+                                ") style='background-color:darkturquoise;color:white' class='btn-white btn btn-xs'>Cari Hareketleri</a>" +
+                                "<a onclick=Goster(" +
+                                row.ID +
+                                ") style='background-color:#f0ad4e;color:black' class='btn-white btn btn-xs'>Düzenle</a>" +
+                                "<a onclick=Delete(" +
+                                row.ID +
+                                ") style='background-color:indianred;color:white' class='btn-white btn btn-xs'>Sil</a></div>" +
+                                "</div>";
+
+                        },
+
+
+                    },
+                ],
+
+                "language": {
+                    "sDecimal": ",",
+                    "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                    "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                    "sInfoEmpty": "Kayıt yok",
+                    "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                    "sLoadingRecords": "Yükleniyor...",
+                    "sProcessing": "İşleniyor...",
+                    "sSearch": "Ara:",
+                    "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                    "oPaginate": {
+                        "sFirst": "İlk",
+                        "sLast": "Son",
+                        "sNext": "Sonraki",
+                        "sPrevious": "Önceki"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                        "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                    },
+                    "select": {
+                        "rows": {
+                            "_": "%d kayıt seçildi",
+                            "0": "",
+                            "1": "1 kayıt seçildi"
+                        }
+                    }
+                },
+                buttons: [
+                    { extend: 'copy' },
+                    { extend: 'csv' },
+                    { extend: 'excel', title: 'ExampleFile' },
+                    { extend: 'pdf', title: 'ExampleFile' },
+                    {
+                        extend: 'print',
+                        customize: function(win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+
+
+            $(function() {
+                $.contextMenu({
+                    selector: '.dataTables-example td',
+                    callback: function(key, options) {
+                        var m = "clicked: " + key;
+                        var row = this.closest('tr');
+                        var data = oTable.row(this).data();
+                       
+
+                        switch (key) {
+                        case "yeni":
+                            Temizle();
+                            document.getElementById('Yeni').click();
+                            break;
+                        case "edit":
+                            Goster(data.ID);
+                            break;
+                        case "delete":
+                            Delete(data.ID);
+                            break;
+                        case "fatura":
+                            var url = '@Url.Action("SatisYeni", "Fatura")';
+                            window.location.href = url;
+                                break;
+                        case "dekont":
+                            var url = '@Url.Action("Dekont", "Dekont")';
+                            window.location.href = url;
+                                break;
+                        case "move":
+                            Goster2(data.ID);
+                            break;
+
+                        }
+                    },
+                    items: {
+                        "yeni": { name: "Yeni Cari", icon: "paste"},
+                        "edit": {name: "Düzenle", icon: "edit"},
+                        "delete": { name: "Sil", icon: "delete" },
+                        "fatura": { name: "Fatura İşlemleri", icon: "edit" },
+                        "dekont": { name: "Dekont İşlemleri", icon: "edit" },
+                        "move": { name: "Cari Hareketler", icon: "paste" },
+                        "sep1": "---------",
+                        "quit": {name: "Quit", icon: function(){
+                            return 'context-menu-icon context-menu-icon-quit';
+                        }}
+                    }
+                });
+
+                $('.context-menu-one').on('click', function(e){
+                    console.log('clicked', this);
+                })
+            });
+
+            $('#dataTables-example tbody').on('dblclick', 'tr', function () {
+
+                var data = oTable.row(this).data();
+
+
+                Goster2(data.ID);
+
+            });
+            var yenicari = $("#YeniCari").val();
+            if (yenicari == 1) {
+                $('#UyeOl').modal('show');
+            }
+        });
+
+    </script>
+}

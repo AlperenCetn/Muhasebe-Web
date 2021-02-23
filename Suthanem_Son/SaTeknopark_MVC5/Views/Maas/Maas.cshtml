@@ -1,0 +1,553 @@
+﻿@using System.Web.UI.WebControls
+
+
+@{
+    ViewBag.Title = "Maas";
+}
+
+
+@*<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h3></h3>
+        <ol class="breadcrumb">
+
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("OnMuhasebeAnaSayfa", "AnaSayfa")">Anasayfa</a>
+            </li>
+
+            <li class="active breadcrumb-item">
+
+                <strong style="color : black">Maaş</strong>
+            </li>
+
+        </ol>
+    </div>
+</div>*@
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox " style="box-shadow: 8px 14px 12px gray">
+                <div class="ibox-title ">
+                    <button onclick="Temizle()" id="Yeni" style='background-color: #1ab394;color: white; box-shadow: 2px 2px 2px grey;' type="button" class="btn btn-xs" data-toggle="modal" data-target="#UyeOl">
+                        Maas Ekle
+                    </button>
+
+                    <div class="modal inmodal " id="UyeOl" tabindex="-1" role="dialog" aria-labelledby="">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content animated bounceInRight">
+                                <div class="modal-header">
+                                    <a style="text-align:left; color:white" class="btn btn-danger btn-xs" id="myModalLabel">MAAŞ KARTI</a>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+
+                                </div>
+                                <form id="veri" method="post" action="/Maas/YeniMaas">
+                                    <div class="modal-body">
+
+
+                                        <div class="row">
+
+                                            <div class="col-md-4 px-1">
+                                                <div class="form-group">
+                                                    <div class="tabs-container">
+
+                                                        <div class="pb-4">
+                                                            <div class="row ">
+                                                                <div class="col-md-12" style="float:left">
+                                                                    <div class="form-group">
+                                                                        <label>Personel</label>
+                                                                        @Html.DropDownList("OdenenPersonel", new SelectList(AyarMetot.PersonelList("-1",Session["FirmaID"].ToString()), "Value", "Text"),
+                                            "Seçiniz", new { @id = "OdenenPersonel", @class = "form-control", @style = "font-size:medium " })
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 px-1">
+                                                <div class="form-group">
+                                                    <label><b>İşlem No</b></label>
+                                                    <input style="background-color:lightgoldenrodyellow" id="IslemNo" name="IslemNo" type="text" class="form-control" value="@ViewBag.SiradakiMaas">
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-4 px-1">
+                                                <div class="form-group">
+                                                    <label> <b>İşlem Tarihi</b></label>
+
+                                                    <input id="IslemTarihi" name="IslemTarihi" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")">
+
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+
+                                            <div class="col-md-4 px-1" style="float:left">
+                                                <div class="form-group">
+                                                    <label><b>İşlem Tipi</b></label>
+                                                    @Html.DropDownList("IslemTipi", new SelectList(AyarMetot.IslemTipi(), "Value", "Text"),
+                                            "Seçiniz", new { @id = "IslemTipi", @class = "form-control", @style = "font-size:medium" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 px-1" style="float:left">
+                                                <div class="form-group">
+                                                    <label><b>Alacak Borc Tipi</b></label>
+                                                    @Html.DropDownList("AlacakBorcTipi", new SelectList(AyarMetot.AlacakBorcTipi(), "Value", "Text"),
+                                            "Seçiniz", new { @id = "AlacakBorcTipi", @class = "form-control", @style = "font-size:medium" })
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4 px-1">
+                                                <div class="form-group">
+                                                    <label> Vade Tarihi</label>
+
+                                                    <input id="VadeTarihi" name="VadeTarihi" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")">
+
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4 px-1">
+                                                <div class="form-group">
+                                                    <label><b>Tutar</b></label>
+                                                    <input style="background-color:white" id="Tutar" name="Tutar" type="number" class="form-control text-right" value="0" step="0.01">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 px-1" style="float:left">
+                                                <div class="form-group">
+                                                    <label><b>Para Birimi</b></label>
+                                                    @Html.DropDownList("ParaBirimi", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text"), "Seçiniz", new {@id = "ParaBirimi", @class = "form-control", @style = "font-size:medium" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 px-1" style="float:left">
+
+                                                <div class="form-group">
+                                                    <label><b>Özel Kod</b></label>
+                                                    @Html.DropDownList("OzelKodID", new SelectList(AyarMetot.OzelKod(Session["FirmaID"].ToString()), "Value", "Text"),
+                                                        "Seçiniz", new { @id = "OzelKodID", @class = " form-control", @style = "font-size:medium" })
+                                                </div>
+                                            </div>
+                                        </div> <div class="row">
+                                            <div class="col-md-12 px-1">
+                                                <div class="form-group">
+                                                    <label>Açıklama</label>
+                                                    <textarea id="Aciklama" style="height:75px" name="Aciklama" Value="" class="form-control textarea"></textarea>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+
+
+
+                                        <div class="col-md-3 px-1">
+                                            <div class="form-group">
+                                                @Html.Hidden("cID", -1)
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <h5>&nbsp; Maas Listesini görüntülemektesiniz</h5>
+
+                    
+                </div>
+                <div class="ibox-content">
+
+                    <table class="table table-striped table-bordered table-hover dataTables-example" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>Özel Kod</th>
+                                <th>Personel</th>
+                                <th>İşlemNo</th>
+                                <th>İşlem Tarih</th>
+                                <th>Vade Tarihi</th>
+                                <th>İşlem Tipi</th>
+                                <th>Tutar</th>
+                                <th>Alacak Borç Tipi</th>
+
+                                <th>Açıklama</th>
+                                <th> ID</th>
+                                <th> </th>
+
+                            </tr>
+                        </thead>
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Styles {
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+}
+
+@section Scripts {
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+    <script src="~/Scripts/mask.js"></script>
+    <script src="~/Scripts/musteri.js"></script>
+    <script src="~/Content/datatables.js"></script>
+    <script src="~/Scripts/moment-with-locales.js"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
+
+
+    <script type="text/javascript">
+
+                var oTable;
+
+                function Goster(id) {
+
+                    $.ajax({
+                        type: "GET",
+                        url: '@Url.Action("MaasBilgi", "Maas")/' + id,
+                        success: function (gt,vade,islem) {
+                            if (gt.success) {
+                                $("#cID").val(gt.data.ID);
+                                $("#OzelKodID").val(gt.data.OzelKodID);
+                                $("#OdenenPersonel").val(gt.data.OdenenPersonel);
+                                $("#IslemNo").val(gt.data.IslemNo);
+                                $("#IslemTarihi").val(gt.islem);
+                                $("#VadeTarihi").val(gt.vade);
+                                $("#IslemTipi").val(gt.data.IslemTipi);
+                                $("#Tutar").val(gt.data.Tutar);
+                                $("#AlacakBorcTipi").val(gt.data.AlacakBorcTipi);
+                                $("#Aciklama").val(gt.data.Aciklama);
+                                $("#ParaBirimi").val(gt.data.ParaBirimi);
+
+                                $('#UyeOl').modal('show');
+                            }
+                        }
+
+                    });
+
+                }
+
+
+                function Temizle() {
+
+                    $("#cID").val("-1");
+                    $("#OzelKodID").val("");
+                    $("#OdenenPersonel").val("");
+                    $("#IslemTipi").val("");
+                    $("#Tutar").val("0");
+                    $("#AlacakBorcTipi").val("");
+
+                    $("#Aciklama").val("");
+                    $("#ParaBirimi").val("");
+
+
+                }
+
+                function Delete(id) {
+
+                    swal({
+                        title: "[Silme Onayı]",
+                        text: "Seçili dekontu silmek istediğinizden emin misiniz?",
+                        icon: "warning",
+                        dangerMode: true,
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        cancelButtonText: "Hayır",
+                        confirmButtonText: "Evet",
+                        closeOnCancel: true,
+                        closeOnConfirm: true,
+
+                        preConfirm: function () {
+                            $.ajax({
+                                type: "POST",
+                                url: '@Url.Action("DeleteMaas", "Maas")/' + id,
+                                success: function (data) {
+                                    if (data.success) {
+                                        oTable.ajax.reload();
+                                        Temizle();
+                                    }
+                                }
+
+                            });
+                        }
+
+                    })
+                }
+
+
+                $("#veri").on("submit", function (event) {
+                    event.preventDefault();
+                    var personel = $("#OdenenPersonel").val();
+                    if (personel != '') {
+                        var obj = {
+                            id: $("#cID").val(),
+                            OzelKodID: $("#OzelKodID").val(),
+                            OdenenPersonel: $("#OdenenPersonel").val(),
+                            IslemNo: $("#IslemNo").val(),
+                            IslemTarihi: $("#IslemTarihi").val(),
+                            VadeTarihi: $("#VadeTarihi").val(),
+                            IslemTipi: $("#IslemTipi").val(),
+                            Tutar: $("#Tutar").val(),
+                            AlacakBorcTipi: $("#AlacakBorcTipi").val(),
+                            Aciklama: $("#Aciklama").val(),
+                            ParaBirimi: $("#ParaBirimi").val(),
+
+                        };
+
+                        $.ajax({
+                            type: "POST",
+                            url: '/Maas/YeniMaas',
+                            data: obj,
+                            dataType: "json",
+                            success: function(gelenDeg) {
+
+                                if (gelenDeg.sonuc == "0")
+                                    swal("Uyarı", gelenDeg.Message, "warning");
+                                else if (gelenDeg.sonuc == "3")
+                                    swal("Hata", gelenDeg.Message, "error");
+                                else if (gelenDeg.sonuc == "1") {
+                                    swal("Başarılı", gelenDeg.Message, "success");
+                                    {
+                                        $('#UyeOl').modal('hide');
+                                        oTable.ajax.reload();
+                                        Temizle();
+
+                                    }
+
+                                }
+
+                            },
+                            error: function() {
+                                swal("Hata", "Kayıt Eklenirken Hata Oluştu!", "error");
+                            }
+                        });
+                    } else {
+                        $('#UyeOl').modal('hide');
+
+                        swal("Uyarı!","Personel Seçiniz.","warning")
+                            .then((value) => {
+                                $('#UyeOl').modal('show');
+
+                            });
+                    }
+                });
+
+
+
+
+                $(document).ready(function () {
+
+                    oTable = $('.dataTables-example').DataTable({
+                        "scrollX": true,
+                        pageLength: 10,
+                        'columnDefs': [
+                         {
+                             "targets": 2,
+                             "className": "text-right",
+                         }],
+                        "ajax": {
+                            "url": "/Maas/GetMaas",
+                            "type": "GET",
+                            "datatype": "json",
+                        },
+
+                        dom: 'lTfgit',
+                        "columns": [
+                           { "data": "KodAdi"},
+                           { "data": "Personel", width: "150px" },
+                           { "data": "IslemNo" },
+                           {
+                               "data": "IslemTarihi",
+                               "render": function (data, type, row, meta) {
+
+
+                                   if (data != null) {
+
+
+                                           return "<a style='font-size:smaller;color:crimson' class='label'><b> " + moment(data).format('DD.MM.YYYY') + " </b></a><br />";
+
+
+
+                                   }
+                                   else {
+                                       return "<a style='font-size:smaller;color:crimson' class='label'><b>  </b></a><br />";
+                                   }
+                               }
+                           },
+                            {
+                                "data": "VadeTarihi",
+                                "render": function (data, type, row, meta) {
+
+
+                                    if (data != null) {
+
+
+
+                                            return "<a style='font-size:smaller;color:crimson' class='label'><b> " + moment(data).format('DD.MM.YYYY') + " </b></a><br />";
+
+
+
+                                    }
+                                    else {
+                                        return "<a style='font-size:smaller;color:crimson' class='label'><b>  </b></a><br />";
+                                    }
+                                }
+                            },
+                             { "data": "IslemTipi" },
+                            { "data": "Tutar", render: $.fn.dataTable.render.number('.', ',', 2, ''), className: "text-right" },
+                             { "data": "AlacakBorcTipi" },
+
+                             { "data": "Aciklama" },
+                             { "data": "ID" ,visible:false},
+
+
+                           {
+                               "data": null, "render": function (data, type, row) {
+
+                                   return " <div class='btn-group'> " +
+
+                                       "<a onclick=Goster(" + row.ID + ") style='background-color:#f0ad4e;color:black' class='btn-white btn btn-xs'>Düzenle</a>" +
+                                       "<a onclick=Delete(" + row.ID + ") style='background-color:indianred;color:white' class='btn-white btn btn-xs'>Sil</a></div>" +
+                                       "</div>";
+
+                               },
+
+                           },
+
+                        ],
+
+                        "language": {
+                            "sDecimal": ",",
+                            "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                            "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                            "sInfoEmpty": "Kayıt yok",
+                            "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                            "sInfoPostFix": "",
+                            "sInfoThousands": ".",
+                            "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                            "sLoadingRecords": "Yükleniyor...",
+                            "sProcessing": "İşleniyor...",
+                            "sSearch": "Ara:",
+                            "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                            "oPaginate": {
+                                "sFirst": "İlk",
+                                "sLast": "Son",
+                                "sNext": "Sonraki",
+                                "sPrevious": "Önceki"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                                "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                            },
+                            "select": {
+                                "rows": {
+                                    "_": "%d kayıt seçildi",
+                                    "0": "",
+                                    "1": "1 kayıt seçildi"
+                                }
+                            }
+                        },
+                        "scrollX": true,
+                        buttons: [
+                            { extend: 'copy' },
+                            { extend: 'csv' },
+                            { extend: 'excel', title: 'ExampleFile' },
+                            { extend: 'pdf', title: 'ExampleFile' },
+
+                            {
+                                extend: 'print',
+                                customize: function (win) {
+                                    $(win.document.body).addClass('white-bg');
+                                    $(win.document.body).css('font-size', '10px');
+
+                                    $(win.document.body).find('table')
+                                            .addClass('compact')
+                                            .css('font-size', 'inherit');
+                                }
+                            }
+                        ]
+
+                    });
+                    $(function() {
+                        $.contextMenu({
+                            selector: '.dataTables-example td',
+                            callback: function(key, options) {
+                                var m = "clicked: " + key;
+                                var row = this.closest('tr');
+                                var data = oTable.row(this).data();
+
+                                switch (key) {
+                                case "yeni":
+                                        document.getElementById('Yeni').click();
+                                        Temizle();
+                                    break;
+                                case "edit":
+                                    Goster(data.ID);
+                                    break;
+                                case "delete":
+                                    Delete(data.ID);
+                                    break;
+
+                                }
+                            },
+                            items: {
+                                "yeni": { name: "Yeni Maaş", icon: "fa-list"},
+                                "edit": {name: "Düzenle", icon: "edit"},
+                                "delete": { name: "Sil", icon: "delete" },
+                                "sep1": "---------",
+                                "quit": {name: "Çıkış", icon: function(){
+                                    return 'context-menu-icon context-menu-icon-quit';
+                                }}
+                            }
+                        });
+
+                        $('.context-menu-one').on('click', function(e){
+                            console.log('clicked', this);
+                        })
+                    });
+
+                    $('#example tbody').on('dblclick', 'tr', function () {
+                     
+                        var data = oTable.row(this).data();
+
+                        
+                        Goster(data.ID);
+
+                    });
+                });
+
+    </script>
+}

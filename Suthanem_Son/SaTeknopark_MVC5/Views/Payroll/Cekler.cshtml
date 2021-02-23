@@ -1,0 +1,529 @@
+﻿@model SaTeknopark_MVC5.Models.TECHNICAL
+@{
+    ViewBag.Title = "Çekler";
+}
+
+
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox " style="box-shadow:8px 14px 12px gray">
+                <div class="ibox-title ">
+
+
+
+                    <div class="row" style="background-color:white">
+
+                        <div class="col-md-3">
+                            <div class="">
+                                <label><b>Başlangıç Tarihi</b></label>
+
+                                <input type="date" id="min" class="form-control" value="@Convert.ToDateTime(new DateTime(2020,1,1,0,0,0)).ToString("yyyy-MM-dd")" name="min">
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="pl-0">
+                                <label><b>Bitiş Tarihi</b></label>
+
+                                <input type="date" id="max" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="max">
+                            </div>
+                        </div>
+                        @*<div class="col-md-2 px-3">
+                            <div class="form-group">
+                                <label><b>Personel</b></label>
+                                @Html.DropDownList("PersonelTeknik", new SelectList(AyarMetot.PersonelList(), "Value", "Text"), "Seçiniz",
+                                    new { @id = "PersonelTeknik", @class = "form-control" })
+                            </div>
+                        </div>*@
+                        <div class="col-md-3 px-1">
+                            <div class="form-group">
+                                <label><b>Evrak Tipi</b></label>
+                                @Html.DropDownList("Evrak Tipi", new SelectList(AyarMetot.EvrakTipi(), "Value", "Text", "Tüm Evraklar"), new { @id = "EvrakTipi", @class = "select2_demo_3 form-control" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 px-1">
+                            <div class="form-group">
+                                <label><b>Çek Durumu</b></label>
+                                @Html.DropDownList("Durumu", new SelectList(AyarMetot.CekDurumu(), "Value", "Text", "Tüm Durumlar"), new { @id = "Durumu", @class = "select2_demo_3 form-control" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+                    <div class="row" style="background-color:white">
+
+                        <div class="col-md-3 px-3">
+                            <div class="form-group">
+                                <label><b>Personel</b></label>
+                                @Html.DropDownList("PersonelTeknik", new SelectList(AyarMetot.PersonelList("-1",Session["FirmaID"].ToString()), "Value", "Text"), "Seçiniz",
+                                    new { @id = "PersonelTeknik", @class = "select2_demo_3 form-control" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 px-1">
+                            <div class="form-group">
+                                <label><b>Cariler</b></label>
+                                @Html.DropDownList("CariID", new SelectList(AyarMetot.Cariler(Session["FirmaID"].ToString()), "Value", "Text"), "Seçiniz", new { @id = "CariID", @class = "select2_demo_3 form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-3 px-1">
+                            <div class="form-group">
+                                <label><b>Para Birimi</b></label>
+                                @Html.DropDownList("PB", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text"),  new { @id = "PB", @class = "select2_demo_3 form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-3 px-1">
+                            <div class="form-group">
+                                <label><b>Özel Kod</b></label>
+                                @Html.DropDownList("Durumu", new SelectList(AyarMetot.OzelKod(Session["FirmaID"].ToString()), "Value", "Text"), "Seçiniz", new { @id = "OzelKodID", @class = "select2_demo_3 form-control" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="background-color:white; float:right">
+                        <button class="btn btn-outline-success btn-lg" onclick="FiltreGonder()">Uygula</button>
+                    </div>
+
+                    <!--Modal Sonu-->
+
+
+                    @*<h5>&nbsp; Çek Listesini Görüntülemektesiniz</h5>*@
+                    <br />
+                    <a onclick="Temizle()" href="@Url.Action("YeniCekSenet", "Payroll",new {ceksenet = 0})" style='background-color:#1ab394;color:white; box-shadow: 2px 2px 2px grey;' type="button" class="btn btn-sm">
+                        Yeni Çek
+                    </a>
+                    <a onclick="Temizle()" href="@Url.Action("YeniCekSenet", "Payroll",new {ceksenet = 1})" style='background-color:#1ab394;color:white; box-shadow: 2px 2px 2px grey;' type="button" class="btn btn-sm">
+                        Yeni Senet
+                    </a>
+
+
+                </div>
+                <div class="ibox-content">
+
+                    <table class="table table-striped table-bordered table-hover dataTables-example" id="example" style=" width: 100%">
+                        <thead>
+                            <tr>
+                                <th>Durumu</th>
+                                <th>Bordro Tipi</th>
+                                <th>Bordro Numarası</th>
+                                <th>İşlem Numarası</th>
+                                <th>Seri Numarası</th>
+                                <th>Vade Tarihi</th>
+                                <th>Cari</th>
+                                <th>Borçlu/Alacaklı </th>
+                                <th>Tutar</th>
+                                <th>PB</th>
+                                <th>Çek Bankası</th>
+                                <th>Açıklama</th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+@section Styles {
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @Styles.Render("~/plugins/dateRangeStyles")
+    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @Styles.Render("~/plugins/dataPickerStyles")
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/plugins/tagInputsStyles")
+    @Styles.Render("~/plugins/duallistStyles")
+}
+
+@section Scripts {
+    @* @Scripts.Render("~/plugins/dataTables")*@
+    <script src="~/Content/DataTables/datatables.js"></script>
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @Scripts.Render("~/plugins/dateRange")
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/tagInputs")
+    @Scripts.Render("~/plugins/duallist")
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+    <script src="~/multiselect.min.js"></script>
+    <script src="~/Scripts/moment-with-locales.js"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+
+    <script type="text/javascript">
+
+        var oTable;
+        //$.fn.dataTableExt.afnFiltering.push(
+            
+        //        function (oSettings, aData, iDataIndex) {
+        //            var min = moment(document.getElementById('min').value).format('YYYY.MM.DD');
+        //            var max = moment(document.getElementById('max').value).format('YYYY.MM.DD');
+
+
+
+        //            var iStartDateCol = 13;
+        //            var iEndDateCol = 13;
+
+        //            min = min.substring(0, 4) + min.substring(5, 7) + min.substring(8, 10);
+        //            max = max.substring(0, 4) + max.substring(5, 7) + max.substring(8, 10);
+        //            var datofini = aData[iStartDateCol].substring(6, 10) + aData[iStartDateCol].substring(3, 5) + aData[iStartDateCol].substring(0, 2);
+
+        //            var genel = true;
+                    
+        //            if (min > datofini && max == "") {
+
+        //                genel = false;
+        //            }
+        //            else if (max < datofini && min == "") {
+
+        //                genel = false;
+        //            }
+        //            else if (min > datofini || max < datofini) {
+        //                genel = false;
+        //            }
+
+                 
+        //            var id = $("#Durumu").val();
+        //            var column = aData[0];
+        //            if (id == "Tüm Durumlar") {
+
+        //            }
+        //            else if (id != column) {
+        //                genel = false;
+        //            }
+                    
+
+
+
+        //            var id2 = $("#EvrakTipi").val();
+        //            var column2 = aData[1];
+        //            if (id2 == "Tüm Evraklar") {
+
+        //            }
+        //            else if (id2 != column2) {
+        //                genel = false;
+        //            }
+                   
+
+        //            var id3 = $("#PersonelTeknik").val();
+
+
+        //            var column3 = aData[14];
+
+
+        //            if (id3 === "" && column3 === "") {
+
+        //            } else if (id3 == "") {
+
+        //            } else if (id3 != column3) {
+        //                genel = false;
+        //            }
+                    
+        //            return genel;
+
+        //        }
+
+            
+        //);
+
+
+        function Goster(id) {
+
+            window.location.href = "/Payroll/YeniCekSenet?id=0&cek=" + id;
+
+        }
+
+        function FiltreGonder() {
+            oTable.ajax.reload();
+
+            //var obj = {
+            //    BaslangicT: $("#min").val(),
+            //    BitisT: $("#max").val(),
+            //    EvrakTipi: $("#EvrakTipi").val(),
+            //    CekDurumu: $("#Durumu").val(),
+            //    Personel: $("#PersonelTeknik").val(),
+            //    Cariler: $("#CariID").val(),
+            //    ParaBirimi: $("#PB").val(),
+            //    OzelKod: $("#OzelKodID").val(),
+            //};
+            
+
+
+            //$.ajax({
+            //    type: "POST",
+            //    url: '/Payroll/GetCekler',
+            //    data: { ck: obj},
+                
+            //    dataType: "json",
+
+            //    success: function (g) {
+            //        oTable.draw();
+            //    },
+            //    error: function () {
+            //        swal("Hata", "HATA OLUŞTU!", "error");
+            //    }
+
+            //});
+        };
+
+
+        function Delete(id) {
+
+            swal({
+                title: "[Silme Onayı]",
+                text: "Seçili çeki silmek istediğinizden emin misiniz?",
+                icon: "warning",
+                dangerMode: true,
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                cancelButtonText: "Hayır",
+                confirmButtonText: "Evet",
+                closeOnCancel: true,
+                closeOnConfirm: true,
+
+                preConfirm: function () {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("DeleteCek", "Payroll")/' + id,
+                        success: function (data) {
+                            if (data.success) {
+                                oTable.ajax.reload();
+
+                            }
+                        }
+
+                    });
+                }
+
+            })
+        }
+
+
+        $(document).ready(function () {
+
+            //$("#min").change(function () {
+            //    var end = this.value;
+            //    alert(end);
+            //    oTable.draw();
+
+            //});
+            //$("#max").change(function () {
+            //    var end = this.value;
+            //    alert(this.value);
+            //    oTable.draw();
+
+            //});
+            //$("#Durumu").change(function () {
+            //    var end = this.value;
+            //    alert(this.value);
+            //    oTable.draw();
+
+            //});
+            //$("#EvrakTipi").change(function () {
+            //    var end = this.value;
+            //    alert(this.value);
+            //    oTable.draw();
+
+            //});
+            //$("#PersonelTeknik").change(function () {
+            //    var end = this.value;
+            //    alert(this.value);
+            //    oTable.draw();
+
+            //});
+
+            $(".select2_demo_3").select2({
+                allowClear: true
+            });
+            
+
+            var obj1 = {
+                BaslangicT: $("#min").val(),
+                BitisT: $("#max").val(),
+                EvrakTipi: $("#EvrakTipi").val(),
+                CekDurumu: $("#Durumu").val(),
+                Personel: $("#PersonelTeknik").val(),
+                Cariler: $("#CariID").val(),
+                ParaBirimi: $("#PB").val(),
+                OzelKod: $("#OzelKodID").val(),
+            };
+
+            oTable = $('.dataTables-example').DataTable({
+
+
+                "scrollX": true,
+                pageLength: 25,
+                "ajax": {
+                    "url": "/Payroll/GetCekler",
+                    "type": "GET",
+                    "datatype": "json",
+                    data: {
+                        tarih1: function () { return $('#min').val() },
+                        tarih2: function () { return $('#max').val() },
+                        EvrakTipi: function () { return $('#EvrakTipi').val() },
+                        CekDurum: function () { return $('#Durumu').val() },
+                        Personel: function () { return $('#PersonelTeknik').val() },
+                        Cariler: function () { return $('#CariID').val() },
+                        PB: function () { return $('#PB').val() },
+                        OzelKod: function () { return $('#OzelKodID').val() },
+                    },
+                },
+                buttons: true,
+                dom: '<"html5buttons"B>lTfgit',
+                "columns": [
+
+                    {
+                        "data":"Durumu"
+                    },
+                    {
+                       "data": "BordroTipi"
+                    },
+                    {
+                        "data": "BordroNumarasi"
+                    },
+                    {
+                        "data": "IslemNumarasi"
+                    },
+                    {
+                        "data": "SeriNumarasi"
+
+                    },
+                    {
+                        "data": "VadeTarihi"
+                    },
+                    {
+                        "data": "Cari"
+                    },
+                    {
+                        "data": "BorcluAlacakli"
+                    },
+                    {
+                        "data": "Tutar", className: "text-right"
+                    },
+                   
+                    {
+                        "data": "PB"
+                    },
+                    {
+                        "data": "CekBankasi"
+                    },
+                    {
+                        "data": "Aciklama",
+                    },
+                    {
+                        "data": null, "render": function (data, type, row) {
+
+                            return " <div class='btn-group'> "+
+
+                                "<a onclick=Goster(" + row.ID + ") style='color:black' class='btn-warning btn btn-xs '>Düzenle</a>" +
+                                "<a onclick=Delete(" + row.ID + ") style='color:white;margin-left:2px' class='btn-danger btn btn-xs'>Sil</a></div>" +
+                                "<a onclick=Yazdır(" + row.ID + ") style='color:white;margin-left:2px' class='btn-primary btn btn-xs'>Yazdır</a></div>"
+                            "</div>";
+
+
+
+                        },
+
+                     },
+                     {
+                        "data": "IslemTarihiF", "visible": false
+                    },
+                    {
+                        "data": "PersonelAdi", "visible": false
+                    },
+
+
+                ],
+
+
+
+                "language": {
+                    "sDecimal": ",",
+                    "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                    "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                    "sInfoEmpty": "Kayıt yok",
+                    "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                    "sLoadingRecords": "Yükleniyor...",
+                    "sProcessing": "İşleniyor...",
+                    "sSearch": "Ara:",
+                    "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                    "oPaginate": {
+                        "sFirst": "İlk",
+                        "sLast": "Son",
+                        "sNext": "Sonraki",
+                        "sPrevious": "Önceki"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                        "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                    },
+                    "select": {
+                        "rows": {
+                            "_": "%d kayıt seçildi",
+                            "0": "",
+                            "1": "1 kayıt seçildi"
+                        }
+                    }
+                },
+
+                 buttons: [
+
+                    { extend: 'excel', title: 'ExampleFile' },
+                    { extend: 'pdf', title: 'ExampleFile' },
+
+
+                ]
+
+            });
+            $('#example tbody').on('dblclick', 'tr', function () {
+
+                var data = oTable.row(this).data();
+
+
+                Goster(data.ID);
+
+            });
+
+
+        });
+
+    </script>
+
+
+
+}

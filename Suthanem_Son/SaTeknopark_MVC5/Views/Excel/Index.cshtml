@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Cari Excel Aktarımı";
+}
+<div class="content">
+    <h2><b>@ViewBag.Marka</b> </h2>
+    <div>Aktarmak istediğiniz excel  dosyasını seçin.</div>
+    <br />
+    @using (Html.BeginForm("Index", "Excel", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="Dosya" id="Dosya" /><br />
+        <input style="display:none" name="ID" id="ID" value="@ViewBag.MarkaID" class="btn btn-success" />
+        <input type="submit" value="BAŞVURULARI SİSTEME AKTAR" class="btn btn-primary btn-sm" />
+    }
+    <br />
+    <div>
+        @ViewBag.Sayi <br/>
+    </div>
+    <div>
+        @ViewBag.Aktarilan<br />
+    </div>
+    <div>
+        <b> @ViewBag.Success </b><br />
+    </div>
+ 
+
+</div>

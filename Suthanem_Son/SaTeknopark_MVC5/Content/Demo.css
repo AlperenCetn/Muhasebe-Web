@@ -1,0 +1,18 @@
+﻿text2 {
+  font-size: 30px;
+  font-weight: 900;
+  animation: hello 0.5s ease-in-out infinite;
+  text-align: center;
+}
+
+@keyframes hello {
+  0% {
+    font-weight: 100;
+  }
+  50% {
+    font-weight: 900;
+  }
+  100% {
+    font-weight: 100;
+  }
+}

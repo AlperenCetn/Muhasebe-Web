@@ -1,0 +1,861 @@
+﻿
+@model SaTeknopark_MVC5.Models.PAYROLL
+@{
+    ViewBag.Title = "Yeni Çek Ödeme - Bankadan";
+    string class1 = "col-lg-12";
+    string disabled = "";
+}
+@*<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h3></h3>
+        <ol class="breadcrumb">
+
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("OnMuhasebeAnaSayfa", "AnaSayfa")">Anasayfa</a>
+            </li>
+
+            <li class="active breadcrumb-item">
+
+                <strong style="color : black">@ViewBag.Title</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>*@
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+
+
+    <div class="row pb-4">
+        <div class="@class1">
+            <div class="tabs-container" style="box-shadow: 8px 14px 12px gray">
+
+                <div id="tab-1" class="active">
+                    <div class="panel-body">
+
+                        <div id="veri">
+
+                            <div class="row">
+                                <div class="offset-4 col-8">
+                                    <button type="button" style="float:right;" class="nakitSatis btn btn-lg btn-outline-primary">Kaydet <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                                    <button type="button" onclick="btnVazgec()" style="float:right;" class="btn btn btn-lg pull-right btn-outline-danger">Vazgeç <i class="fa fa-close"></i></button>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-group row">
+
+
+                                <div class="col-sm-6 col-md-4">
+                                    <label for="Depo" class="col-form-label">Evrak Tipi</label>
+
+
+                                    @Html.DropDownList("BordroTipi", new List<SelectListItem>
+                                            {
+                                            new SelectListItem { Text="Çekimiz", Value="Çekimiz", Selected=true},
+                                            new SelectListItem { Text="Senedimiz", Value="Senedimiz"},
+                                            }, new
+                                            {
+                                                @id = "BordroTipi",
+                                                @class = "form-control",
+
+                                            })
+                                </div>
+
+
+                                <div class="col-sm-6 col-md-2">
+                                    <label for="Depo" class="col-form-label">İşlem Numarası</label>
+
+                                    <input value="@ViewBag.CekSiradaki" id="IslemNumarasi" name="IslemNumarasi" type="text" class="form-control">
+                                    
+                                </div>
+
+
+                                <div class="col-sm-6 col-md-3">
+                                    <label for="Depo" class="col-form-label">İşlem Tarihi</label>
+
+                                    <input type="date" id="IslemTarihi" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="IslemTarihi">
+                                   
+                                </div>
+
+
+                                <div class="col-sm-6 col-md-3">
+                                    <label for="Depo" class="col-form-label">Vade Baz Tarihi</label>
+
+                                    <input type="date" id="VadeBazTarihi" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="VadeBazTarihi">
+                                 
+                                </div>
+
+                                <div class="col-md-4 pt-3">
+                                    <div class="form-group">
+                                        <label>Personel</label>
+                                        
+                                        @Html.DropDownList("PersonelID", new SelectList(AyarMetot.Personeller(Session["FirmaID"].ToString()), "Value", "Text", Session["PersonelID"].ToString()), new { @id = "PersonelID", @class = "form-control col-lg-12", @style = "color:black" })
+                                       
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-2 pt-3">
+                                    <label>Para Birimi</label>
+                                    <div class="form-group">
+                                        @if (Model.ID == 0)
+                                        {
+                                            @Html.DropDownList("Para Birimi", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", "TL"), new { @id = "paraBirimi", @class = "form-control col-lg-12" })
+                                        }
+                                        else
+                                        {
+                                            @Html.DropDownList("Para Birimi", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", @Model.ParaBirimi), new { @id = "paraBirimi", @class = "form-control col-lg-12" })
+
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-md-3 pt-3">
+                                    <label>Banka</label>
+                                    <div class="form-group">
+                                        @if (Model.ID == 0)
+                                        {
+                                            @Html.DropDownList("BankaID", new SelectList(AyarMetot.Bankalar(Session["FirmaID"].ToString()), "Value", "Text", 1), new { @id = "BankaID", @class = "form-control col-lg-12", @style = "font-size : small" })
+                                        }
+                                        else
+                                        {
+
+                                            @Html.DropDownList("BankaID", new SelectList(AyarMetot.Bankalar(Session["FirmaID"].ToString()), "Value", "Text", @ViewBag.CekDurum), new { @id = "BankaID", @class = "form-control col-lg-12", @style = "font-size : small" })
+
+                                        }
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 pt-3">
+                                    <label>Açıklama</label>
+                                    <div class="form-group">
+                                        @if (Model.ID == 0)
+                                        {
+                                            <input id="aciklama" name="aciklama" type="text" class="form-control" value="">
+                                        }
+                                        else
+                                        {
+                                            <input id="aciklama" name="aciklama" type="text" class="form-control" value="@Model.Aciklama">
+
+                                        }
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+
+                            @if (Model.ID != 0)
+                            {
+                                <div class="col-md-3 px-1">
+                                    <div class="form-group">
+                                        @Html.Hidden("cID", Model.ID)
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-md-3 px-1">
+                                    <div class="form-group">
+                                        @Html.Hidden("cID", -1)
+                                    </div>
+                                </div>
+                            }
+
+                            <br />
+
+
+                            <hr />
+
+
+                            <h4 class="py-3">ÇEK / SENET EKLE</h4>
+
+
+
+                            <div class="pt-1 col-md-12 pl-0">
+                                <table id="example1" class="display table table-striped table-hover pl-0" style="width:100%;">
+                                    <thead style="color:white; background-color:#547475; text-align:center">
+                                        <tr>
+
+                                            <th>Durumu</th>
+                                            <th>Bordro Tipi</th>
+                                            <th>Bordro Numarası</th>
+                                            <th>İşlem Numarası</th>
+                                            <th>Seri Numarası</th>
+                                            <th>Vade Tarihi</th>
+                                            <th>Cari</th>
+                                            <th>Borçlu/Alacaklı </th>
+                                            <th>Tutar</th>
+                                            <th>PB</th>
+                                            <th>Çek Bankası</th>
+                                            <th>Açıklama</th>
+                                            <th> </th>
+                                            <th> </th>
+                                            <th> </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody> </tbody>
+
+                                    <tfoot>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th class="py-3 pr-0" style="float:right">
+                                                <div class="col-md-12" style="width:100%">
+                                                    <button id="CekEkle" class="btn btn-outline-info btn-lg" style="width:100px">Ekle</button>
+                                                </div>
+
+                                            </th>
+                                            <th></th>
+                                            <th></th>
+                                            <th> </th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+
+
+
+                            <div class="pt-5 col-md-12 pl-0">
+                                <table id="example" class="display table table-striped table-hover" style="width:100%">
+                                    <thead style="color:white; background-color:cadetblue; text-align:center">
+                                        <tr>
+                                            <th style="width:7%">Vade Tarihi</th>
+                                            <th style="width:7%">Portföy No</th>
+                                            <th style="width:7%">Ciro</th>
+                                            <th style="width:7%">Kesideci</th>
+                                            <th style="width:7%">Tutar</th>
+                                            <th style="width:7%">Seri No</th>
+                                            <th style="width:7%">Banka</th>
+                                            <th style="width:7%">Şube Adı</th>
+                                            <th style="width:7%">Ödeme Yeri</th>
+                                            <th style="width:7%">Banka Hesap No</th>
+                                            <th style="width:7%">Kasideci Tel</th>
+                                            <th style="width:7%">Sil</th>
+                                            <th style="width:5%; display:none">ID</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+
+                                        @if (Model.ID == 0)
+                                        { }
+                                        else
+                                        {
+                                            foreach (var item in ViewBag.pyList)
+                                            {
+
+                                                <tr>
+                                                    <td style="width:7%"><input style="font-size:" type="date" class="vadetarihi form-control" value=@Convert.ToDateTime(item.VadeTarih).ToString("yyyy-MM-dd")></td>
+                                                    <td style="width:7%"><input style="font-size:" type="text" class="portfoyno form-control" value=@item.PortfoyNo></td>
+                                                    <td style="width:7%"><input style="font-size:" type="text" class="ciro form-control" value=@item.Ciro></td>
+                                                    <td style="width:7%"><input style="font-size:" type="text" class="kesideci form-control" value=@item.CariUnvan></td>
+                                                    <td style="width:7%"><input style="font-size:" type="text" class="tutar form-control" value=@item.Tutar.ToString().Replace(".",String.Empty).Replace(",",".")></td>
+                                                    <td style="width:7%"><input style="font-size:" type="text" class="serino form-control" value=@item.SeriNo></td>
+                                                    <td style="width:7%"><input style="font-size:" type="text" class="banka form-control" value=@item.BankaAdi></td>
+                                                    <td style="width:7%"><input style="font-size:" type="text" class="subeadi form-control" value=@item.SubeAdi></td>
+                                                    <td style="width:7%"><input style="font-size:" type="text" class="odemeyeri form-control" value=@item.OdemeYeri></td>
+                                                    <td style="width:7%"><input style="font-size:" type="text" class="bankahesapno form-control" value=@item.CekBankaHesapNo></td>
+                                                    <td style="width:7%"><input style="font-size:" type="text" class="kesidecitel form-control" value=@item.KesideciTel></td>
+                                                    <td style="width:7%">
+                                                        <button style='background-color:indianred;margin:0px' type='button' value="@item.ID" class='btn btn-md btn-danger  sepetSil'> SİL   <i class='fa fa-trash' aria-hidden='true'></i></button>
+                                                    </td>
+
+                                                    <td style="width:5%; display:none"><button style='background-color:transparent;margin:0px' type='button' value='@item.ID' class='btn  SatirID'>@item.ID</button></td>
+                                                </tr>
+                                            }
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <br />
+                        </div>
+
+
+                        <br />
+                        <div class="row">
+                            <div class="offset-4 col-8">
+                                <button id="btnKaydet" type="button" style="float:right;" class="nakitSatis btn btn-lg btn-outline-primary">Kaydet <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                                <button type="button" onclick="btnVazgec()" style="float:right;" class="btn btn btn-lg pull-right btn-outline-danger">Vazgeç <i class="fa fa-close"></i></button>
+                            </div>
+                        </div>
+                        <div style="display:none" id="demo"></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+@section Styles {
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/select2Styles")
+
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/plugins/select2")
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+    <script src="~/Scripts/mask.js"></script>
+    <script src="~/Scripts/musteri.js"></script>
+
+
+    <script type="text/javascript">
+
+        var t;
+        var oTable;
+
+        function RaporGoster(id, type) {
+
+
+            var win = null;
+
+
+            if (type == "SI" || type == "YI") {
+
+                win = window.open("/Adv/IrsaliyeYazdir?ID=" + id);
+
+            } else if (type == "DI") {
+
+                win = window.open("/Adv/DepoIslemYazdir?ID=" + id);
+
+            } else if (type == "T" || type == "G" || type == "KKT") {
+
+                win = window.open("/Adv/TahsilatYazdir?ID=" + id);
+
+            }
+            win.focus();
+
+        }
+
+        function btnVazgec() {
+            swal({
+                title: "İPTAL",
+                text: "İşlemleriniz kaydedilmedi. Çıkmak istediğinize emin misiniz?",
+                icon: "warning",
+                dangerMode: true,
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                cancelButtonText: "Hayır",
+                confirmButtonText: "Evet",
+                closeOnCancel: true,
+                closeOnConfirm: true,
+
+                preConfirm: function () {
+                    window.history.back();
+
+                }
+
+            });
+
+        }
+
+
+        function CariGetir(id) {
+            $.ajax({
+                type: "GET",
+                "datatype": "json",
+                url: '@Url.Action("CariBilgi", "Tables")/' + id,
+                success: function (gt) {
+                    if (gt.success) {
+                        $("#Kesideci").val(gt.data.CariUnvan);
+
+                    }
+                }
+
+            });
+
+        }
+
+
+        $("#example").on("click", ".sepetSil", function () {
+            var row = $(this).closest('tr');
+
+
+            swal({
+                title: "[Silme Onayı]",
+                text: "Seçili kaydı silmek istediğinizden emin misiniz?",
+                icon: "warning",
+                dangerMode: true,
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                cancelButtonText: "Hayır",
+                confirmButtonText: "Evet",
+                closeOnCancel: true,
+                closeOnConfirm: true,
+
+                preConfirm: function () {
+
+
+                    row.fadeOut(500,
+                        function() {
+                            row.remove();
+                        });
+
+                }
+
+            });
+
+        });
+
+
+        $(document).on("click", ".nakitSatis", function () {
+
+            $(".nakitSatis").disable = false;
+            var kaydet = true;
+
+
+            if ($("#BordroTipi").val() == "" || $("#BordroTipi").val() == "0" || $("#BordroTipi").val() == null) {
+                swal("Uyarı", "Lütfen Bordro Tipi Seçiniz", "warning");
+                kaydet = false;
+            }
+            if (!t.data().count()) {
+                swal("Uyarı", "Çek Eklemediniz. Lütfen en az bir tane çek ekleyiniz", "warning");
+                kaydet = false;
+            }
+
+
+            if (kaydet) {
+                var satir = [];
+
+                var obj3;
+                var obj1;
+                var i = 0;
+                $("#example tbody tr").each(function () {
+
+                    if (i == 0) {
+                        obj1 = null;
+                        obj3 = null;
+                        $("#demo").text("");
+                    }
+                    i++;
+
+
+                    if (obj3 == null) {
+
+                        obj1 = {
+                            VadeTarih: $(this).find("td:eq(0) .vadetarihi").val(),
+                            PortfoyNo: $(this).find("td:eq(1) .portfoyno").val(),
+                            Ciro: $(this).find("td:eq(2) .ciro").val(),
+                            KesideciUnvan: $(this).find("td:eq(3) .kesideci").val(),
+                            Tutar: $(this).find("td:eq(4) .tutar").val(),
+                            SeriNo: $(this).find("td:eq(5) .serino").val(),
+                            BankaAdi: $(this).find("td:eq(6) .banka").val(),
+                            SubeAdi: $(this).find("td:eq(7) .subeadi").val(),
+                            OdemeYeri: $(this).find("td:eq(8) .odemeyeri").val(),
+                            CekBankaHesapNo: $(this).find("td:eq(9) .bankahesapno").val(),
+                            KesideciTel: $(this).find("td:eq(10) .kesidecitel").val(),
+
+                            ID: $(this).find("td:eq(12) .SatirID").val(),
+                        };
+                        obj3 = obj1;
+                        $("#demo").append(JSON.stringify(obj3));
+
+                    } else {
+
+                        var obj2 = {
+                            VadeTarih: $(this).find("td:eq(0) .vadetarihi").val(),
+                            PortfoyNo: $(this).find("td:eq(1) .portfoyno").val(),
+                            Ciro: $(this).find("td:eq(2) .ciro").val(),
+                            KesideciUnvan: $(this).find("td:eq(3) .kesideci").val(),
+                            Tutar: $(this).find("td:eq(4) .tutar").val(),
+                            SeriNo: $(this).find("td:eq(5) .serino").val(),
+                            BankaAdi: $(this).find("td:eq(6) .banka").val(),
+                            SubeAdi: $(this).find("td:eq(7) .subeadi").val(),
+                            OdemeYeri: $(this).find("td:eq(8) .odemeyeri").val(),
+                            CekBankaHesapNo: $(this).find("td:eq(9) .bankahesapno").val(),
+                            KesideciTel: $(this).find("td:eq(10) .kesidecitel").val(),
+
+                            ID: $(this).find("td:eq(12) .SatirID").val(),
+                        };
+
+                        $.extend(true, obj1, obj2);
+                        obj3 = obj1;
+
+                        $("#demo").append("," + JSON.stringify(obj3));
+
+                    }
+                });
+
+                var json = $("#demo").text();
+
+                var obj = {
+                    ID: $("#cID").val(),
+                    IslemNo: $("#IslemNumarasi").val(),
+                    BankaIDOT: $("#BankaID").val(),
+                    IslemTarih: $("#IslemTarihi").val(),
+                    OrtalamaVade: $("#VadeBazTarihi").val(),
+                    PersonelID: $("#PersonelID").val(),
+                    ParaBirimi: $("#paraBirimi").val(),
+                    Aciklama: $("#aciklama").val(),
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: '/Payroll/YeniOdemeKasa',
+                    data: { data: obj, json: json },
+
+                    dataType: "json",
+
+                    success: function (g) {
+                        if (g.sonuc == "1") {
+
+                            swal({
+                                title: "Başarılı!",
+                                text: g.Message,
+                                type: "success"
+                            })
+                            window.location.href = "/Payroll/Bordrolar";
+
+                        } else if (g.sonuc == "0") {
+                            swal("Hata", "Kaydedilemedi", "success");
+                        } else if (g.sonuc == "2") {
+                            swal("Uyarı", g.Message, "warning");
+                        }
+                    },
+                    error: function () {
+                        swal("Hata", "HATA OLUŞTU!", "error");
+                    }
+
+                });
+            }
+
+        });
+
+        function CekTemizle() {
+            $("#PortfoyNumarasi").val("");
+            $("#Tutar4").val("0,00");
+            $("#SeriNo").val("");
+            $("#Banka").val("");
+            $("#SubeAdi").val("");
+            $("#OdemeYeri").val("");
+            $("#BankaHesapNo").val("");
+            $("#KasideciTel").val("");
+        }
+
+
+        $(document).ready(function () {
+
+            $(".select2_demo_1").select2();
+            $(".select2_demo_2").select2();
+            $(".select2_demo_3").select2({
+                placeholder: "Seçiniz",
+                allowClear: true
+            });
+
+
+            t = $('#example').DataTable({
+                "scrollX": true,
+                dom: 't',
+                ordering: false,
+
+                "language": {
+                    "sDecimal": ",",
+                    "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                    "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                    "sInfoEmpty": "Kayıt yok",
+                    "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                    "sLoadingRecords": "Yükleniyor...",
+                    "sProcessing": "İşleniyor...",
+                    "sSearch": "Ara:",
+                    "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                    "oPaginate": {
+                        "sFirst": "İlk",
+                        "sLast": "Son",
+                        "sNext": "Sonraki",
+                        "sPrevious": "Önceki"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                        "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                    },
+                    "select": {
+                        "rows": {
+                            "_": "%d kayıt seçildi",
+                            "0": "",
+                            "1": "1 kayıt seçildi"
+                        }
+                    }
+                },
+            });
+
+            $(document).on("click", "#addRow", function (event) {
+
+                var geneltoplam = 0;
+                var kaydet = true;
+                var id = $(event.target).closest("ab").attr('id');
+
+                var VadeTarihi = $("#VadeTarihiCS").val();
+                var PortfoyNo = $("#PortfoyNumarasi").val();
+                var Ciro = $("#Ciro :selected").text();
+                var Kesideci = $("#Kesideci").val();
+                var Tutar = $("#Tutar4").val();
+                var SeriNo = $("#SeriNo").val();
+                var Banka = $("#Banka").val();
+                var SubeAdi = $("#SubeAdi").val();
+                var OdemeYeri = $("#OdemeYeri").val();
+                var BankaHesapNo = $("#BankaHesapNo").val();
+                var KesideciTel = $("#KasideciTel").val();
+
+
+                if (SeriNo != "" || Banka != "" || SubeAdi != "" || Tutar != "0.00") {
+                    if (kaydet) {
+
+                        document.getElementById("example").style.display = "block";
+
+                        var row = $(this).closest("tr");
+
+                        t.row.add([
+                            '<input disabled  style="" type="text" class="vadetarihi form-control" value="' + VadeTarihi + '" />',
+                            '<input style="font-size:" type="text" class="portfoyno form-control" value="' + PortfoyNo + '" />',
+                            '<input disabled style="font-size:" type="text" class="ciro form-control " value="' + Ciro + '" />',
+                            '<input  style="font-size:" type="text" class=" kesideci form-control" value="' + Kesideci + '" />',
+                            '<input  style="font-size:" type="text" class="tutar form-control" value="' + Tutar + '" />',
+                            '<input style="font-size:" type="text" class="serino form-control" value="' + SeriNo + '" />',
+                            '<input style="font-size:" type="text" class="banka form-control" value="' + Banka + '" />',
+                            '<input style="font-size:" type="text" class="subeadi form-control" value="' + SubeAdi + '" />',
+                            '<input style="font-size:" type="text" class="odemeyeri form-control" value="' + OdemeYeri + '" />',
+                            '<input style="font-size:" type="text" class="bankahesapno form-control" value="' + BankaHesapNo + '" />',
+                            '<input style="font-size:" type="text" class="kesidecitel form-control" value="' + KesideciTel + '" />',
+                            '<button style="background-color:indianred;margin:0px" type="button" value="' + id + '" class="btn btn-md btn-danger  sepetSil"> SİL   <i class="fa fa-trash" aria-hidden="true"></i></button>',
+                            '<button  style="background-color:indianred;margin:0px ; display:none ;" type="button" value="-1" class="btn btn-md btn-danger  SatirID"> -1   <i class="fa fa-trash" aria-hidden="true"></i></button>',
+
+                        ]).draw(false);
+                    }
+                } else {
+
+                    swal("Uyarı", "* ile işaretlenmiş alanlar boş bırakılamaz.", "warning");
+                }
+                CekTemizle();
+            });
+
+
+            oTable = $('#example1').DataTable({
+                "scrollX": true,
+                "ajax": {
+                    "url": "/Payroll/GetOCekler",
+                    "type": "GET",
+                    "datatype": "json",
+                    data: {
+                        durum: "OdemeBanka",
+                        Btip: function () { return $('#BordroTipi').val() },
+                    },
+                },
+
+                dom: 'ft',
+                "columns": [
+
+                    {
+                        "data": "Durumu"
+                    },
+                    {
+                        "data": "BordroTipi"
+                    },
+                    {
+                        "data": "BordroNumarasi"
+                    },
+                    {
+                        "data": "IslemNumarasi"
+                    },
+                    {
+                        "data": "SeriNumarasi"
+
+                    },
+                    {
+                        "data": "VadeTarihi"
+                    },
+                    {
+                        "data": "Cari"
+                    },
+                    {
+                        "data": "BorcluAlacakli"
+                    },
+                    {
+                        "data": "Tutar", className: "text-right"
+                    },
+
+                    {
+                        "data": "PB"
+                    },
+                    {
+                        "data": "CekBankasi"
+                    },
+                    {
+                        "data": "Aciklama",
+                    },
+                    {
+                        "data": "IslemTarihiF", "visible": false
+                    },
+                    {
+                        "data": "PersonelAdi", "visible": false
+                    },
+                    {
+                        "data": "ID", "visible": false
+                    },
+
+                ],
+
+                "language": {
+                    "sDecimal": ",",
+                    "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                    "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                    "sInfoEmpty": "Kayıt yok",
+                    "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                    "sLoadingRecords": "Yükleniyor...",
+                    "sProcessing": "İşleniyor...",
+                    "sSearch": "Ara:",
+                    "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                    "oPaginate": {
+                        "sFirst": "İlk",
+                        "sLast": "Son",
+                        "sNext": "Sonraki",
+                        "sPrevious": "Önceki"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                        "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                    },
+                    "select": {
+                        "rows": {
+                            "_": "%d kayıt seçildi",
+                            "0": "",
+                            "1": "1 kayıt seçildi"
+                        }
+                    }
+                }
+
+            });
+
+
+            $('#example1 tbody').on('click', 'tr', function () {
+                $(this).toggleClass('selected');
+
+            });
+
+            $("#BordroTipi").change(function () {
+
+                oTable.ajax.reload();
+
+            });
+
+        });
+
+        $('#CekEkle').click(function () {
+
+
+            $("#example1 tbody tr").each(function () {
+
+                var d = oTable.row(this).data();
+
+                if ($(this).hasClass('selected')) {
+                    $.ajax({
+                        type: "GET",
+                        "datatype": "json",
+                        url: '/Payroll/CekBilgi?id=' + d.ID,
+                        success: function (gt) {
+                            if (gt.success) {
+
+
+                                var VadeTarihi = gt.vade;
+                                var PortfoyNo = gt.cs.PortfoyNo;
+                                var Ciro = gt.cs.Ciro;
+                                var Kesideci = gt.cs.KesideciUnvan;
+                                var Tutar = gt.cs.Tutar;
+                                var SeriNo = gt.cs.SeriNo;
+                                var Banka = gt.cs.BankaAdi;
+                                var SubeAdi = gt.cs.SubeAdi;
+                                var OdemeYeri = gt.cs.OdemeYeri;
+                                var BankaHesapNo = gt.cs.CekBankaHesapNo;
+                                var KesideciTel = gt.cs.KesideciTel;
+
+                                t.row.add([
+                                    '<input disabled  style="" type="text" class="vadetarihi form-control" value="' + VadeTarihi + '" />',
+                                    '<input style="font-size:" type="text" class="portfoyno form-control" value="' + PortfoyNo + '" />',
+                                    '<input disabled style="font-size:" type="text" class="ciro form-control " value="' + Ciro + '" />',
+                                    '<input  style="font-size:" type="text" class=" kesideci form-control" value="' + Kesideci + '" />',
+                                    '<input  style="font-size:" type="text" class="tutar form-control" value="' + Tutar + '" />',
+                                    '<input style="font-size:" type="text" class="serino form-control" value="' + SeriNo + '" />',
+                                    '<input style="font-size:" type="text" class="banka form-control" value="' + Banka + '" />',
+                                    '<input style="font-size:" type="text" class="subeadi form-control" value="' + SubeAdi + '" />',
+                                    '<input style="font-size:" type="text" class="odemeyeri form-control" value="' + OdemeYeri + '" />',
+                                    '<input style="font-size:" type="text" class="bankahesapno form-control" value="' + BankaHesapNo + '" />',
+                                    '<input style="font-size:" type="text" class="kesidecitel form-control" value="' + KesideciTel + '" />',
+                                    '<button style="background-color:indianred;margin:0px" type="button" value="' + d.ID + '" class="btn btn-md btn-danger  sepetSil"> SİL   <i class="fa fa-trash" aria-hidden="true"></i></button>',
+                                    '<button  style="background-color:indianred;margin:0px ; display:none ;" type="button" value="' + d.ID + '" class="btn btn-md btn-danger  SatirID"> -1   <i class="fa fa-trash" aria-hidden="true"></i></button>',
+
+                                ]).draw(false);
+
+                            }
+                        }
+                    });
+                    var row = $(this).closest('tr');
+                    row.fadeOut(500,
+                        function () {
+                            row.remove();
+                        });
+                }
+            });
+
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            }
+            else {
+                oTable.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+
+    </script>
+}
+
+<style>
+    #example1 tbody tr.selected {
+        color: black;
+        background-color: #9fe9e0;
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

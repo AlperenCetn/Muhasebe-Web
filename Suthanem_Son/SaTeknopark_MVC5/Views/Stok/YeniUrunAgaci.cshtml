@@ -1,0 +1,512 @@
+﻿
+@using DevComponents.DotNetBar
+@model SaTeknopark_MVC5.Models.TREE_PRODUCT
+@{
+    string kapat = "display:none;";
+
+    ViewBag.Title = "Yeni Ürün Ağacı";
+}
+
+<style>
+    .gosterme {
+        display: none;
+    }
+</style>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+
+
+    <div class="row">
+        <div class="" style="width:100%">
+            <div class="tabs-container" style="width: 100%">
+                <ul class="nav nav-tabs">
+                    <li><a class="nav-link active" data-toggle="tab" href="#tab-1"></a></li>
+                </ul>
+                <div class="tab-content" style="width: 100%; box-shadow: 8px 14px 12px gray">
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="panel-body">
+
+                            <div id="veri">
+
+                                <div class="form-group row">
+                                    <label for="aciklama" class="col-3 col-form-label">Ana Ürün :</label>
+                                    <div class="col-9 px-1">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="fa fa-font"></i>
+                                                </div>
+                                            </div>
+                                           @if (Model.AgacID != 0)
+                                           {
+                                            @Html.DropDownList("AnaUrun", new SelectList(AyarMetot.StokList(Session["FirmaID"].ToString()), "Value", "Text", @Model.AgacID),
+                                                         new { @id = "AnaUrun", @class = "form-control custom-select ", @style = "" })
+                                           }
+                                           else
+
+                                           { @Html.DropDownList("AnaUrun", new SelectList(AyarMetot.StokList(Session["FirmaID"].ToString()), "Value", "Text"),
+                                               new { @id = "AnaUrun", @class = "form-control custom-select ", @style = "" })
+                                           }
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="aciklama" class="col-3 col-form-label">Açıklama :</label>
+                                    <div class="col-9 px-1">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="fa fa-font"></i>
+                                                </div>
+                                            </div>
+                                            <input id="aciklama" name="aciklama" type="text" class="form-control" value="@Model.Aciklama">
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                
+                                @if(Model.ID != 0)
+                                {
+                                    kapat = "";
+                                <div class="col-md-3 px-1">
+                                    <div class="form-group">
+                                        @Html.Hidden("cID", Model.ID)
+                                    </div>
+                                    
+                                </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-3 px-1">
+                                        <div class="form-group">
+                                            @Html.Hidden("cID", -1, new { @id = @Model.ID })
+                                        </div>
+                                    </div>
+                                }
+                                <br />
+
+
+                                <br />
+
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-3 px-1">
+                                        <b>Ürün</b> <br />@Html.DropDownList("StokKodu", new SelectList(AyarMetot.Urunler(Session["FirmaID"].ToString()), "Value", "Text"),
+"Tüm Ürünler", new { @id = "StokKodu", @class = "select2_demo_3 form-control", @style = "" })
+                                    </div>
+                                    <div class="col-sm-2 col-md-2 px-1">
+                                        <b>Barkod</b><br /><input id="Barkod" name="text" type="text" class="form-control">
+                                    </div>
+                                    <div class="col-sm-1 col-md-1 px-1">
+                                        <b>Miktar</b><br /><input required id="Miktar" name="text" placeholder="Miktar" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="1" value="1">
+                                    </div>
+                                    <div class="col-sm-1 col-md-1 px-1">
+                                        <b>Birim</b><br /><input value="Adet" id="Birim" name="text" type="text" class="birim form-control">
+                                    </div>
+                                    <div class="col-sm-1 col-md-1 px-1">
+                                        <b>Birim Fiyatı</b><br /><input onClick="this.setSelectionRange(0, this.value.length);" id="BirimFiyati" name="text" placeholder="BirimFiyati" type="text" class="digit form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="0.00">
+                                    </div>
+                             
+                                    <div class="col-sm-1 col-md-1 px-1">
+                                        <label> </label><br />
+                                        <button class="sepeteEkle btn btn-outline btn-lg btn-info px-1">EKLE <i class="fa fa-plus" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+                                <br />
+
+                                <div id="tblUrun" class="row" style="@kapat border-color:lightgray;margin-top:30px">
+                                    <div class="col-lg-11">
+                                        <table id="siparis" class="display" style="margin:0px; width:100%">
+                                            <thead style="font-size:smaller; color:maroon">
+                                                <tr>
+                                                    <th style="width:27%">Ürün</th>
+                                                    <th> Miktar</th>
+                                                    <th id="birimID" class="">Birim</th>
+                                                    <th class="">Birim Fiyat</th>
+                                  
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="font-weight:bold;">
+                                                @if (Model.ID != 0)
+                                                {
+                                                    int i = 0;
+                                                    List<SaTeknopark_MVC5.Models.FaturaDetaylariEk> sr =
+                                                    (List<SaTeknopark_MVC5.Models.FaturaDetaylariEk>)ViewBag.FaturaEk2;
+
+                                                    foreach (var item in ViewBag.Detay2)
+                                                    {
+
+
+                                                        decimal adet = Convert.ToDecimal(item.Miktar);
+                                                        decimal fiyat = Convert.ToDecimal(item.SatishFiyat);
+                                                       
+
+                                                        string UrunAdi = sr[i].UrunAdi;
+                                                        i++;
+
+                                                        <tr>
+
+                                                            <td><input disabled style="font-size:smaller" type="text" class=" urunadi form-control" value="@UrunAdi" /></td>
+                                                            <td><input style="font-size:smaller"  type="text" class="miktar form-control" value="@Convert.ToDecimal(item.Miktar).ToString("N2").Replace(".",String.Empty)" /></td>
+                                                            <td><input disabled style="font-size:smaller" type="text" class=" birim  form-control " value="@item.Birim" /></td>
+                                                            <td><input style="font-size:smaller" type="text"  class=" birimfiyat form-control" value="@Convert.ToDecimal(item.SatishFiyat).ToString("N2").Replace(".",String.Empty)" /></td>
+                       
+                                                            <td><button style="background-color:indianred;margin:0px" type="button" value="@item.UrunID" class="btn btn-md btn-danger  sepetSil"> SİL   <i class="fa fa-trash" aria-hidden="true"></i></button></td>
+                                                            <td><button style="background-color:indianred; margin: 0px; display : none" type="button" value="@item.ID" class="btn btn-md btn-danger  SatirID"> @item.ID   <i class="fa fa-trash" aria-hidden="true"></i></button></td>
+
+                                                        </tr>
+                                                    }
+                                                }
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            @*<div class="row">
+                                    <label>Genel Toplam</label>
+                                    <input value="" id="GenelToplam" placeholder="Genel Toplam"></input>
+                                </div>*@
+
+                            <br />
+                            <div class="row">
+                                <div class="offset-4 col-8">
+                                    <button id="btnKaydet" type="button" style="float:right;" class="nakitSatis btn btn-lg btn-outline-primary">Kaydet <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                                    <button type="button" onclick="btnVazgec()" style="float:right;" class="btn btn btn-lg pull-right btn-outline-danger">Vazgeç <i class="fa fa-close"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    </div>
+
+
+    @section Styles {
+
+        @Styles.Render("~/plugins/select2Styles")
+
+    }
+    @section Scripts {
+
+        @Scripts.Render("~/plugins/select2")
+
+
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+        <script src="~/Scripts/mask.js"></script>
+        <script src="~/Scripts/musteri.js"></script>
+
+        <script type="text/javascript">
+
+        function FiyatGetir(id, brk) {
+
+            $.ajax({
+                type: "GET",
+                "datatype": "json",
+                url: '/Tables/StokBilgi?id=' + id+'&Brk='+brk,
+                success: function (gt) {
+                    if (gt.success) {
+
+                        if (gt.kodbulundu) {
+                            
+                        } else {
+
+                            $("#StokKodu").select2("val", gt.data.ID);
+
+                        }
+
+                        $("#Birim").val(gt.data.Birimi);
+                        $("#BirimFiyati").val(Number(gt.data.SatishFiyat).toFixed(2).replace(".", ","));
+                    }
+                }
+
+            });
+
+        }
+
+        
+
+        function temizle() {
+            $("#StokKodu").select2("val", "0");
+            $("#Miktar").val("1");
+           
+            $("#Birim").val("Adet");
+            $("#BirimFiyati").val("0");
+   
+            $("#Barkod").val(" ");
+        }
+
+        function btnVazgec() {
+            window.history.back();
+        }
+
+        
+   
+
+        function setTwoNumberDecimal(event) {
+            this.value = parseFloat(this.value).toFixed(2);
+        }
+       
+
+        //Sepete Ekle
+        $(document).on("click", ".sepeteEkle", function (event) {
+            var geneltoplam = 0;
+            var kaydet = true;
+            var id = $(event.target).closest("ab").attr('id');
+
+
+            var StkKod = $("#StokKodu").val();
+
+            var StkUrunAdi = $("#StokKodu :selected").text();
+            var StkMiktar = $("#Miktar").val();
+            var StkBirim = $("#Birim").val();
+            var StkBirimFiyati = $("#BirimFiyati").val();
+            if (id != null) {
+                if (id != 0) {
+                    $.ajax({
+                        type: "GET",
+                        "datatype": "json",
+                        url: '/Fatura/StokBilgi?id=' + id,
+                        success: function (gt) {
+                            if (gt.success) {
+                                var StkKod = gt.data.ID;
+                                var StkUrunAdi = gt.data.UrunAdi;
+                                var StkMiktar = 1;
+                                var StkBirim = gt.data.Birimi;
+                                var StkBirimFiyati = Number(gt.data.SatishFiyat).toFixed(2).replace(".", ",");
+                                
+                            }
+                        }
+                    });
+                }
+            }
+            else {
+                if ($("#StokKodu").val() == "" || $("#StokKodu").val() == "0" || $("#StokKodu").val() == null) {
+                    swal("Uyarı", "Ürün Seçiniz", "warning");
+                    kaydet = false;
+                }
+            }
+
+            if (kaydet) {
+
+                document.getElementById("tblUrun").style.display = "block";
+
+                var row = $(this).closest("tr");
+                var sutunlar = {
+                    UrunAdi: '<input disabled  style="font-size:smaller" type="text" class=" urunadi form-control" value="' + StkUrunAdi + '" />',
+                    Miktar: '<input style="font-size:smaller" onchange="GenelTopla(this)" type="text" class="miktar form-control" value="' + StkMiktar + '" />',
+                    Birim: '<input disabled style="font-size:smaller" type="text" class=" birim  form-control " value="' + StkBirim + '" />',
+                    BirimFiyati: '<input  style="font-size:smaller" type="text" onchange="GenelTopla(this)" class=" birimfiyat form-control" value="' + StkBirimFiyati + '" />',
+                    Kaldir: '<button style="background-color:indianred;margin:0px" type="button" value="' + StkKod + '" class="btn btn-md btn-danger  sepetSil"> SİL   <i class="fa fa-trash" aria-hidden="true"></i></button>',
+                    SatirID: '<button  style="background-color:indianred;margin:0px ; display:none;" type="button" value="-1" class="btn btn-md btn-danger  SatirID"> -1   <i class="fa fa-trash" aria-hidden="true"></i></button>',
+                };
+
+                temizle();
+                $("#siparis tbody").append("<tr style='font-size:small;'>"+
+                   " <td>" + sutunlar.UrunAdi + "</td>"+
+                   " <td>" + sutunlar.Miktar + "</td>"+
+                   " <td>" + sutunlar.Birim + "</td>"+
+                   " <td>" + sutunlar.BirimFiyati + "</td>" +
+                   " <td>" + sutunlar.Kaldir + "</td>"+
+                   " <td>" + sutunlar.SatirID + "</td></tr>");
+            }
+         
+        });
+
+         
+      
+
+
+        $("#siparis").on("click", ".sepetSil", function () {
+            var row = $(this).closest('tr');
+
+
+            swal({
+                title: "[Silme Onayı]",
+                text: "Seçili kaydı silmek istediğinizden emin misiniz?",
+                icon: "warning",
+                dangerMode: true,
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                cancelButtonText: "Hayır",
+                confirmButtonText: "Evet",
+                closeOnCancel: true,
+                closeOnConfirm: true,
+
+                preConfirm: function () {
+
+
+                    var id = row.find("td:eq(5) .SatirID").val();
+
+                    if (id != -1) {
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("DeleteTreeProc", "Stok")/' + id,
+                            success: function (data) {
+                                if (data.success) {
+                                }
+                            }
+
+
+                        });
+
+
+                    }
+
+                    row.fadeOut(500, function () {
+                        row.remove();
+                    })
+
+                }
+
+            });
+
+        });
+
+
+        $(document).on("click", ".nakitSatis", function () {
+
+            $(".nakitSatis").disable = false;
+            var kaydet = true;
+
+
+          
+           
+
+
+
+            if (kaydet) {
+
+                var data = [];
+                var tr = 0;
+             
+                var musID = $("#AnaUrun").val();
+                var Aciklama = $("#aciklama").val();
+               
+              
+                var verivar = false;
+
+                $("#siparis tbody tr").each(function () {
+                    data[tr] = new Array(5);
+                    data[tr][0] = $(this).find("td:eq(4) .sepetSil").val();
+                    data[tr][1] = $(this).find("td:eq(1) .miktar").val();
+                    data[tr][2] = $(this).find("td:eq(2) .birim").val();
+                    data[tr][3] = $(this).find("td:eq(3) .birimfiyat").val();
+                    data[tr][4] = $(this).find("td:eq(5) .SatirID").val();
+             
+                    tr++;
+                    verivar = true;
+
+
+                });
+
+
+
+                if (verivar) {
+                    $("#btnKaydet").prop('disabled', true);
+
+                    $.ajax({
+                        type: "POST",
+                        url: '/Stok/YeniUrunAgaci',
+                        data: {
+                            data: data,
+                            AgacID: musID,
+                            Aciklama: Aciklama,
+                           
+                        },
+                        dataType: "json",
+
+                        success: function (g) {
+                            if (g.sonuc == "1") {
+
+                                swal({
+                                    title: "Başarılı!",
+                                    text: g.Mesaj,
+                                    type: "success"
+                                }).then(function () {
+                                    
+                                    var url = '@Url.Action("UrunAgacı", "Stok")';
+                                    window.location.href = url;
+
+                                });
+                            }
+                            else if (g.sonuc == "0") {
+                                swal("Hata", "Kaydedilemedi", "success");
+                            }
+                        },
+                        error: function () {
+                            swal("Hata", "HATA OLUŞTU!", "error");
+                        }
+
+                    });
+                }
+                else {
+                    swal("Uyarı", "En Az bir ürün ekleyiniz", "warning");
+                }
+
+            }
+
+        });
+
+
+        $(document).ready(function () {
+
+            $(".digit").keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && e.which != 44 && (e.which < 48 || e.which > 57)) {
+                    $("#errormsg").html("Digits Only").show().fadeOut("slow");
+                    return false;
+                }
+            });
+            $(".select2_demo_1").select2();
+            $(".select2_demo_2").select2();
+            $(".select2_demo_3").select2({
+                placeholder: "Seçiniz",
+                allowClear: true
+            });
+
+        });
+       
+        $('#Miktar').on("keyup", function () {
+            Topla();
+        4});
+        $('#Miktar').change(function () {
+            Topla();
+        });
+
+        $("#StokKodu").change(function () {
+            var end = this.value;
+            FiyatGetir(end, "");
+
+        });
+            
+        $('#Barkod').on("keyup", function (event) {
+            var end = this.value;
+
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                FiyatGetir(-1, end);
+
+            }
+        });       
+
+        </script>
+    }
+
+
+
+

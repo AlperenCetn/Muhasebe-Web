@@ -1,0 +1,539 @@
+﻿<div class="modal inmodal" id="stokid" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content animated bounceInRight">
+            <div class="modal-header">
+                <a style="text-align:left; color:white" class="btn btn-danger btn-xs" id="myModalLabel">STOK KARTI</a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+
+            </div>
+            <form id="stokveri" method="post" action="/Stok/YeniStok">
+                <div class="modal-body">
+
+
+                    <div class="row">
+                        <div class="col-md-3 px-1">
+                            <div class="form-group">
+                                <label>Stok Kodu</label>
+                                <input id="StokK" required style="background-color:lightgoldenrodyellow" name="StokK" type="text" class="form-control" value="@ViewBag.StokKoduSiradaki">
+                            </div>
+                        </div>
+                        <div class="col-md-5 px-1">
+                            <div class="form-group">
+                                <label><b>Ürün Adı</b></label>
+                                <input required  id="UrunA" name="UrunA" type="text" class="form-control" value="">
+                            </div>
+                        </div>
+                       
+                        <div class="col-md-4 px-1">
+                            <div class="form-group">
+                                <label>Barkod No</label>
+                                <input id="YeniBarkod" name="Barkod" type="text" class="form-control" value="">
+                            </div>
+                        </div>
+
+                        <div class="px-1">
+                            <div class="tabs-container">
+                                <ul class="nav nav-tabs">
+                                    <li><a class="nav-link active" data-toggle="tab" href="#stok1">Genel</a></li>
+                                    <li><a class="nav-link" data-toggle="tab" href="#stok2">Fiyatlar</a></li>
+                                    <li><a class="nav-link " data-toggle="tab" href="#stok3">Kategoriler</a></li>
+                                    <li><a class="nav-link " data-toggle="tab" href="#stok4">Barkodlar</a></li>
+                                </ul>
+                                <div class="tab-content">
+
+                                    <div id="stok1" class="tab-pane active">
+                                        <div class="panel-body row">
+
+                                            <div class="col-md-6 pb-3">
+                                                <strong>Stokta Kalan</strong>
+                                                <input id="StoktaKalan" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="0.00">
+                                            </div>
+
+                                            <div class="col-md-6 pb-3">
+                                                <strong>Alış Fiyatı</strong>
+                                                <input id="AlishFiyat" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal(this.value)" min="0" step="0.01" value="0.00">
+                                            </div>
+                                            <div class="col-md-6 pb-3">
+                                                <strong>Satış Fiyatı</strong>
+                                                <input id="SatishFiyat" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal(this.value)" min="0" step="0.01" value="0.00">
+                                            </div>
+                                            <div class="col-md-6 pb-3">
+                                                <strong>Marka</strong>
+                                                <input id="Marka" name="Marka" type="text" class="form-control" value="">
+
+                                            </div>
+
+                                            <div class="col-md-6 pb-3">
+                                                <strong>Ürün Grubu</strong>
+                                                <input id="Grubu" name="Grubu" type="text" class="form-control" value="">
+
+                                            </div>
+
+
+                                            <div class="col-md-6 pb-3">
+                                                <strong>KDV</strong>
+                                                <select id="KDV" name="select" class="custom-select">
+                                                    <option selected value="18">18</option>
+                                                    <option value="8">8</option>
+                                                    <option value="1">1</option>
+                                                    <option value="0">0</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-6 pb-3">
+                                                <strong>Birimi</strong>
+                                                @Html.DropDownList("Birimi", new SelectList(AyarMetot.Birimler(), "Value", "Text", "Adet")
+                                                      , new { @id = "Birimi", @class = "form-control custom-select ", @style = "font-size:x-small" })
+                                            </div>
+
+                                            <div class="col-md-6 pb-3">
+                                                <strong>Para Birimi</strong>
+                                                @Html.DropDownList("Para Birimi", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text","TL")
+                                                  , new { @id = "ParaBirimi", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+
+                                            </div>
+
+                                            <div class="col-md-6 pb-3">
+                                                <strong>Ürün türü</strong>
+                                                <select id="UrunTuru" name="select" class="custom-select">
+                                                    <option selected value="18">Ticari Mal</option>
+                                                    <option value="Ticari Mal">Ticari Mal</option>
+                                                    <option value="Makine">Makine</option>
+                                                    <option value="Donatım Malı">Donatım Malı</option>
+                                                    <option value="Fabrika Malı">Fabrika Malı</option>
+                                                    <option value="Yardımcı Mal">Yardımcı Mal</option>
+                                                    <option value="İşletme Gereci">İşletme Gereci</option>
+                                                    <option value="İkinci El">İkinci El</option>
+                                                    <option value="Hizmet">Hizmet</option>
+                                                    <option value="Demirbaş">Demirbaş</option>
+                                                    <option value="Nihai Ürün">Nihai Ürün</option>
+                                                    <option value="Yarı Mamül">Yarı Mamül</option>
+                                                    <option value="Ara Mamül">Ara Mamül</option>
+                                                    <option value="Hammadde">Hammadde</option>
+                                                    <option value="Mamül">Mamül</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-6 pb-3">
+                                                <strong>Kalan Stok Uyarısı</strong>
+                                                <input id="KalanStkU" name="KalanStkU" type="text" class="form-control" value="">
+                                            </div>
+
+                                            <div style="display:none">
+
+                                                <div class="col-md-6 pb-3">
+                                                    <strong>Ürün Kısa Kod</strong>
+                                                    <textarea id="KisaKod" name="ArizaTespit" class="form-control textarea"></textarea>
+                                                </div>
+                                                <div class="col-md-6 pb-3">
+                                                    <strong>Parti No</strong>
+                                                    <textarea id="PartiNo" name="ArizaTespit" class="form-control textarea"></textarea>
+                                                </div>
+
+                                                <div class="col-md-6 pb-3">
+                                                    <strong>Ürün Detayları</strong>
+                                                    <textarea id="Detay2" style="height:75px" name="ArizaTespit" class="form-control textarea"></textarea>
+                                                </div>
+                                                <div class="col-md-6 pb-3">
+                                                    <strong>OEM Kodu</strong>
+                                                    <textarea id="OEM" name="ArizaTespit" class="form-control textarea"></textarea>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div id="stok2" class="tab-pane">
+                                        <div class="panel-body">
+
+                                            <div class="tab-content p-3" id="pills-tabContent">
+                                                <div class="tab-pane fade show active" id="pills-genel" role="tabpanel" aria-labelledby="pills-home-tab">
+                                                    <div class="row">
+                                                        <label class="pl-2 pr-3 pt-1 col-md-3 form-control" style="float:left; text-align:center; background-color:gray; color:black">
+                                                            <b style="font-size:smaller"> Fiyat Tipi</b>
+                                                        </label>
+                                                        <div class="col-md-2 form-control" style="float:left; background-color:gray; text-align:center; color:black">
+                                                            <b style="font-size:smaller">Fiyat</b>
+                                                        </div>
+                                                        <div class="col-md-1 form-control" style="float:left; background-color:gray; text-align:center; color:black">
+                                                            <b style="font-size:smaller">P.Birimi</b>
+                                                        </div>
+                                                        <div class="col-md-1 form-control" style="float:left; background-color:gray; text-align:center; color:black">
+                                                            <b style="font-size:smaller">Birimi</b>
+                                                        </div>
+                                                        <div class="col-md-2 form-control" style="float:left; background-color:gray; text-align:center; color:black">
+                                                            <b style="font-size:smaller">İçerik Miktarı</b>
+                                                        </div>
+
+                                                        <div class="col-md-3 pb-3 form-control" style="float:left; background-color:gray; text-align:center; color:black">
+                                                            <b style="font-size:smaller">Barkod</b>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="pl-2 pr-3 pt-1 col-md-3 form-control" style="float:left; width:50px; background-color:; color:black">
+                                                            <b> Fiyat - 2</b>
+                                                        </label>
+                                                        <div class="col-md-2 p-0">
+                                                            <input required id="F2" name="text" type="number" class="form-control px-2" onchange="setTwoNumberDecimal" min="0" step="0.01" value="0.00">
+                                                        </div>
+                                                        <div class="col-md-1 p-0">
+
+                                                            @Html.DropDownList("P2", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text","TL"),
+                                                                 new { @id = "P2", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                        </div>
+                                                        <div class="col-md-1 p-0">
+
+                                                            @Html.DropDownList("BRM2", new SelectList(AyarMetot.Birimler(), "Value", "Text","Adet"),
+                                                                "Birimi", new { @id = "BRM2", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                        </div>
+                                                        <div class="col-md-2 p-0">
+                                                            <input required id="nbadet2" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="1" value="1.00">
+                                                        </div>
+
+                                                        <div class="col-md-3 p-0">
+                                                            <input id="Brkd2" name="BarkodNo" class="form-control " type="text"></input>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row">
+                                                        <label class="pl-2 pr-3 pt-1 col-md-3 form-control" style="float:left; width:50px; background-color:; color:black">
+                                                            <b> Fiyat - 3</b>
+                                                        </label>
+                                                        <div class="col-md-2 p-0">
+                                                            <input required id="F3" name="text" placeholder="Fiyat" type="number" class="form-control px-2" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                        </div>
+                                                        <div class="col-md-1 p-0">
+
+                                                            @Html.DropDownList("P3", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", "TL"), new { @id = "P3", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                        </div>
+                                                        <div class="col-md-1 p-0">
+                                                            @Html.DropDownList("BRM3", new SelectList(AyarMetot.Birimler(), "Value", "Text", "Adet"), new { @id = "BRM3", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                        </div>
+                                                        <div class="col-md-2 p-0">
+                                                            <input required id="nbadet3" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                        </div>
+
+                                                        <div class="col-md-3 p-0">
+                                                            <input id="Brkd3" name="BarkodNo" class="form-control " type="text"></input>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--3-->
+                                                    <div class="row">
+                                                        <label class="pl-2 pr-3 pt-1 col-md-3 form-control" style="float:left; width:50px; background-color:; color:black">
+                                                            <b> Fiyat - 4</b>
+                                                        </label>
+                                                        <div class="col-md-2 p-0">
+                                                            <input required id="F4" name="text" type="number" class="form-control px-2" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                        </div>
+                                                        <div class="col-md-1 p-0">
+
+                                                            @Html.DropDownList("P4", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", "TL"), new { @id = "P4", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                        </div>
+                                                        <div class="col-md-1 p-0">
+
+                                                            @Html.DropDownList("BRM4", new SelectList(AyarMetot.Birimler(), "Value", "Text", "Adet"), new { @id = "BRM4", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                        </div>
+                                                        <div class="col-md-2 p-0">
+                                                            <input required id="nbadet4" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                        </div>
+
+                                                        <div class="col-md-3 p-0">
+                                                            <input id="Brkd4" name="BarkodNo" class="form-control " type="text"></input>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--4-->
+                                                    <div class="row">
+                                                        <label class="pl-2 pr-3 pt-1 col-md-3 form-control" style="float:left; width:50px; background-color:; color:black">
+                                                            <b> Fiyat - 5</b>
+                                                        </label>
+                                                        <div class="col-md-2 p-0">
+                                                            <input style="background-color:azure;" id="F5" name="text" type="number" class="form-control px-2" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                        </div>
+                                                        <div class="col-md-1 p-0">
+
+                                                            @Html.DropDownList("P5", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", "TL"), new { @id = "P5", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                        </div>
+                                                        <div class="col-md-1 p-0">
+
+                                                            @Html.DropDownList("BRM5", new SelectList(AyarMetot.Birimler(), "Value", "Text", "Adet"), new { @id = "BRM5", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                        </div>
+                                                        <div class="col-md-2 p-0">
+                                                            <input required id="nbadet5" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                        </div>
+
+                                                        <div class="col-md-3 p-0">
+                                                            <input id="Brkd5" name="BarkodNo" class="form-control " type="text"></input>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--5-->
+                                                    <div class="row">
+                                                        <label class="pl-2 pr-3 pt-1 col-md-3 form-control" style="float:left; width:50px; background-color:; color:black">
+                                                            <b> Fiyat - 6</b>
+                                                        </label>
+                                                        <div class="col-md-2 p-0">
+                                                            <input id="F6" name="text" type="number" class="form-control px-2" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                        </div>
+                                                        <div class="col-md-1 p-0">
+
+                                                            @Html.DropDownList("P6", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", "TL"), new { @id = "P6", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                        </div>
+                                                        <div class="col-md-1 p-0">
+
+                                                            @Html.DropDownList("BRM6", new SelectList(AyarMetot.Birimler(), "Value", "Text", "Adet"), new { @id = "BRM6", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+
+                                                        </div>
+                                                        <div class="col-md-2 p-0">
+                                                            <input required id="nbadet6" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                        </div>
+
+                                                        <div class="col-md-3 p-0">
+                                                            <input id="Brkd6" name="BarkodNo" class="form-control " type="text"></input>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="pl-2 pr-3 pt-1 col-md-3 form-control" style="float:left; width:50px; background-color:; color:black">
+                                                            <b> Fiyat - 7</b>
+                                                        </label>
+                                                        <div class="col-md-2 p-0">
+                                                            <input required id="F7" name="text" placeholder="Fiyat" type="number" class="form-control px-2" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                        </div>
+                                                        <div class="col-md-1 p-0">
+
+                                                            @Html.DropDownList("P7", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", "TL"), new { @id = "P7", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                        </div>
+                                                        <div class="col-md-1 p-0">
+                                                            @Html.DropDownList("BRM7", new SelectList(AyarMetot.Birimler(), "Value", "Text", "Adet"), new { @id = "BRM7", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                        </div>
+                                                        <div class="col-md-2 p-0">
+                                                            <input required id="nbadet7" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                        </div>
+
+                                                        <div class="col-md-3 p-0">
+                                                            <input id="Brkd7" name="BarkodNo" class="form-control " type="text"></input>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="pl-2 pr-3 pt-1 col-md-3 form-control" style="float:left; width:50px; background-color:; color:black">
+                                                            <b> Fiyat - 8</b>
+                                                        </label>
+                                                        <div class="col-md-2 p-0">
+                                                            <input required id="F8" name="text" placeholder="Fiyat" type="number" class="form-control px-2" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                        </div>
+                                                        <div class="col-md-1 p-0">
+
+                                                            @Html.DropDownList("P8", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", "TL"), new { @id = "P8", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                        </div>
+                                                        <div class="col-md-1 p-0">
+                                                            @Html.DropDownList("BRM8", new SelectList(AyarMetot.Birimler(), "Value", "Text", "TL"), new { @id = "BRM8", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                        </div>
+                                                        <div class="col-md-2 p-0">
+                                                            <input required id="nbadet8" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                        </div>
+
+                                                        <div class="col-md-3 p-0">
+                                                            <input id="Brkd8" name="BarkodNo" class="form-control " type="text"></input>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="pl-2 pr-3 pt-1 col-md-3 form-control" style="float:left; width:50px; background-color:; color:black">
+                                                            <b> Fiyat - 9</b>
+                                                        </label>
+                                                        <div class="col-md-2 p-0">
+                                                            <input required id="F9" name="text" placeholder="Fiyat" type="number" class="form-control px-2" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                        </div>
+                                                        <div class="col-md-1 p-0">
+
+                                                            @Html.DropDownList("P9", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", "TL"), new { @id = "P9", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                        </div>
+                                                        <div class="col-md-1 p-0">
+                                                            @Html.DropDownList("BRM9", new SelectList(AyarMetot.Birimler(), "Value", "Text", "Adet"), new { @id = "BRM9", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                        </div>
+                                                        <div class="col-md-2 p-0">
+                                                            <input required id="nbadet9" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                        </div>
+
+                                                        <div class="col-md-3 p-0">
+                                                            <input id="Brkd9" name="BarkodNo" class="form-control " type="text"></input>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="pl-2 pr-3 pt-1 col-md-3 form-control" style="float:left; width:50px; background-color:; color:black">
+                                                            <b> Fiyat - 10</b>
+                                                        </label>
+                                                        <div class="col-md-2 p-0">
+                                                            <input required id="F10" name="text" placeholder="Fiyat" type="number" class="form-control px-2" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                        </div>
+                                                        <div class="col-md-1 p-0">
+
+                                                            @Html.DropDownList("P10", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", "TL"), new { @id = "P10", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                        </div>
+                                                        <div class="col-md-1 p-0">
+                                                            @Html.DropDownList("BRM10", new SelectList(AyarMetot.Birimler(), "Value", "Text", "Adet"), new { @id = "BRM10", @class = "form-control custom-select ", @style = "font-size:x-small" })
+
+                                                        </div>
+                                                        <div class="col-md-2 p-0">
+                                                            <input required id="nbadet10" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="1.00">
+                                                        </div>
+
+                                                        <div class="col-md-3 p-0">
+                                                            <input id="Brkd10" name="BarkodNo" class="form-control " type="text"></input>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div id="stok3" class="tab-pane">
+                                        <div class="panel-body">
+                                            <div class="row">
+
+                                                <div class="col-md-12">
+                                                    <label class="pl-2 pr-3 pt-1 form-control" style="float:left; width:150px; background-color:; color:black">
+                                                        <b> @ViewBag.Kategori1</b>
+                                                    </label>
+                                                    <input type="text" id="Ktg1" name="Ktg1" style="width:50%" class="form-control " value="" />
+
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <label class="pl-2 pr-3 pt-1 form-control" style="float:left; width:150px; background-color:; color:black">
+                                                        <b>  @ViewBag.Kategori2</b>
+                                                    </label>
+                                                    <input type="text" id="Ktg2" name="Ktg2" style="width:50%" class="form-control " value="" />
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <label class="pl-2 pr-3 pt-1 form-control" style="float:left; width:150px; background-color:; color:black">
+                                                        <b> @ViewBag.Kategori3</b>
+                                                    </label>
+                                                    <input type="text" id="Ktg3" name="Ktg3" style="width:50%" class="form-control " value="" />
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <label class="pl-2 pr-3 pt-1 form-control" style="float:left; width:150px; background-color:; color:black">
+                                                        <b> @ViewBag.Kategori4</b>
+                                                    </label>
+                                                    <input type="text" id="Ktg4" name="Ktg4" style="width:50%" class="form-control " value="" />
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <label class="pl-2 pr-3 pt-1 form-control" style="float:left; width:150px; background-color:; color:black">
+                                                        <b> @ViewBag.Kategori5</b>
+                                                    </label>
+                                                    <input type="text" id="Ktg5" name="Ktg5" style="width:50%" class="form-control " value="" />
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <label class="pl-2 pr-3 pt-1 form-control" style="float:left; width:150px; background-color:; color:black">
+                                                        <b> @ViewBag.Kategori6</b>
+                                                    </label>
+                                                    <input type="text" id="Ktg6" name="Ktg6" style="width:50%" class="form-control" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="stok4" class="tab-pane">
+                                        <div class="panel-body">
+                                            <div class="row">
+
+                                                <div class="col-md-12">
+                                                    <label class="pl-2 pr-3 pt-1 form-control" style="float:left; width:150px; background-color:; color:black">
+                                                        <b> Barkod-2</b>
+                                                    </label>
+                                                    <input type="text" id="Brk2" name="Brk2" style="width:50%" class="form-control " value="" />
+
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <label class="pl-2 pr-3 pt-1 form-control" style="float:left; width:150px; background-color:; color:black">
+                                                        <b>  Barkod-3</b>
+                                                    </label>
+                                                    <input type="text" id="Brk3" name="Brk3" style="width:50%" class="form-control " value="" />
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <label class="pl-2 pr-3 pt-1 form-control" style="float:left; width:150px; background-color:; color:black">
+                                                        <b> Barkod-4</b>
+                                                    </label>
+                                                    <input type="text" id="Brk4" name="Brk4" style="width:50%" class="form-control " value="" />
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <label class="pl-2 pr-3 pt-1 form-control" style="float:left; width:150px; background-color:; color:black">
+                                                        <b> Barkod-5</b>
+                                                    </label>
+                                                    <input type="text" id="Brk5" name="Brk5" style="width:50%" class="form-control " value="" />
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <label class="pl-2 pr-3 pt-1 form-control" style="float:left; width:150px; background-color:; color:black">
+                                                        <b> Barkod-6</b>
+                                                    </label>
+                                                    <input type="text" id="Brk6" name="Brk6" style="width:50%" class="form-control " value="" />
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3 pl-1">
+                                <div class="form-group">
+                                    @Html.Hidden("sID", -1)
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 pl-1">
+                                <div class="form-group">
+                                    @Html.Hidden("Terminal", AyarMetot.ProTerminal)
+                                </div>
+                            </div>
+                            <div class="col-md-3 pl-1">
+                                <div class="form-group">
+                                    <input id="YeniStok" style="display: none" value="@ViewBag.YeniStok" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

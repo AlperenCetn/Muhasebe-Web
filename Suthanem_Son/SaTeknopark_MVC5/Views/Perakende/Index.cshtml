@@ -1,0 +1,496 @@
+﻿
+@{
+    ViewBag.Title = "Perakende Anasayfa";
+}
+
+
+<head>
+
+</head>
+
+
+
+
+
+<div class="wrapper wrapper-content">
+
+    <div class="row" align="left">
+        <div class="col-sm-12">
+
+            <a onclick="Temizle()" href="/Fatura/YeniSatis?id=0" style='background-color:#263949;color:white' type="button" class="btn-white btn btn-sm">
+                Yeni Satış Faturası
+            </a>
+            <a onclick="Temizle()" href="/Fatura/YeniSatis?id=1" style='background-color:#263949;color:white' type="button" class="btn-white btn btn-sm">
+                Yeni Alım Faturası
+            </a>
+            <a onclick="Temizle()" href="/Finans/YeniMasraf" style='background-color: #263949;color:white' type="button" class="btn-white btn btn-sm">
+                Yeni Masraf
+            </a>
+
+            <a onclick="Temizle()" href="/Fatura/FaturalarListesi" style='background-color:#1bb394;color:white' type="button" class="btn-white btn btn-sm">
+                Fatura Listesi
+            </a>
+
+        </div>
+
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <span class="label label-success float-right">Cari</span>
+                    <h5><a href="/Tables/DataTables">Bugün ki Satış Toplamı</a></h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">@ViewBag.bugunluktoplam</h1>
+                    <div class="stat-percent font-bold text-success"> <i class="fa fa-bolt"></i></div>
+                    <small>TL.</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <span class="label label-primary float-right">AF</span>
+                    <h5>Haftalık Satış Toplamı</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">@ViewBag.haftalıktoplam</h1>
+                    <div class="stat-percent font-bold text-navy"> <i class="fa fa-level-up"></i></div>
+                    <small>TL.</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <span class="label label-info float-right">SF</span>
+                    <h5>Carilerin Alacak Toplamı</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">@ViewBag.CariAlacak</h1>
+                    <div class="stat-percent font-bold text-info"> <i class="fa fa-level-up"></i></div>
+                    <small>kadardır.</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <span class="label label-danger float-right">T</span>
+                    <h5>Carilerin Borç Toplamı </h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">@ViewBag.CariBorc</h1>
+                    <div class="stat-percent font-bold text-danger"> <i class="fa fa-level-down"></i></div>
+                    <small>kadardır.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <button type="button" class="btn btn-outline-primary">Toplam Nakit: @ViewBag.ToplamNakit</button>
+        </div>
+        <div class="col-lg-2">
+            <button type="button" class="btn btn-outline-secondary">Toplam Kredi Kartı: @ViewBag.ToplamHavale</button>
+        </div>
+        <div class="col-lg-2">
+            <button type="button" class="btn btn-outline-success">Toplam Havale: @ViewBag.ToplamKK</button>
+        </div>
+        <div class="col-lg-2">
+            <button type="button" class="btn btn-outline-info">Toplam ParaKart: @ViewBag.ToplamParaKart</button>
+        </div>
+        <div class="col-lg-2">
+            <button type="button" class="btn btn-outline-dark">Toplam Cari Satış: @ViewBag.CariSatış</button>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>Son Yapılan İşlem Kayıtları</h5>
+
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table class="table table-hover margin bottom dataTables-example" id="example" style="width: 100%">
+                                <thead>
+                                    <tr style="text-align: center">
+                                        <th>İşlem Tipi</th>
+                                        <th>Tarih</th>
+                                        <th>İşlem No.</th>
+                                        <th>Firma</th>
+                                        <th>Tutar</th>
+                                        <th>Personel</th>
+                                        <th>Açıklama</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="text-align:center"></tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-3">
+        <div class="row border-bottom white-bg dashboard-header">
+
+
+            <div class="col-sm-6">
+
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <span class="label label-warning float-right">Kasa</span>
+                        <h5>Kasa Bakiyesi</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-4">
+                                <small class="stats-label">@ViewBag.TlKasaName</small>
+                                <h4>@ViewBag.TlKasaBakiye</h4>
+                            </div>
+                            @if (@ViewBag.EurKasaName != "")
+                            {
+                                <div class="col-4">
+                                    <small class="stats-label">@ViewBag.EurKasaName</small>
+                                    <h4>@ViewBag.EurKasaBakiye</h4>
+                                </div>
+                            }
+                            @if (@ViewBag.UsdKasaName != "")
+                            {
+                                <div class="col-4">
+                                    <small class="stats-label">@ViewBag.UsdKasaName</small>
+                                    <h4>@ViewBag.UsdKasaBakiye</h4>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="ibox-title">
+                        <span class="label label-warning float-right">Banka</span>
+                        <h5>Banka Bakiyeleri</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-4">
+                                <small class="stats-label">@ViewBag.TlBankaName</small>
+                                <h4>@ViewBag.TlBankaBakiye</h4>
+                            </div>
+                            @if (@ViewBag.EurBankaName != "")
+                            {
+                                <div class="col-4">
+                                    <small class="stats-label">@ViewBag.EurBankaName</small>
+                                    <h4>@ViewBag.EurBankaBakiye</h4>
+                                </div>
+                            }
+                            @if (@ViewBag.UsdBankaName != "")
+                            {
+                                <div class="col-4">
+                                    <small class="stats-label">@ViewBag.UsdBankaName</small>
+                                    <h4>@ViewBag.UsdBankaBakiye</h4>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-sm-6">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input name="odemeturu" id="odemeturu_0" type="radio" required="required" class="custom-control-input" value="tl" checked="checked">
+                    <label for="odemeturu_0" class="custom-control-label">TL</label>
+                </div>
+                @if (ViewBag.EURName1 != "")
+                {
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input name="odemeturu" id="odemeturu_1" type="radio" required="required" class="custom-control-input" value="eur">
+                        <label for="odemeturu_1" class="custom-control-label">EUR</label>
+                    </div>
+                }
+                @if (ViewBag.USDName1 != "")
+                {
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input name="odemeturu" id="odemeturu_2" type="radio" required="required" class="custom-control-input" value="usd">
+                        <label for="odemeturu_2" class="custom-control-label">USD</label>
+                    </div>
+                }
+
+                <div class="col-lg-6  tldiv">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <h5>Borcu Olan Cariler (TL) </h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div>
+                                <canvas id="doughnutChart" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @if (ViewBag.EURName1 != "")
+                {
+                    <div class="col-lg-6 eurdiv">
+                        <div class="ibox ">
+                            <div class="ibox-title">
+                                <h5>Borcu Olan Cariler (EUR) </h5>
+                            </div>
+                            <div class="ibox-content">
+                                <div>
+                                    <canvas id="doughnutChart2" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @if (ViewBag.USDName1 != "")
+                {
+                    <div class="col-lg-6 usddiv">
+                        <div class="ibox ">
+                            <div class="ibox-title">
+                                <h5>Borcu Olan Cariler (USD) </h5>
+                            </div>
+                            <div class="ibox-content">
+                                <div>
+                                    <canvas id="doughnutChart3" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+            </div>
+
+
+
+
+
+            @*<div class="col-lg-6">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <h5>En Çok Borcu Olan Cariler </h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div>
+                                <canvas id="doughnutChart" height="140"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+
+    </div>
+</div>
+
+
+@section Styles {
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @Styles.Render("~/plugins/dateRangeStyles")
+    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @Styles.Render("~/plugins/dataPickerStyles")
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/plugins/tagInputsStyles")
+    @Styles.Render("~/plugins/duallistStyles")
+}
+
+@section Scripts {
+
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/sparkline")
+    @Scripts.Render("~/plugins/chartJs")
+    @Scripts.Render("~/plugins/peity")
+
+    @*@Scripts.Render("~/plugins/dataTables")*@
+    <script src="~/Content/DataTables/datatables.js"></script>
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @Scripts.Render("~/plugins/dateRange")
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/tagInputs")
+    @Scripts.Render("~/plugins/duallist")
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+    <script src="~/multiselect.min.js"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+
+    <script src="~/Scripts/mask.js"></script>
+    <script src="~/Scripts/musteri.js"></script>
+    <script src="~/Scripts/moment-with-locales.js"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+
+
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+
+
+
+
+            var doughnutData = {
+                labels: ["@ViewBag.TLName1", "@ViewBag.TLName2", "@ViewBag.TLName3", "@ViewBag.TLName4", "@ViewBag.TLName5"],
+                datasets: [{
+                    data: [@ViewBag.TlBakiye1, @ViewBag.TlBakiye2,@ViewBag.TlBakiye3,@ViewBag.TlBakiye4, @ViewBag.TlBakiye5],
+                    backgroundColor: ["#1c84c6", "#1ab394", "#23c6c8", "#ed5565", "#de890a"]
+                }]
+            };
+            var doughnutData2 = {
+                labels: ["@ViewBag.USDName1", "@ViewBag.USDName2", "@ViewBag.USDName3", "@ViewBag.USDName4", "@ViewBag.USDName5"],
+                datasets: [{
+                    data: [@ViewBag.USDBakiye1, @ViewBag.USDBakiye2,@ViewBag.USDBakiye3,@ViewBag.USDBakiye4, @ViewBag.USDBakiye],
+                    backgroundColor: ["#1c84c6", "#1ab394", "#23c6c8", "#ed5565", "#de890a"]
+                }]
+            };
+
+
+            var doughnutData3 = {
+                labels: ["@ViewBag.EURName1", "@ViewBag.EURName2", "@ViewBag.EURName3", "@ViewBag.EURName4", "@ViewBag.EURName5"],
+                datasets: [{
+                    data: [@ViewBag.EURBakiye1, @ViewBag.EURBakiye2,@ViewBag.EURBakiye3,@ViewBag.EURBakiye4, @ViewBag.EURBakiye5],
+                    backgroundColor: ["#1c84c6", "#1ab394", "#23c6c8", "#ed5565", "#de890a"]
+                }]
+            };
+
+
+            var doughnutOptions = {
+                responsive: false
+            };
+
+
+            var ctx4 = document.getElementById("doughnutChart").getContext("2d");
+            new Chart(ctx4, { type: 'doughnut', data: doughnutData, options: doughnutOptions });
+            var ctx5 = document.getElementById("doughnutChart2").getContext("2d");
+            new Chart(ctx5, { type: 'doughnut', data: doughnutData2, options: doughnutOptions });
+            var ctx6 = document.getElementById("doughnutChart3").getContext("2d");
+            new Chart(ctx6, { type: 'doughnut', data: doughnutData3, options: doughnutOptions });
+
+
+
+            $('[data-toggle="tooltip"]').tooltip();
+
+
+            var oTable = $('.dataTables-example').DataTable({
+                "scrollX": true,
+                pageLength: 20,
+                "ajax": {
+                    "url": "/Tables/GetIslemler/?Anasayfa=1",
+                    "type": "GET",
+                    "datatype": "json",
+                },
+                buttons: true,
+                dom: 'ti',
+                "columns": [
+
+
+                    { "data": "FaturaType", visible: false },
+                    { "data": "IslemTarihi" },
+
+
+                    { "data": "FaturaNo" },
+
+                    { "data": "CariUnvan" },
+                    { "data": "Tutar", render: $.fn.dataTable.render.number('.', ',', 2, ''), className: "text-right" },
+
+                    { "data": "Personel" },
+                    { "data": "Aciklama" },
+                ],
+
+                "language": {
+                    "sDecimal": ",",
+                    "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                    "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                    "sInfoEmpty": "Kayıt yok",
+                    "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+                    "sLoadingRecords": "Yükleniyor...",
+                    "sProcessing": "İşleniyor...",
+                    "sSearch": "Ara:",
+                    "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                    "oPaginate": {
+                        "sFirst": "İlk",
+                        "sLast": "Son",
+                        "sNext": "Sonraki",
+                        "sPrevious": "Önceki"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                        "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                    },
+                    "select": {
+                        "rows": {
+                            "_": "%d kayıt seçildi",
+                            "0": "",
+                            "1": "1 kayıt seçildi"
+                        }
+                    }
+                },
+
+            });
+            $(".tldiv").show('slow');
+            $(".eurdiv").hide('slow');
+            $(".usddiv").hide('slow');
+
+            $('input[type="radio"]').click(function () {
+                if ($(this).attr("value") == "tl") {
+                    $(".tldiv").show('slow');
+                    $(".eurdiv").hide('slow');
+                    $(".usddiv").hide('slow');
+
+                }
+                if ($(this).attr("value") == "eur") {
+                    $(".tldiv").hide('slow');
+                    $(".eurdiv").show('slow');
+                    $(".usddiv").hide('slow');
+
+                }
+                if ($(this).attr("value") == "usd") {
+                    $(".tldiv").hide('slow');
+                    $(".eurdiv").hide('slow');
+                    $(".usddiv").show('slow');
+
+                }
+            });
+
+
+
+
+        });
+    </script>
+}

@@ -1,0 +1,530 @@
+﻿
+<div class="modal inmodal " id="PersonelEkle" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content animated bounceInRight">
+            <div class="modal-header">
+                <a style="text-align:left; color:white" class="btn btn-danger btn-xs" id="myModalLabel">Personel Ekle</a>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form id="veri" method="post">
+                <div class="modal-body">
+                    <div class="px-2">
+                        <div class="row">
+
+                            <div class="col-md-4 px-1">
+                                <div class="form-group">
+
+                                    <label for="exampleInputEmail1">Personel Grubu</label>
+                                    @Html.DropDownList("Pozisyon", new List<SelectListItem>
+                                {
+                                    new SelectListItem { Text="Seçiniz", Value="", Selected=@ViewBag.bayi == true ? false : true },
+                                    new SelectListItem { Text="Kullanıcı", Value="Kullanıcı"},
+                                    new SelectListItem { Text="Admin", Value="Admin"},
+                                    new SelectListItem { Text="Personel", Value="Personel"},
+                                    new SelectListItem { Text="Kasiyer", Value="Kasiyer"},
+                                    new SelectListItem { Text="Garson", Value="Garson"},
+                                    new SelectListItem { Text="Salon Kullanıcısı", Value="Salon Kullanıcısı"},
+                                    new SelectListItem { Text="Pazarlamacı", Value="Pazarlamacı"},
+                                    new SelectListItem { Text="Uzak Masaüstü Kullanıcısı", Value="Uzak Masaüstü Kullanıcısı"},
+                                    new SelectListItem { Text="Şoför", Value="Şoför"},
+                                    new SelectListItem { Text="Teknik Servis Kullanıcısı", Value="Teknik Servis Kullanıcısı"},
+                                    new SelectListItem { Text="Kurye", Value="Kurye"},
+                                    new SelectListItem { Text="Şube", Value="Şube"},
+
+
+                                }, new
+                                {
+                                    @id = "Pozisyon",
+                                    @class = "form-control",
+                                    @style = "background-color:#F9E79F",
+                                    @required = "required",
+
+                                })
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 px-1">
+                                <div class="form-group">
+                                    <label>Adı</label>
+                                    <input id="Adi" type="text" class="form-control" value="">
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 px-1">
+                                <div class="form-group">
+                                    <label>Soyadı</label>
+                                    <input id="Soyadi" type="text" class="form-control" value="">
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div id="veri">
+
+                            <div class="tabs-container">
+
+                                <ul class="nav nav-tabs pt-4">
+                                    <li class="nav-link">
+                                        <a href="#home" class="nav-link active" data-toggle="tab"><b>Genel Bilgiler</b></a>
+                                    </li>
+                                    <li class="nav-link">
+                                        <a href="#Ekbilgi" class="nav-link " data-toggle="tab">Diğer Bilgiler</a>
+                                    </li>
+                                    <li class="nav-link">
+                                        <a href="#Yetkiler" class="nav-link " data-toggle="tab">Yetkiler</a>
+                                    </li>
+                                </ul>
+
+                                <div style="margin:10px" class="tab-content">
+
+
+                                    <div class="tab-pane active" id="home">
+
+                                        <div class="panel-body">
+
+                                            <div class="container-fluid px-4">
+
+                                                <div class="row">
+
+                                                    <div class="col-md-4 px-1">
+                                                        <div class="form-group">
+
+                                                            <div class="form-group">
+
+                                                                <label for="exampleInputEmail1">Cinsiyet</label>
+                                                                @Html.DropDownList("Cinsiyet", new List<SelectListItem>
+                                                                {
+                                                                    new SelectListItem { Text="Seçiniz", Value="", Selected=@ViewBag.bayi == true ? false : true },
+                                                                    new SelectListItem { Text="Kadın", Value="Kadın"},
+                                                                    new SelectListItem { Text="Erkek", Value="Erkek"},
+
+                                                                }, new
+                                                                {
+                                                                    @id = "Cinsiyet",
+                                                                    @class = "form-control",
+
+
+                                                                })
+                                                            </div>
+
+
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 px-1">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Tc No</label>
+                                                            <input id="TcNo" type="text" class="form-control" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 px-1">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Uyruk</label>
+                                                            <input id="Millet" type="text" class="form-control" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 px-1">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Hes Kodu</label>
+                                                            <input id="HesKodu" type="text" class="form-control" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 px-1">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">GSM</label>
+                                                            <input id="GSM" type="text" class="form-control" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 px-1">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Sicil Numarası</label>
+                                                            <input id="SicilNo" type="text" class="form-control" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 px-1">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Maaş</label>
+                                                            <input id="Maas" type="number" class="form-control" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 px-1">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Kasa</label>
+                                                            @Html.DropDownList("ThisKasaID", new SelectList(AyarMetot.Kasalar(Session["FirmaID"].ToString()), "Value", "Text","001-MERKEZ"),
+                                                                new { @id = "ThisKasaID", @class = "form-control", @style = "" })
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 px-1">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Banka</label>
+                                                            @Html.DropDownList("ThisBankaID", new SelectList(AyarMetot.Bankalar(Session["FirmaID"].ToString()), "Value", "Text","001-MERKEZ"),
+                                                                new { @id = "ThisBankaID", @class = "form-control", @style = "" })
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Ek Bilgiler-->
+                                    <div class="tab-pane" id="Ekbilgi">
+
+                                        <div class="panel-body">
+
+                                            <div class="container-fluid px-4">
+
+                                                <div class="row">
+
+
+                                                    <div class="col-md-6 px-1">
+                                                        <div class="form-group">
+                                                            <label for="">Web Kullanıcı Adı</label>
+                                                            <input id="WebKA" type="text" class="form-control" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 px-1">
+                                                        <div class="form-group">
+                                                            <label for="">Web Kullanıcı Şifre</label>
+                                                            <input id="WebSifre" type="password" class="form-control" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 px-1">
+                                                        <div class="form-group">
+                                                            <label for="">Baba Adı</label>
+                                                            <input id="BabaAdi" type="text" class="form-control" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 px-1">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">E-Posta</label>
+                                                            <input id="Email" type="text" class="form-control" value="">
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-md-4 px-1">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Telefon</label>
+                                                            <input id="Telefon" type="text" class="form-control" value="">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 px-1">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Il</label>
+                                                            <input id="Il" type="text" class="form-control" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 px-1">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">İlçe</label>
+                                                            <input id="Ilce" type="text" class="form-control" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 px-1">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Adres</label>
+                                                            <textarea id="Adres" type="text" style="height:100px;" class="form-control" value=""></textarea>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="Yetkiler">
+
+                                        <div class="panel-body">
+
+                                            <div class="container-fluid px-4">
+
+                                                <div class="row">
+
+                                                    <div class="px-10">
+                                                        <div class="row">
+                                                            <div class="col-md-12 px-1">
+                                                                <div class="row">
+                                                                    <div class="form-group col-md-3">
+                                                                        <button type="button" onclick="Yetkiler()" style="color: white; background-color: #6c757d">Tüm Yetkileri Etkinleştir</button>
+                                                                    </div>
+                                                                    <div class="form-group col-md-6">
+                                                                        <button type="button" onclick="YetkiKaldir()" style="color: white; background-color: #6c757d">Tüm Yetkileri Kaldır</button>
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+                                                        <hr />
+                                                        <div class="row pt-2">
+                                                            <div class="col-md-6 px-1">
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <label for=""> <strong> Stok: </strong></label>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <input type="checkbox" id="stokeg" value="stokeg" checked="checked">
+                                                                        <label> Ekle/Güncelle</label>
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                        <input type="checkbox" id="StokSil" value="StokSil" checked="checked">
+                                                                        <label>Sil</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 px-1">
+
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <label for=""><strong> Cari : </strong></label>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <input type="checkbox" id="CariEG" value="CariEG" checked="checked">
+                                                                        <label>Ekle/Güncelle</label>
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                        <input type="checkbox" id="CariSil" value="CariSil" checked="checked">
+                                                                        <label>Sil</label>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="row">
+
+                                                            <div class="col-md-6 px-1">
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <label for=""><strong>Fatura:</strong></label>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <input type="checkbox" id="FaturaEG" value="FaturaEG" checked="checked">
+                                                                        <label> Ekle/Güncelle</label>
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                        <input type="checkbox" id="FaturaSil" value="FaturaSil" checked="checked">
+                                                                        <label>Sil</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 px-1">
+
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <label for=""><strong>Kasa: </strong></label>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <input type="checkbox" id="KasaEG" value="KasaEG" checked="checked">
+                                                                        <label>Ekle/Güncelle</label>
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                        <input type="checkbox" id="KasaSil" value="KasaSil" checked="checked">
+                                                                        <label>Sil</label>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                            @*<div class="col-md-4 px-1">
+                                                                    <div class="form-group">
+                                                                        <label for="">Fatura</label>
+                                                                        <input type="checkbox" id="FaturaEG" value="FaturaEG">
+                                                                        <label>Ekle/Güncelle</label>
+                                                                        <input type="checkbox" id="FaturaSil" value="FaturaSil">
+                                                                        <label>Sil</label>
+                                                                    </div>
+                                                                </div>*@
+                                                            @*<div class="col-md-4 px-1">
+                                                                    <div class="form-group">
+                                                                        <label for="">Kasa :</label>
+                                                                        <input type="checkbox" id="KasaEG" value="KasaEG">
+                                                                        <label>Ekle/Güncelle</label>
+                                                                        <input type="checkbox" id="KasaSil" value="KasaSil">
+                                                                        <label>Sil</label>
+                                                                    </div>
+                                                                </div>*@
+                                                        </div>
+
+                                                        <div class="row">
+
+                                                            <div class="col-md-6 px-1">
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <label for=""><strong> Banka:</strong></label>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <input type="checkbox" id="BankaEG" value="BankaEG" checked="checked">
+                                                                        <label> Ekle/Güncelle</label>
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                        <input type="checkbox" id="BankaSil" value="BankaSil" checked="checked">
+                                                                        <label>Sil</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 px-1">
+
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <label for=""><strong> Servis Kaydı: </strong></label>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <input type="checkbox" id="ServisEG" value="ServisEG" checked="checked">
+                                                                        <label>Ekle/Güncelle</label>
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                        <input type="checkbox" id="ServisSil" value="ServisSil" checked="checked">
+                                                                        <label>Sil</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            @*<div class="col-md-4 px-1">
+                                                                    <div class="form-group">
+                                                                        <label for="">Banka :</label>
+                                                                        <input type="checkbox" id="BankaEG" value="BankaEG">
+                                                                        <label>Ekle/Güncelle</label>
+                                                                        <input type="checkbox" id="BankaSil" value="BankaSil">
+                                                                        <label>Sil</label>
+                                                                    </div>
+                                                                </div>*@
+                                                            @*<div class="col-md-4 px-1">
+                                                                    <div class="form-group">
+                                                                        <label for="">Servis Kaydı :</label>
+                                                                        <input type="checkbox" id="ServisEG" value="ServisEG">
+                                                                        <label>Ekle/Güncelle</label>
+                                                                        <input type="checkbox" id="ServisSil" value="ServisSil">
+                                                                        <label>Sil</label>
+                                                                    </div>
+                                                                </div>*@
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6 px-1">
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <label for=""><strong>Personel: </strong> </label>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <input type="checkbox" id="PersonelEG" value="PersonelEG" checked="checked">
+                                                                        <label> Ekle/Güncelle</label>
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                        <input type="checkbox" id="PersonelSil" value="PersonelSil" checked="checked">
+                                                                        <label>Sil</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 px-1">
+
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <label for=""><strong> Maaş İşlemleri: </strong> </label>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <input type="checkbox" id="MaasEG" value="MaasEG" checked="checked">
+                                                                        <label>Ekle/Güncelle</label>
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                        <input type="checkbox" id="MaasSil" value="MaasSil" checked="checked">
+                                                                        <label>Sil</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            @*<div class="col-md-4 px-1">
+                                                                    <div class="form-group">
+                                                                        <label for="">Personel :</label>
+                                                                        <input type="checkbox" id="PersonelEG" value="PersonelEG">
+                                                                        <label>Ekle/Güncelle</label>
+                                                                        <input type="checkbox" id="PersonelSil" value="PersonelSil">
+                                                                        <label>Sil</label>
+                                                                    </div>
+                                                                </div>*@
+                                                            @*<div class="col-md-4 px-1">
+                                                                    <div class="form-group">
+                                                                        <label for="">Maaş İşlemleri :</label>
+                                                                        <input type="checkbox" id="MaasEG" value="MaasEG">
+                                                                        <label>Ekle/Güncelle</label>
+                                                                        <input type="checkbox" id="MaasSil" value="MaasSil">
+                                                                        <label>Sil</label>
+                                                                    </div>
+                                                                </div>*@
+                                                        </div>
+
+                                                        <div class="row">
+
+
+                                                            <div class="col-md-6 px-1">
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <label for=""><strong> Kredi Kartı: </strong> </label>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <input type="checkbox" id="KrediKEG" value="KrediKEG" checked="checked">
+                                                                        <label> Ekle/Güncelle</label>
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                        <input type="checkbox" id="KrediKSil" value="KrediKSil" checked="checked">
+                                                                        <label>Sil</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                            @*<div class="col-md-6 px-1">
+                                                                    <div class="form-group">
+                                                                        <label for="">Kredi Kartı :</label>
+                                                                        <input type="checkbox" id="KrediKEG" value="KrediKEG">
+                                                                        <label>Ekle/Güncelle</label>
+                                                                        <input type="checkbox" id="KrediKSil" value="KrediKSil">
+                                                                        <label>Sil</label>
+                                                                    </div>
+                                                                </div>*@
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 px-1">
+                                    <div class="form-group">
+                                        @Html.Hidden("pID", -1)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <!--Modal Başlangıcı-->
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

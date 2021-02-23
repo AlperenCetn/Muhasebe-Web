@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/02/2016 15:23:30" ReportInfo.Modified="12/27/2017 12:39:08" ReportInfo.CreatorVersion="1.9.1.0">
+  <Dictionary>
+    <TableDataSource Name="FirmaBilgileri" ReferenceName="SADataset1.FirmaBilgileri" DataType="System.Int32" Enabled="true">
+      <Column Name="Firma Adı" Alias="FirmaAdi" DataType="System.String"/>
+      <Column Name="Telefon" DataType="System.String"/>
+      <Column Name="Vergi Dairesi" Alias="VergiDairesi" DataType="System.String"/>
+      <Column Name="Vergi No" Alias="VergiNo" DataType="System.String"/>
+      <Column Name="Ülke" Alias="Ulke" DataType="System.String"/>
+      <Column Name="Şehir" Alias="Sehir" DataType="System.String"/>
+      <Column Name="Posta Kodu" Alias="PostaKodu" DataType="System.String"/>
+      <Column Name="Adres" DataType="System.String"/>
+    </TableDataSource>
+    <TableDataSource Name="Cek Senet Bilgileri" ReferenceName="SADataset1.Cek Senet Bilgileri" DataType="System.Int32" Enabled="true">
+      <Column Name="Bordro Tipi" DataType="System.String"/>
+      <Column Name="Portföy No" DataType="System.String"/>
+      <Column Name="İşlem Tipi" DataType="System.String"/>
+      <Column Name="Seri Numarası" DataType="System.String"/>
+      <Column Name="İşlem Tarihi" DataType="System.String"/>
+      <Column Name="Evrak Giriş Tarihi" DataType="System.String"/>
+      <Column Name="Vade Tarihi" DataType="System.String"/>
+      <Column Name="Durumu" DataType="System.String"/>
+      <Column Name="Açıklama" DataType="System.String"/>
+      <Column Name="Banka Adı" DataType="System.String"/>
+      <Column Name="Şube Adı" DataType="System.String"/>
+      <Column Name="Ödeme Yeri" DataType="System.String"/>
+      <Column Name="Keşideci Ünvanı" DataType="System.String"/>
+      <Column Name="Keşideci Tel" DataType="System.String"/>
+      <Column Name="Para Birimi" DataType="System.String"/>
+      <Column Name="Tutar" DataType="System.String"/>
+      <Column Name="Risk Limiti Kapsamı" DataType="System.String"/>
+      <Column Name="Zimmetlenen Personel" DataType="System.String"/>
+      <Column Name="Zimmet Açıklaması" DataType="System.String"/>
+      <Column Name="Cari Ünvanı" DataType="System.String"/>
+      <Column Name="Borçlu/Alacaklı" DataType="System.String"/>
+      <Column Name="ID" DataType="System.String"/>
+      <Column Name="Vade Ayı" DataType="System.String"/>
+      <Column Name="İşlem Ayı" DataType="System.String"/>
+      <Column Name="Vade Yılı" DataType="System.String"/>
+      <Column Name="İşlem Yılı" DataType="System.String"/>
+      <Column Name="Vade Ayı [Sayı]" DataType="System.String"/>
+      <Column Name="İşlem Ayı [Sayı]" DataType="System.String"/>
+      <Column Name="Ödenen/Tahsil Edilen" DataType="System.String"/>
+      <Column Name="Kalan" DataType="System.String"/>
+    </TableDataSource>
+    <TableDataSource Name="Bordro Bilgileri" ReferenceName="SADataset1.Bordro Bilgileri" DataType="System.Int32" Enabled="true">
+      <Column Name="İşlem Tipi" DataType="System.String"/>
+      <Column Name="İşlem Numarası" DataType="System.String"/>
+      <Column Name="İşlem Tarihi" DataType="System.String"/>
+      <Column Name="Tutar" DataType="System.String"/>
+      <Column Name="Açıklama" DataType="System.String"/>
+      <Column Name="Personel" DataType="System.String"/>
+      <Column Name="Para Birimi" DataType="System.String"/>
+      <Column Name="ID" DataType="System.String"/>
+      <Column Name="Sıra" DataType="System.String"/>
+    </TableDataSource>
+    <TableDataSource Name="Çek Senet Rapor Bilgileri" ReferenceName="SADataset1.Çek Senet Rapor Bilgileri" DataType="System.Int32" Enabled="true">
+      <Column Name="Toplam Bilgileri" DataType="System.String"/>
+      <Column Name="Tarihler Arası" DataType="System.String"/>
+      <Column Name="İşlem Para Birimi" DataType="System.String"/>
+      <Column Name="Personel" DataType="System.String"/>
+    </TableDataSource>
+    <Relation Name="Cek Senet Bilgileri_Bordro Bilgileri" ReferenceName="SADataset1.Cek Senet Bilgileri_Bordro Bilgileri" ParentDataSource="Cek Senet Bilgileri" ChildDataSource="Bordro Bilgileri" ParentColumns="ID" ChildColumns="ID" Enabled="true"/>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0">
+    <ReportTitleBand Name="ReportTitle1" Width="793.8" Height="160.65">
+      <TextObject Name="Text110" Left="631.7" Top="66.15" Width="122.85" Height="9.45" Text="[Date]" HorzAlign="Right" Font="Verdana, 7pt, style=Italic"/>
+      <TextObject Name="Text111" Left="18.9" Top="63.15" Width="396.9" Height="18.9" Text="[FirmaBilgileri.FirmaAdi]" Font="Arial, 10pt, style=Bold"/>
+      <LineObject Name="Line6" Left="23.9" Top="85.15" Width="737.1"/>
+      <TextObject Name="Text115" Left="110.46" Top="96.95" Width="406.35" Height="15.12" Text="[Çek Senet Rapor Bilgileri.Toplam Bilgileri]" Font="Tahoma, 8pt"/>
+      <TextObject Name="Text116" Left="23.9" Top="96.95" Width="85.05" Height="15.12" Text="Toplam:" Font="Tahoma, 8pt, style=Bold"/>
+      <TextObject Name="Text119" Left="23.9" Top="115.3" Width="85.05" Height="15.12" Text="Tarihler : " Font="Tahoma, 8pt, style=Bold"/>
+      <TextObject Name="Text120" Left="110.46" Top="115.3" Width="406.35" Height="15.12" Text="[Çek Senet Rapor Bilgileri.Tarihler Arası]" Font="Tahoma, 8pt"/>
+      <TextObject Name="Text117" Left="110.46" Top="134.2" Width="406.35" Height="15.12" Text="[Çek Senet Rapor Bilgileri.İşlem Para Birimi]" Font="Tahoma, 8pt"/>
+      <TextObject Name="Text118" Left="23.9" Top="134.2" Width="85.05" Height="15.12" Text="Para Birimi :" Font="Tahoma, 8pt, style=Bold"/>
+      <TextObject Name="Text72" Left="18.9" Top="9.45" Width="746.55" Height="28.35" Fill.Color="10, 111, 183" Text="ÇEK/SENET BİLGİLERİ" HorzAlign="Center" VertAlign="Center" Font="Segoe UI, 12pt" TextFill.Color="White"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="164.65" Width="793.8" Height="37.8">
+      <TextObject Name="Text121" Left="688.34" Top="18.9" Width="75.6" Height="18.9" Text="Tutar" HorzAlign="Right" VertAlign="Bottom" Font="Tahoma, 7pt, style=Bold"/>
+      <TextObject Name="Text122" Left="18.9" Top="18.9" Width="85.05" Height="18.9" Text="Tarih" VertAlign="Bottom" Font="Tahoma, 7pt, style=Bold"/>
+      <TextObject Name="Text123" Left="115.56" Top="18.9" Width="61.7" Height="18.9" Text="İşlem No" VertAlign="Bottom" Font="Tahoma, 7pt, style=Bold"/>
+      <TextObject Name="Text124" Left="307.01" Top="18.9" Width="170.1" Height="18.9" Text="Cari" VertAlign="Bottom" Font="Tahoma, 7pt, style=Bold"/>
+      <TextObject Name="Text125" Left="198.61" Top="18.9" Width="103.95" Height="18.9" Text="İşlem Türü" VertAlign="Bottom" Font="Tahoma, 7pt, style=Bold"/>
+      <LineObject Name="Line8" Left="18.9" Top="37.31" Width="746.55" Border.Style="Dash"/>
+      <TextObject Name="Text131" Left="480.95" Top="18.9" Width="198.45" Height="18.9" Text="Borçlu/Alacaklı" VertAlign="Bottom" Font="Tahoma, 7pt, style=Bold"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="206.45" Width="793.8" Height="47.25" DataSource="Cek Senet Bilgileri">
+      <TextObject Name="Text126" Left="112.66" Top="4.47" Width="85.05" Height="18.9" Fill.Color="WhiteSmoke" Text="[Cek Senet Bilgileri.Portföy No]" VertAlign="Center" Font="Tahoma, 7.5pt" TextFill.Color="Teal"/>
+      <TextObject Name="Text127" Left="18.9" Top="4.47" Width="94.5" Height="18.9" Fill.Color="WhiteSmoke" Text="[Cek Senet Bilgileri.İşlem Tarihi]" VertAlign="Center" Font="Tahoma, 7.5pt"/>
+      <TextObject Name="Text128" Left="300.56" Top="4.47" Width="181.44" Height="18.9" Fill.Color="WhiteSmoke" Text="[Cek Senet Bilgileri.Cari Ünvanı]" VertAlign="Center" Font="Tahoma, 7.5pt" TextFill.Color="64, 0, 0"/>
+      <TextObject Name="Text129" Left="197.06" Top="4.47" Width="103.95" Height="18.9" Fill.Color="WhiteSmoke" Text="[Cek Senet Bilgileri.Bordro Tipi]" VertAlign="Center" Font="Tahoma, 7.5pt"/>
+      <TextObject Name="Text130" Left="688.34" Top="4.47" Width="75.6" Height="18.9" Fill.Color="WhiteSmoke" Text="[Cek Senet Bilgileri.Tutar]" HorzAlign="Right" VertAlign="Center" Font="Tahoma, 7.5pt, style=Bold" TextFill.Color="0, 64, 64"/>
+      <SubreportObject Name="Subreport1" Left="18.9" Top="28.35" Width="94.5" Height="18.9" ReportPage="Page2"/>
+      <TextObject Name="Text132" Left="481.95" Top="4.45" Width="207.9" Height="18.9" Fill.Color="WhiteSmoke" Text="[Cek Senet Bilgileri.Borçlu/Alacaklı]" VertAlign="Center" Font="Tahoma, 7.5pt" TextFill.Color="64, 0, 0"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="257.7" Width="793.8" Height="18.9"/>
+  </ReportPage>
+  <ReportPage Name="Page2" RawPaperSize="9" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0">
+    <DataBand Name="Data2" Width="793.8" Height="18.9" DataSource="Bordro Bilgileri">
+      <TextObject Name="Text31" Left="28.35" Width="94.5" Height="18.9" Border.Lines="All" Border.Color="Silver" Border.Style="Dot" Text="[Bordro Bilgileri.İşlem Tarihi]" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 7.5pt"/>
+      <TextObject Name="Text32" Left="207.9" Width="311.85" Height="18.9" Border.Lines="All" Border.Color="Silver" Border.Style="Dot" Text="[Bordro Bilgileri.İşlem Tipi] - [Cek Senet Bilgileri.Banka Adı]" Padding="10, 0, 2, 0" VertAlign="Center" Font="Tahoma, 7.5pt"/>
+      <TextObject Name="Text33" Left="123.1" Width="85.05" Height="18.9" Border.Lines="All" Border.Color="Silver" Border.Style="Dot" Text="[Bordro Bilgileri.İşlem Numarası]" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 7.5pt"/>
+      <TextObject Name="Text106" Left="520" Width="226.8" Height="18.9" Border.Lines="All" Border.Color="Silver" Border.Style="Dot" Text="[Bordro Bilgileri.Açıklama]" VertAlign="Center" Font="Tahoma, 7.5pt"/>
+      <TextObject Name="Text133" Width="28.35" Height="18.9" Border.Lines="All" Border.Color="Silver" Border.Style="Dot" Text="[Row#]" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 7.5pt"/>
+      <Sort>
+        <Sort Expression="ToDateTime([Bordro Bilgileri.İşlem Tarihi])"/>
+      </Sort>
+    </DataBand>
+  </ReportPage>
+</Report>

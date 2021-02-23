@@ -1,0 +1,602 @@
+﻿
+@{
+    ViewBag.Title = "Yeni Iade";
+    string class1 = "col-lg-12";
+    string class2 = "gosterme";
+    string class3 = "goster";
+    string Tipi = "Sevk İrsaliyesi";
+}
+
+<style>
+
+.gosterme {
+  display: none;
+}
+</style>
+
+<script src="~/Scripts/Fonksiyonlar.js"></script>
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+        <div class="@class1">
+            <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                    <li><a class="nav-link active" data-toggle="tab" href="#tab-1">Yeni İade</a></li>
+
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="panel-body">
+
+                            <div id="veri">
+
+                                <div class="row">
+                                    <div class="offset-4 col-8">
+                                        <button type="button" style="float:right;" class="nakitSatis btn btn-lg btn-outline-primary">Kaydet <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                                        <button onclick="Geri()" type="button" style="float:right;" class="btn btn btn-lg pull-right btn-outline-danger">Vazgeç <i class="fa fa-close"></i></button>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-group row">
+                                    <label for="cari" class="col-4 col-form-label">Cari</label>
+                                    <div class="col-8">
+                                        @Html.DropDownList("CariID", new SelectList(AyarMetot.Cariler(Session["FirmaID"].ToString()), "Value", "Text"),
+                                        "Tüm Cariler", new { @id = "CariID", @class = "select2_demo_3 form-control", @style = "font-size:x-small" })
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="aciklama" class="col-4 col-form-label">Açıklama</label>
+                                    <div class="col-8">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="fa fa-font"></i>
+                                                </div>
+                                            </div>
+                                            <input id="aciklama" name="aciklama" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label for="FaturaTipi" class="col-4 col-form-label">Fatura Tipi</label>
+                                    <div class="col-6 pr-1">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="fa fa-file-text"></i>
+                                                </div>
+                                            </div>
+                                            <input id="FaturaTipi" name="FaturaTipi" value="İade" type="text" class="form-control" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-2 px-1">
+                                        @Html.DropDownList("KdvDh", new SelectList(AyarMetot.KdvDh(), "Value", "Text", "Dahil"), new { @id = "KdvDh", @class = "form-control" })
+
+                                    </div>
+
+
+                                </div>
+
+
+                                <div class="col-md-3 px-1">
+                                    <div class="form-group">
+                                        @Html.Hidden("cID", -1, new { @id = "cID" })
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="@class3 row">
+                                    <div class="col-sm-3 col-md-3 px-1">
+                                        <b>Ürün</b> <br />@Html.DropDownList("StokKodu", new SelectList(AyarMetot.Urunler(Session["FirmaID"].ToString()), "Value", "Text"),
+                                        "Tüm Ürünler", new { @id = "StokKodu", @class = "select2_demo_3 form-control", @style = "font-size:x-small" })
+                                    </div>
+                                    <div class="col-sm-2 col-md-2 px-1">
+                                        <b>Barkod</b><br /><input id="Barkod" name="text" type="text" class="form-control">
+                                    </div>
+                                    <div class="col-sm-1 col-md-1 px-1">
+                                        <b>Miktar</b><br /><input required id="Miktar" name="text" placeholder="Miktar" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="1" value="1">
+                                    </div>
+
+                                    <div class="col-sm-1 col-md-1 px-1">
+                                        <b>Birim</b><br /><input value="Adet" id="Birim" name="text" type="text" class="birim form-control">
+                                    </div>
+                                    <div class="col-sm-1 col-md-1 px-1">
+                                        <b>Birim Fiyatı</b><br /><input onClick="this.setSelectionRange(0, this.value.length);" id="BirimFiyati" name="text" placeholder="BirimFiyati" type="text" class="digit form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="0.00">
+                                    </div>
+                                    <div class="col-sm-2 col-md-2 px-1">
+                                        <b>Tutar</b><br /><input id="Tutar" name="text" type="text" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="0.00" readonly>
+                                    </div>
+                                    <div class="col-sm-1 col-md-1 px-1">
+                                        <b>KDV</b><br /><select id="KDV" name="select" class="custom-select">
+                                            <option selected value="18">18</option>
+                                            <option value="8">8</option>
+                                            <option value="1">1</option>
+                                            <option value="0">0</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-1 col-md-1 px-1">
+                                        <label> </label><br />
+                                        <button class="sepeteEkle btn btn-outline btn-lg btn-info px-1">EKLE <i class="fa fa-plus" aria-hidden="true"></i></button>
+                                    </div>
+
+                                </div>
+                                <br />
+                                <div id="tblUrun" class="row" style="display:none; border-color:lightgray;margin-top:30px">
+                                    <div class="col-lg-11">
+                                        <table id="siparis" class="display" style="margin:0px; width:100%">
+                                            <thead style="font-size:smaller; color:maroon">
+                                                <tr>
+                                                    <th style="width:27%">Ürün</th>
+                                                    <th> Miktar</th>
+                                                    <th>Birim</th>
+                                                    <th>Birim Fiyat</th>
+                                                    <th>Tutar</th>
+                                                    <th>KDV</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="font-weight:bold;"></tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <br />
+                            <div class="row">
+                                <div class="offset-4 col-8">
+                                    <button type="button" style="float:right;" class="nakitSatis btn btn-lg btn-outline-primary">Kaydet <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                                    <button onclick="Geri()" type="button" style="float:right;" class="btn btn btn-lg pull-right btn-outline-danger">Vazgeç <i class="fa fa-close"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="overflow:auto; max-height:100vh" class="@class2 col-lg-5 px-1">
+            <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                    <li><a class="nav-link active" data-toggle="tab" href="#tab-1">Ürün Listesi</a></li>
+
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="panel-body">
+
+                            @*<div class="row pb-4">
+                                                            <div class="col-md-6 p-0">
+
+                                                                @Html.DropDownList("StokKodu", new SelectList(AyarMetot.Urunler(), "Value", "Text"),
+                            "Tüm Ürünler", new { @id = "StokKodu", @class = "select2_demo_3 form-control", @style = "font-size:x-small;  width:100%;" })
+                                                            </div>
+                                                            <div class="col-md-6 p-0 pl-1">
+
+                                                                <input type="text" placeholder="Barkod No" class="form-control p-2" />
+                                                            </div>
+                                                        </div>*@
+
+                            <div background-color:white" class="row">
+                                @foreach (var item in Model)
+                                {
+                                    decimal fiyat = Convert.ToDecimal(item.SatishFiyat);
+
+                                    <div font-family:'Century Gothic'" class="col-md-4 px-1">
+                                        <div class="card card-stats">
+                                            <div class="card-body ">
+
+                                                <div>
+
+                                                    <ab onclick="Ekle()" id="@item.ID">
+
+                                                        @if (item.StokBase64 == null)
+                                                        {
+
+                                                            <a>
+                                                                <img url align="middle"
+                                                                     style="height:85px;width:80%;" src="~/Content/300.png" />
+                                                            </a>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            var base64 = Convert.ToBase64String(item.StokBase64);
+                                                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+
+                                                            <a>
+                                                                <img style="object-fit:scale-down;
+                                                            height:50px;width:100%;" src="@imgSrc" />
+                                                            </a>
+
+
+
+                                                        }
+                                                        <hr>
+                                                        <a ><b> @item.UrunAdi </b></a>
+                                                    </ab>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+
+
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+</div>
+
+<!--    TABLO   -->
+<!--    TABLO   -->
+
+
+@section Styles {
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @Styles.Render("~/plugins/dateRangeStyles")
+    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @Styles.Render("~/plugins/dataPickerStyles")
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/plugins/tagInputsStyles")
+    @Styles.Render("~/plugins/duallistStyles")
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @Scripts.Render("~/plugins/dateRange")
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/tagInputs")
+    @Scripts.Render("~/plugins/duallist")
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+    <script src="~/Scripts/mask.js"></script>
+    <script src="~/Scripts/musteri.js"></script>
+    <link href="https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet" />
+    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+     <script src="~/Scripts/Fonksiyonlar.js"></script>
+    <script type="text/javascript">
+
+        function Geri() {
+
+            history.back();
+
+        }
+
+        function temizle() {
+            $("#StokKodu").select2("val", "0");
+            $("#Miktar").val("1");
+            $("#Tutar").val("0");
+            $("#Birim").val("Adet");
+            $("#BirimFiyati").val("0");
+            $("#KDV").val("18");
+        }
+
+        function Ekle() {
+
+
+            var kaydet = true;
+            var id = $(event.target).closest("ab").attr('id');
+
+
+            var StkKod = $("#StokKodu").val();
+            var StkUrunAdi = $("#StokKodu :selected").text();
+            var StkMiktar = $("#Miktar").val();
+            var StkBirim = $("#Birim").val();
+            var StkBirimFiyati = $("#BirimFiyati").val();
+            var StkTutar = $("#Tutar").val();
+            var StkKDV = $("#KDV :selected").text();
+
+
+            if (id != null) {
+
+
+                if (id != 0) {
+
+
+
+                    $.ajax({
+                        type: "GET",
+                        "datatype": "json",
+                        url: '/Fatura/StokBilgi?id=' + id,
+                        success: function (gt) {
+                            if (gt.success) {
+
+
+                                var StkKod = gt.data.ID;
+                                var StkUrunAdi = gt.data.UrunAdi;
+                                var StkMiktar = 1;
+                                var StkBirim = gt.data.Birimi;
+                                var StkBirimFiyati = Number(gt.data.SatishFiyat).toFixed(2).replace(".", ",");
+                                var StkTutar = Number(gt.data.SatishFiyat).toFixed(2).replace(".", ",");
+                                var StkKDV = gt.data.KDV;
+
+                                document.getElementById("tblUrun").style.display = "block";
+
+                                var row = $(this).closest("tr");
+                                var sutunlar = {
+                                    Kaldir: '<button style="background-color:indianred;margin:0px" type="button" value="' + StkKod + '" class="btn btn-md btn-danger  sepetSil"> SİL   <i class="fa fa-trash" aria-hidden="true"></i></button>',
+                                    UrunAdi: '<input disabled  style="font-size:smaller" type="text" class=" urunadi form-control" value="' + StkUrunAdi + '" />',
+                                    Miktar: '<input style="font-size:smaller" onchange="GenelTopla(this)" type="text" class="miktar form-control" value="' + StkMiktar + '" />',
+                                    Birim: '<input disabled style="font-size:smaller" type="text" class=" birim form-control " value="' + StkBirim + '" />',
+                                    BirimFiyati: '<input  style="font-size:smaller" type="text" onchange="GenelTopla(this)" class=" birimfiyat form-control" value="' + StkBirimFiyati + '" />',
+                                    Tutar: '<input disabled style="font-size:smaller" type="text" class="tutar form-control" value="' + StkTutar + '" />',
+                                    KDV: '<input disabled style="font-size:smaller" type="text" class=" kdv form-control" value="' + StkKDV + '" />',
+                                };
+
+                                temizle();
+                                $("#siparis tbody").append("<tr style='font-size:small;'><td>" + sutunlar.UrunAdi + "</td> <td>" + sutunlar.Miktar + "</td><td>" + sutunlar.Birim + "</td><td>" + sutunlar.BirimFiyati + "</td><td>" + sutunlar.Tutar + "</td><td>" + sutunlar.KDV + "</td> <td>" + sutunlar.Kaldir + "</td></tr>");
+
+
+                            }
+                        }
+
+                    });
+
+
+
+                }
+            }
+
+
+
+        }
+
+
+
+        function GenelTopla(event) {
+            var $row = $(event).closest("tr");
+
+            var Fiy = $row.find("td:eq(3) .birimfiyat").val().replace(",", ".");
+            var Mik = $row.find("td:eq(1) .miktar").val().replace(",", ".");
+
+            var total = 0;
+            total = parseFloat(Mik) * parseFloat(Fiy);
+
+
+            var sayi = total;
+            sayi = Number(sayi.toFixed(2));
+
+            $row.find("td:eq(4) .tutar").val(sayi);
+        }
+
+
+        function setTwoNumberDecimal(event) {
+            this.value = parseFloat(this.value).toFixed(2);
+        }
+
+
+
+
+      
+        $(document).on("click", ".sepeteEkle", function () {
+
+            var kaydet = true;
+
+            var id = $(event.target).closest("ab").attr('id');
+
+            if (id != null) {
+
+                if (id != 0) {
+
+                    $("#StokKodu").select2("val", id);
+
+                }
+            }
+            else {
+                if ($("#StokKodu").val() == "" || $("#StokKodu").val() == "0" || $("#StokKodu").val() == null) {
+                    swal("Uyarı", "Ürün Seçiniz", "warning");
+                    kaydet = false;
+                }
+            }
+
+
+            if (kaydet) {
+
+                document.getElementById("tblUrun").style.display = "block";
+
+                var row = $(this).closest("tr");
+                var sutunlar = {
+                    Kaldir: '<button style="background-color:indianred;margin:0px" type="button" value="' + $("#StokKodu").val() + '" class="btn btn-md btn-danger  sepetSil"> SİL   <i class="fa fa-trash" aria-hidden="true"></i></button>',
+                    UrunAdi: '<input disabled  style="font-size:smaller" type="text" class=" urunadi form-control" value="' + $("#StokKodu :selected").text() + '" />',
+                    Miktar: '<input style="font-size:smaller" onchange="GenelTopla(this)" type="text" class="miktar form-control" value="' + $("#Miktar").val() + '" />',
+                    Birim: '<input disabled style="font-size:smaller" type="text" class=" birim form-control " value="' + $("#Birim").val() + '" />',
+                    BirimFiyati: '<input  style="font-size:smaller" type="text" onchange="GenelTopla(this)" class=" birimfiyat form-control" value="' + $("#BirimFiyati").val() + '" />',
+                    Tutar: '<input disabled style="font-size:smaller" type="text" class="tutar form-control" value="' + $("#Tutar").val() + '" />',
+                    KDV: '<input disabled style="font-size:smaller" type="text" class=" kdv form-control" value="' + $("#KDV :selected").text() + '" />',
+                };
+
+                temizle();
+                $("#siparis tbody").append("<tr style='font-size:small;'><td>" + sutunlar.UrunAdi + "</td> <td>" + sutunlar.Miktar + "</td><td>" + sutunlar.Birim + "</td><td>" + sutunlar.BirimFiyati + "</td><td>" + sutunlar.Tutar + "</td><td>" + sutunlar.KDV + "</td> <td>" + sutunlar.Kaldir + "</td></tr>");
+            }
+        });
+
+        $("#siparis").on("click", ".sepetSil", function () {
+            var row = $(this).closest('tr');
+            row.fadeOut(500, function () {
+                row.remove();
+
+            });
+        });
+
+
+        $(document).on("click", ".nakitSatis", function () {
+
+            var kaydet = true;
+
+            if ($("#CariID").val() == "" || $("#CariID").val() == null) {
+                swal("Uyarı", "Cari Seçiniz", "warning");
+                kaydet = false;
+            }
+
+            if (kaydet) {
+                var data = [];
+                var indirim = "0";
+                var musID = $("#CariID").val();
+                var KdvDh = $("#KdvDh").val();
+                var Aciklama = $("#aciklama").val();
+                var tr = 0;
+                var tutar = 0;
+
+                var verivar = false;
+
+                $("#siparis tbody tr").each(function () {
+                    data[tr] = new Array(5);
+                    data[tr][0] = $(this).find("td:eq(6) .sepetSil").val();
+                    data[tr][1] = $(this).find("td:eq(1) .miktar").val();
+                    data[tr][2] = $(this).find("td:eq(2) .birim").val();
+                    data[tr][3] = $(this).find("td:eq(3) .birimfiyat").val();
+                    data[tr][4] = $(this).find("td:eq(5) .kdv").val();
+
+                    tr++;
+                    verivar = true;
+                });
+
+
+                if (verivar) {
+                $.ajax({
+                    type: "POST",
+                    url: '/Fatura/YeniIade',
+                    data: { data: data, indirim: indirim, CariID: musID, Aciklama: Aciklama, KdvDh: KdvDh },
+                    dataType: "json",
+
+                    success: function (g) {
+                        if (g.sonuc == "1") {
+
+                            swal({
+                                title: "Başarılı!",
+                                text: g.Mesaj,
+                                type: "success"
+                            }).then(function () {
+
+                                var myJsVariable = '@ViewBag.ProTerminal';
+
+                                window.location.reload();
+
+                            });
+                        }
+                        else if (g.sonuc == "0") {
+                            swal("Hata", "Kaydedilemedi", "success");
+                        }
+                    },
+                    error: function () {
+                        swal("Hata", "HATA OLUŞTU!", "error");
+                    }
+
+                });
+                }
+                else {
+                    swal("Uyarı", "En Az bir ürün ekleyiniz", "warning");
+                }
+            }
+        });
+
+          function Topla() {
+            var age = Number(document.getElementById("Miktar").value.replace(",", "."));
+            var age1 = Number(document.getElementById("BirimFiyati").value.replace(",", "."));
+
+            var total = 0;
+            total = parseFloat(age) * parseFloat(age1);
+
+
+            var sayi = total;
+            sayi = Number(sayi.toFixed(2));
+
+
+            document.getElementById("Tutar").value = sayi.toFixed(2).replace(".", ",");
+        }
+
+
+
+        $(document).ready(function () {
+
+            $("#StokKodu").change(function () {
+                var end = this.value;
+                FiyatGetir(end);
+            });
+
+            $(".digit").keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && e.which != 44 && (e.which < 48 || e.which > 57)) {
+                    $("#errormsg").html("Digits Only").show().fadeOut("slow");
+                    return false;
+                }
+            });
+
+
+            $(".select2_demo_1").select2();
+            $(".select2_demo_2").select2();
+            $(".select2_demo_3").select2({
+                placeholder: "Seçiniz",
+                allowClear: true
+            });
+
+        });
+
+        $('#Miktar').on("keyup", function () {
+            Topla();
+        });
+
+        $('#BirimFiyati').on("keyup", function () {
+            Topla();
+        });
+
+        $('#Barkod').on("keyup", function (event) {
+            var end = this.value;
+
+            if (event.keyCode === 13) {
+                event.preventDefault();
+
+                FiyatGetir(-1, end);
+            }
+        });
+
+
+    </script>
+}
+
+
+
+

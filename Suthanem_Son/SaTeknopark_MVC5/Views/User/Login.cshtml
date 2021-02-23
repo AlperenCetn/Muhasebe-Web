@@ -1,0 +1,51 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sa | Giriş</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="~/Content/animate.css" rel="stylesheet">
+    <link href="~/Content/style.css" rel="stylesheet">
+    <link rel="shortcut icon" href="~/Images/Sut.png" type="image/x-icon" />
+
+</head>
+<body class="gray-bg">
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+            <div>
+                <a>
+                    <img alt="image" style="width:30%;height:30%"  src="~/Content/LOGO.png" />
+                </a>
+            </div>
+            <h3>HOŞGELDİNİZ</h3>
+            <p style="color:darkturquoise; font-family:'Century Gothic';font-size:14px">
+                Fark yaratan fikirlerden gelen ilham !
+            </p>
+            <form action="/User/Login" method="post">
+                <div class="form-group">
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <input id="UserName" name="UserName" type="text" class="form-control" placeholder="Kullanıcı" required="">
+                </div>
+                <div class="form-group">
+                    <input id="Password" name="Password" type="password" class="form-control" placeholder="Şifre" required="">
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">Giriş Yap <i class="pull-right fa fa-unlock-alt"></i></button>
+                <a href="@Url.Action("Remember","User")"><medium>Şifremi Unuttum?</medium></a>
+                <br/>
+                <br/>
+                @if(ViewBag.Demo == "demo") { 
+                    <a href="@Url.Action("Register","User")"><large>Kayıt Ol !</large></a>
+                }
+            </form>
+            <p class="m-t"> <small>Copyright &copy; 2020</small> </p>
+        </div>
+    </div>
+</body>
+</html>
+

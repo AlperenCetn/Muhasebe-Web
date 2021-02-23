@@ -1,0 +1,206 @@
+﻿
+@{
+    ViewBag.Title = "Hızlı Stok";
+}
+
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+
+
+<div class="container-fluid">
+    <div class="row pt-3">
+        <div class="col-lg-12 py-5">
+            <div class="ibox" style="box-shadow:8px 12px 14px gray">
+
+
+                <div class="ibox-title  back-change text-center">
+                    <strong style="color : black; font-size:large"> <i class="fas fa-box-open"></i> Hızlı Stok / Hizmet Ekle</strong>
+                </div>
+
+                <div class="ibox-content py-5">
+                    <div class="row">
+                        <div class="col-sm-8 b-r">
+                            @*<h3 class="m-t-none m-b">Hızlı Cari Ekleme Kartı </h3>*@
+                            <form id="veri" method="post" action="/Stok/yeniStok">
+                                <div class="row px-5">
+
+                                    <div class="col-md-3 ">
+                                        <div class="form-group">
+                                            <label><b>Stok Kodu </b></label>
+                                            <input id="StokK" name="StokK" type="text" class="form-control" value="@ViewBag.StokKoduSiradaki">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 ">
+                                        <div class="form-group">
+                                            <label><b>Ürün Adı</b></label>
+                                            <input required id="UrunA" name="UrunA" type="text" class="form-control" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 ">
+                                        <div class="form-group">
+                                            <label><b>Barkod No</b></label>
+                                            <input id="Barkod" name="Barkod" type="text" class="form-control" value="">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 pb-3 ">
+                                        <strong>Alış Fiyatı</strong>
+                                        <input id="AlishFiyat" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="0.00">
+                                    </div>
+
+                                    <div class="col-md-3 pb-3">
+                                        <strong>Satış Fiyatı</strong>
+                                        <input id="SatishFiyat" name="text" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="0.00">
+                                    </div>
+                                    <div class="col-md-2 pb-3">
+                                        <strong>KDV</strong>
+
+                                        @Html.DropDownList("KDV", new List<SelectListItem>
+                                            {
+                                            new SelectListItem { Text="18", Value="18", Selected=true},
+                                            new SelectListItem { Text="8", Value="8"},
+                                            new SelectListItem { Text="1", Value="1"},
+                                             new SelectListItem { Text="0", Value="0"},
+                                            }, new
+                                            {
+                                                @id = "KDV",
+                                                @class = "form-control",
+
+                                            })
+
+                                    </div>
+
+                                    <div class="col-md-2 pb-3">
+                                        <strong>Birimi</strong>
+                                        @Html.DropDownList("Birimi", new SelectList(AyarMetot.Birimler(), "Value", "Text", "Adet")
+                                                                        , new { @id = "Birimi", @class = "form-control select2_demo_3", @style = "font-size:small" })
+                                    </div>
+
+                                    <div class="col-md-2 pb-3">
+                                        <strong>Para Birimi</strong>
+                                        @Html.DropDownList("Para Birimi", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", "TL")
+                                                                      , new { @id = "ParaBirimi", @class = "form-control select2_demo_3", @style = "font-size:small" })
+
+
+                                    </div>
+
+
+                                    <div class="col-md-3 pl-1">
+                                        <div class="form-group">
+
+                                            @Html.Hidden("sID", -1)
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="text-right pt-4 px-5">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="col-sm-4 ">
+                            <h4 align="center">Stok-Hizmet Listesini Gör / Detaylı Stok-Hizmet Ekle</h4>
+                            <p class="text-center">
+                                <a href="/Stok/Urunler"><i class="fa fa-sign-in big-icon"></i></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Styles {
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/select2Styles")
+
+}
+@section Scripts {
+
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/dataTables")
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+
+    <script type="text/javascript">
+
+        $("#veri").on("submit", function (event) {
+            event.preventDefault();
+
+            var obj = {
+                id: $("#sID").val(),
+                StokKodu: $("#StokK").val(),
+                UrunAdi: $("#UrunA").val(),
+                Barkod: $("#Barkod").val(),
+                AlishFiyat: $("#AlishFiyat").val(),
+                SatishFiyat: $("#SatishFiyat").val(),
+                KDV: $("#KDV").val(),
+                Birimi: $("#Birimi").val(),
+                ParaBirimi: $("#ParaBirimi").val(),
+            };
+
+
+            $.ajax({
+                type: "POST",
+                url: '/Stok/yeniStok',
+                data: { st: obj },
+                dataType: "json",
+                success: function (gelenDeg) {
+
+                    if (gelenDeg.sonuc == "0") {
+
+                        swal("Uyarı", gelenDeg.Message, "warning");
+
+                    } else if (gelenDeg.sonuc == "3") {
+
+                        swal("Hata", gelenDeg.Message, "error");
+
+                    } else if (gelenDeg.sonuc == "1") {
+                        swal("Başarılı", gelenDeg.Message, "success");
+                        location.reload(true);
+
+                    }
+
+                },
+                error: function () {
+                    $('#stokid').modal('hide');
+                    swal("Hata", "Kayıt Eklenirken Bir Hata Oluştu.", "error")
+                        .then((value) => {
+                            $('#stokid').modal('show');
+
+                        });
+                }
+            });
+        });
+
+        $(document).ready(function () {
+
+
+            $(".digit").keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && e.which != 44 && (e.which < 48 || e.which > 57)) {
+                    $("#errormsg").html("Digits Only").show().fadeOut("slow");
+                    return false;
+                }
+            });
+
+
+            $(".select2_demo_1").select2();
+            $(".select2_demo_2").select2();
+            $(".select2_demo_3").select2({
+                placeholder: "Seçiniz",
+                allowClear: true
+            });
+        });
+    </script>
+
+}
+

@@ -1,0 +1,50 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SA | Şifre Hatırlatma</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="~/Content/animate.css" rel="stylesheet">
+    <link href="~/Content/style.css" rel="stylesheet">
+</head>
+<body class="gray-bg">
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+            <div>
+                <a>
+                    <img alt="image" style="width:30%;height:30%"  src="~/Content/LOGO.png" />
+                </a>
+            </div>
+            <h3>HOŞGELDİNİZ</h3>
+            <p style="color:darkturquoise; font-family:'Century Gothic';font-size:14px">
+                Fark yaratan fikirlerden gelen ilham !
+            </p>
+            <p style="color:#0e9019; font-family:'Century Gothic';font-size:13px">
+                @ViewBag.Mesaj
+            </p>
+            <form action="/User/Remember" method="post">
+                <div class="form-group">
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <input id="Mail" name="Mail" type="email" class="form-control" placeholder="E-Mail" required="">
+                </div>
+
+                <button type="submit" class="btn btn-primary block full-width m-b">Şifremi Hatırlat <i class="pull-right fa fa-key"></i></button>
+
+            </form>
+            <form method="get" action="/User/Login">
+                <button type="submit" class="btn btn-primary block full-width m-b">Giriş Sayfasına Dön<i class="pull-right fa fa-arrow-right"></i></button>
+
+
+            </form>
+            <p class="m-t"> <small>SA YAZILIM &copy; 2020</small> </p>
+        </div>
+    </div>
+</body>
+</html>
+

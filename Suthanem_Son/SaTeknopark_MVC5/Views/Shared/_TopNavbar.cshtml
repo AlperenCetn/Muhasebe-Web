@@ -1,0 +1,115 @@
+﻿
+<link href="~/Content/Demo.css" rel="stylesheet" />
+<div class="row border-bottom " style="box-shadow:4px 5px 10px gray" >
+    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+            <form role="search" class="navbar-form-custom" method="post" action="">
+                <div class="form-group">
+                    <input type="text" style="color:#263a4a; font-weight:900; " placeholder="@ViewBag.Title" class="form-control" name="top-search" id="top-search">
+                </div>
+            </form>
+        </div>
+     
+        <h1 style="color:crimson"><b> Demo Süreniz <strong class="p-1" style="border:1px solid; background-color:white"><text2>@Session["KalanGun"].ToString()</text2>  </strong>Gün </b> </h1>
+        
+        +
+        <ul class="nav navbar-top-links navbar-right">
+                @ViewBag.DemoDurum
+
+            <li class="pl-4">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" style="background-color:transparent; color:#263a4a; font-size:medium; border:none; " type="button" data-toggle="dropdown">
+                        <i class="fa fa-plus-circle"></i>   <b> Hızlı Erişim </b>
+                        <span class="caret"></span>
+                    </button>
+                   
+                    <ul class="dropdown-menu">
+                        <li id="Cari"><a href="@Url.Action("HizliCari","HizliErisim")"><i class="fa fa-user-plus pl-0" style="width:20px"></i> Yeni Cari</a></li>
+                        <li id="Stok"><a href="@Url.Action("HizliStok","HizliErisim")"><i class="fas fa-box-open pl-0" style="width:20px"></i> Yeni Stok</a></li>
+                        <li id="SatisFaturasi"><a href="@Url.Action("SatisYeni","Fatura",new {id=0})"><i class="fas fa-file-invoice-dollar pl-0" style="width:20px"></i> Satış Faturası</a></li>
+                        <li id="AlimFaturasi"><a href="@Url.Action("SatisYeni","Fatura",new {id=0 , FaturaTipi = "AF"})"><i class="fas fa-file-invoice-dollar pl-0" style="width:20px"></i>Alım Faturası</a></li>
+                        <li id="Masraf"><a href="/Finans/YeniMasraf"><i class="fa fa-money pl-0" style="width:20px"></i> Yeni Masraf</a></li>
+                        <li id="Tahsilat"><a href="/Tables/YeniTahsilat"><i class="fa fa-search-dollar pl-0" style="width:20px"></i> Yeni Tahsilat</a></li>
+                        @if (Session["Pakettipi"].ToString() == "Muhasebe2")
+                        {
+                            <li id="Teklif" style="display:block"><a href="@Url.Action("YeniTeklif","OrderOffer")"><i class="fa fa-clipboard-list pl-0" style="width:20px"></i> Yeni Teklif</a></li>
+                            <li id="Siparis" style="display:block"><a href="@Url.Action("YeniSiparis","OrderOffer")"><i class="fa fa-list-alt pl-0" style="width:20px"></i>Yeni Sipariş</a></li>
+                            <li id="CekGiris" style="display:block"><a href="@Url.Action("YeniCekSenet","Payroll")"><i class="fa fa-money-check-alt pl-0" style="width:20px"></i>Yeni Çek Girişi</a></li>
+                            <li id="Siparis" style="display:block"><a href="@Url.Action("YeniCekCikis","Payroll")"><i class="fa fa-money-check-alt pl-0" style="width:20px"></i>Yeni Çek Çıkışı</a></li>
+
+                        }
+                        @if (Session["Pakettipi"].ToString() == "Servis1")
+                        {
+                            <li id="Servis" style="display:block"><a href="@Url.Action("yeniServis","Servis")"><i class="fa fa-cogs pl-0" style="width:20px"></i> Yeni Servis</a></li>
+                        }
+                        <li id="Personel"><a href="@Url.Action("Personeller","Personel")"><i class="fa fa-user-check pl-0" style="width:20px"></i> Yeni Personel</a></li>
+                    </ul>
+                </div>
+            </li>
+
+       
+            <li>
+                <a class="" style="color: #263a4a; font-size:medium;" href="@Url.Action("Raporlar","Raporlar")"><i class="fa fa-line-chart"></i><b> Raporlar </b>  </a>
+            </li>
+            <li>
+                <a class="" style="color: #263a4a; font-size:medium;" href="@Url.Action("Index","Settings")"><i class="fa fa-sliders"></i> <b> Ayarlar </b></a>
+            </li>
+
+            <li>
+             @using (Html.BeginForm("LogOff", "Login", FormMethod.Post, new { id = "logoutForm" }))
+             {
+
+                @Html.AntiForgeryToken()
+
+                <a class="nav-link dropdown-toggle" style="color:crimson;  font-size:medium; text-shadow: 0.5px 1px 1px #000;" href="javascript:document.getElementById('logoutForm').submit()">
+
+                    <i class="fa fa-sign-out"></i> ÇIKIŞ YAP
+                </a>
+
+             }
+            </li>
+
+            @*<li style="padding:20px">
+            <span class="m-r-sm text-muted welcome-message" data-i18n="topnav.welcometext">SA Muhasebe programına hoşgeldiniz.</span>
+        </li>*@
+            @*<li class="pt-3 pb-0">
+            <button class="btn btn-xs btn-outline btn-success  dim" style="color: #0056b3; font-size:medium" onclick="Raporlar()" > <i class="fa fa-line-chart"></i> Raporlar</button>
+
+        </li>
+        <li class="pt-3">
+            <button class="btn btn-xs btn-outline btn-success  dim" style="color: #0056b3;  font-size:medium" onclick="Ayarlar()" > <i class="fa fa-sliders"></i> Ayarlar</button>
+        </li>*@
+         
+        </ul>
+
+       
+    </nav>
+</div>
+
+<script src="https://kit.fontawesome.com/42273a22cc.js" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+
+  
+ 
+    function Raporlar() {
+        window.location.href = "/Raporlar/Raporlar";
+    }
+
+    function HizliIslem() {
+        window.location.href = "/Anasayfa/DemoAnasayfa";
+    }
+
+    function Ayarlar() {
+        window.location.href = "/Settings/Index";
+    }
+   
+
+  
+   
+      
+
+   
+
+</script>

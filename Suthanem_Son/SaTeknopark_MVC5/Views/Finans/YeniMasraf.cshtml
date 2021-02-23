@@ -1,0 +1,503 @@
+﻿@using SaTeknopark_MVC5.Models
+@model CASH_PAY
+@{
+                /**/
+
+                ViewBag.Title = "Yeni Gelir";
+                string PersonelAdi = "";
+}
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+
+    @if (Session["PersonelID"] != null)
+    {
+        PersonelAdi = AyarMetot.SeciliPersonelBilgiCek("Adi+' '+Soyadi", Session["PersonelID"].ToString());
+
+    }
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                    <li><a class="nav-link active" data-toggle="tab" href="#tab-1">Gider Kaydı</a></li>
+
+                </ul>
+                <div class="tab-content" style="box-shadow:8px 12px 14px 12px gray">
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="panel-body">
+
+                            <form id="veri" method="post" action="/Finans/YeniMasraf">
+
+
+                                <div class="form-group row">
+                                    <label class="col-4">İşlem Türü</label>
+
+
+                                    @if (Model.ID != 0)
+                                    {
+                                        if (Model.IslemTipi == "E")
+                                        {
+                                            <div class="col-8">
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                    <input name="odemeturu" id="giderkaydıkasa" type="radio" required="required" class="custom-control-input" value="GiderKasa" checked="checked">
+                                                    <label for="giderkaydıkasa" class="custom-control-label">Gider Kaydı Kasa İle</label>
+                                                </div>
+
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                    <input name="odemeturu" id="giderkaydıbanka" type="radio" required="required" class="custom-control-input" value="GiderBanka">
+                                                    <label for="giderkaydıbankaile" class="custom-control-label">Gider Kaydı Banka İle</label>
+                                                </div>
+                                            </div>
+                                        }
+                                        else if (Model.IslemTipi == "A")
+                                        {
+                                            <div class="col-8">
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                    <input name="odemeturu" id="giderkaydıkasa" type="radio" required="required" class="custom-control-input" value="GiderKasa">
+                                                    <label for="giderkaydıkasa" class="custom-control-label">Gider Kaydı Kasa İle</label>
+                                                </div>
+
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                    <input name="odemeturu" id="giderkaydıbanka" type="radio" required="required" class="custom-control-input" value="GiderBanka" checked="checked">
+                                                    <label for="giderkaydıbankaile" class="custom-control-label">Gider Kaydı Banka İle</label>
+                                                </div>
+                                            </div>
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="col-8">
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input name="odemeturu" id="giderkaydıkasa" type="radio" required="required" class="custom-control-input" value="GiderKasa">
+                                                <label for="giderkaydıkasa" class="custom-control-label">Gider Kaydı Kasa İle</label>
+                                            </div>
+
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input name="odemeturu" id="giderkaydıbanka" type="radio" required="required" class="custom-control-input" value="GiderBanka">
+                                                <label for="giderkaydıbanka" class="custom-control-label">Gider Kaydı Banka İle</label>
+                                            </div>
+                                        </div>
+
+                                    }
+
+
+                                </div>
+                                <div class="form-group row KasaDiv">
+                                    <label for="cari" class="col-4 col-form-label">Kasalar</label>
+
+                                    @if (Model.ID != 0)
+                                    {
+                                        <div class="col-8">
+                                            @Html.DropDownList("ThisKasaID", new SelectList(AyarMetot.Kasalar(Session["FirmaID"].ToString()), "Value", "Text","001-MERKEZ"),
+                                                 new { @id = "ThisKasaID", @class = "select2_demo_3 form-control", @style = "font-size:x-small" })
+
+                                        </div>
+                                    }
+                                    else if(Session["Grubu"].ToString() == "Teknik Servis Kullanıcısı")
+                                    {
+                                        <div class="col-8">
+                                            @Html.DropDownList("ThisKasaID", new SelectList(AyarMetot.Kasalar(Session["FirmaID"].ToString()), "Value", "Text", @ViewBag.PersonelKasaId),
+                                                new { @id = "ThisKasaID", @class = "select2_demo_3 form-control", @style = "font-size:x-small" })
+
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-8">
+                                            @Html.DropDownList("ThisKasaID", new SelectList(AyarMetot.Kasalar(Session["FirmaID"].ToString()), "Value", "Text", Model.KasaID),
+                                                 new { @id = "ThisKasaID", @class = "select2_demo_3 form-control", @style = "font-size:x-small" })
+
+                                        </div>
+                                    }
+
+
+                                </div>
+                                <div class="form-group row BankaDiv">
+                                    <label for="cari" class="col-4 col-form-label">Bankalar</label>
+
+                                    @if (Model.ID != 0)
+                                    {
+                                        <div class="col-8">
+                                            @Html.DropDownList("ThisBankaID", new SelectList(AyarMetot.Bankalar(Session["FirmaID"].ToString()), "Value", "Text", Model.BankaID),
+                                                new { @id = "ThisBankaID", @class = "select2_demo_3 form-control", @style = "font-size:x-small" })
+
+                                        </div>
+                                    }
+                                    else if (Session["Grubu"].ToString() == "Teknik Servis Kullanıcısı")
+                                    {
+                                        <div class="col-8">
+                                            @Html.DropDownList("ThisBankaID", new SelectList(AyarMetot.Bankalar(Session["FirmaID"].ToString()), "Value", "Text", @ViewBag.PersonelBankaId),
+                                                new { @id = "ThisBankaID", @class = "select2_demo_3 form-control", @style = "font-size:x-small" })
+
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-8">
+                                            @Html.DropDownList("ThisBankaID", new SelectList(AyarMetot.Bankalar(Session["FirmaID"].ToString()), "Value", "Text", "001-MERKEZ"),
+                                                new { @id = "ThisBankaID", @class = "select2_demo_3 form-control", @style = "font-size:x-small" })
+
+                                        </div>
+                                    }
+
+
+                                </div>
+                                @if (Model.ID == 0)
+                                {
+                                    <div class="form-group row">
+                                        <label for="Tutar" class="col-4 col-form-label">İşlem No</label>
+                                        <div class="col-4">
+                                            <div class="input-group">
+                                                <input id="IslemNo" name="IslemNo" type="text" class="form-control" value="@ViewBag.MasrafSiradakiNo" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                }
+                                else
+                                {
+                                    <div class="form-group row">
+                                        <label for="Tutar" class="col-4 col-form-label">İşlem No</label>
+                                        <div class="col-4">
+                                            <div class="input-group">
+                                                <input id="IslemNo" name="IslemNo" type="text" class="form-control" value="@Model.IslemNo" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="form-group row">
+                                    <label for="cari" class="col-4 col-form-label">Özel Kod [Masraf Kodu]</label>
+
+                                    @if (Model.ID != 0)
+                                    {
+                                        <div class="col-8">
+                                            @Html.DropDownList("CariID", new SelectList(AyarMetot.Kodlar(Session["FirmaID"].ToString()), "Value", "Text", Model.CariID), new { @id = "CariID", @class = "select2_demo_3 form-control", @style = "font-size:small" })
+
+
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-8">
+                                            @Html.DropDownList("CariID", new SelectList(AyarMetot.Kodlar(Session["FirmaID"].ToString()), "Value", "Text"),"Seçiniz", new { @id = "CariID", @class = "select2_demo_3 form-control", @style = "font-size:small" })
+
+                                        </div>
+                                    }
+
+
+                                </div>
+
+                                @if (Model.ID != 0)
+                                {
+                                    <div class="form-group row">
+                                        <label for="Aciklama" class="col-4 col-form-label">Açıklama</label>
+                                        <div class="col-8">
+                                            <input id="Aciklama" type="text" name="Aciklama" cols="40" rows="3" class="form-control" value="@Model.Aciklama">
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-group row">
+                                        <label for="Aciklama" class="col-4 col-form-label">Açıklama</label>
+                                        <div class="col-8">
+                                            <input id="Aciklama" type="text" name="Aciklama" cols="40" rows="3" class="form-control" value="">
+                                        </div>
+                                    </div>
+                                }
+
+
+                                @if (Model.ID != 0)
+                                {
+                                    <div class="form-group row">
+                                        <label for="Tutar" class="col-4 col-form-label">Tutar</label>
+                                        <div class="col-4">
+                                            <div class="input-group">
+                                                <input id="Tutar" name="Tutar" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="@Convert.ToInt32(Model.Tutar)" />
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="input-group">
+                                                @Html.DropDownList("ParaBirimi", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text", Model.ParaBirimi), new {@id = "ParaBirimi", @class = "form-control", @style = "font-size:x-small"})
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-group row">
+                                        <label for="Tutar" class="col-4 col-form-label">Tutar</label>
+                                        <div class="col-4">
+                                            <div class="input-group">
+                                                <input id="Tutar" name="Tutar" onClick="this.setSelectionRange(0, this.value.length);" type="text" class="digit form-control" onchange="setTwoNumberDecimal" min="0" step="0.01" value="0.00" />
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="input-group">
+                                                @Html.DropDownList("ParaBirimi", new SelectList(AyarMetot.PBLER(Session["FirmaID"].ToString()), "Value", "Text","TL"),
+                                                   new {@id = "ParaBirimi", @class = "form-control", @style = "font-size:x-small"})
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+
+
+                                <div class="form-group row">
+                                    <label for="PersonelID" class="col-4 col-form-label">Personel</label>
+                                    <div class="col-8">
+
+                                        <div class="input-group">
+                                            @Html.DropDownList("Personel", new SelectList(AyarMetot.Personeller(Session["FirmaID"].ToString()), "Value", "Text",@PersonelAdi),
+                                               new {@id = "Personel", @class = " form-control", @style = "font-size:x-small"})
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                @if (Model.ID != 0)
+                                {
+                                    <div class="col-md-3 px-1">
+                                        <div class="form-group">
+                                            @Html.Hidden("cID", Model.ID, new { @id = "cID" })
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-3 px-1">
+                                        <div class="form-group">
+                                            @Html.Hidden("cID", -1, new { @id = "cID" })
+                                        </div>
+                                    </div>
+
+                                }
+
+
+
+                                @if (Model.ID != 0)
+                                {
+                                    <div class="col-md-3 px-1">
+                                        <div class="form-group">
+                                            @Html.Hidden("durum", 0, new { @id = "durum" })
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-3 px-1">
+                                        <div class="form-group">
+                                            @Html.Hidden("durum", -1, new { @id = "durum" })
+                                        </div>
+                                    </div>
+                                }
+
+                            <div class="col-md-3 px-1">
+                                <div class="form-group">
+                                    <input id="Grubu" value="@Session["Grubu"].ToString()" style="display: none"/>
+                                </div>
+                            </div>
+
+
+                                <div class="row">
+                                    <div class="offset-4 col-8">
+                                        <button type="button" onclick="Kapat()" class="btn btn-default">Vazgeç</button>
+                                        <button type="submit" class="btn btn-primary">Kaydet</button>
+
+
+                                    </div>
+                                </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+@section Styles {
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @Styles.Render("~/plugins/dateRangeStyles")
+    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @Styles.Render("~/plugins/dataPickerStyles")
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/plugins/tagInputsStyles")
+    @Styles.Render("~/plugins/duallistStyles")
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @Scripts.Render("~/plugins/dateRange")
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/tagInputs")
+    @Scripts.Render("~/plugins/duallist")
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+    <script src="~/Scripts/mask.js"></script>
+    <script src="~/Scripts/musteri.js"></script>
+    <link href="https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet" />
+    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+    <script src="~/Scripts/Fonksiyonlar.js"></script>
+    <script type="text/javascript">
+
+        function Kapat() {
+
+            history.back();
+        }
+
+        function setTwoNumberDecimal(event) {
+            this.value = parseFloat(this.value).toFixed(2);
+        }
+
+        $("#veri").on("submit", function (event) {
+            event.preventDefault();
+
+            var Ksonuc = "T";
+            var Grubu = $("#Grubu").val();
+   
+            var nakitG = document.getElementById("giderkaydıkasa").checked;
+            var nakitO = document.getElementById("giderkaydıbanka").checked;
+
+            if (Boolean(nakitG) == true) Ksonuc = "E";
+            if (Boolean(nakitO) == true) Ksonuc = "A";
+
+
+
+
+
+            var obj = {
+                IslemTipi: Ksonuc,
+                id: $("#cID").val(),
+                IslemNo: $("#IslemNo").val(),
+                OzelKodID: $("#CariID").val(),
+                Aciklama: $("#Aciklama").val(),
+                Tutar: $("#Tutar").val(),
+                ThisKasaID: 0,
+                ThisBankaID: 0,
+                Parabirimi: $("#ParaBirimi").val(),
+                durum: $("#durum").val(),
+                Personel: $("#Personel").val(),
+
+            };
+
+            if ($("#ThisKasaID").val() != null) {
+                obj.ThisKasaID = $("#ThisKasaID").val();
+            }
+            if ($("#ThisBankaID").val() != null) {
+                obj.ThisBankaID = $("#ThisBankaID").val();
+            }
+            if ($("#Tutar").val() != "0.00") {
+                $.ajax({
+                    type: "POST",
+                    url: '/Finans/YeniMasraf',
+                    data: obj,
+                    dataType: "json",
+
+                    success: function(gelenDeg) {
+                        if (gelenDeg.sonuc == "0")
+                            swal("Uyarı", gelenDeg.Message, "warning");
+                        else if (gelenDeg.sonuc == "3")
+                            swal("Hata", gelenDeg.Message, "error");
+                        else if (gelenDeg.sonuc == "4")
+                            swal("Hata", gelenDeg.Message, "error");
+                        else if (gelenDeg.sonuc == "1") {
+
+                            swal({
+                                title: "Başarılı!",
+                                text: gelenDeg.Message,
+                                type: "success"
+                            }).then(function() {
+                                var url = '@Url.Action("FinansHareketleri", "Finans")';
+                                if (Grubu == "Teknik Servis Kullanıcısı") {
+                                    url = '@Url.Action("Index","ServisList")';
+                                }
+                                window.location.href = url;
+                                temizle();
+                            });
+                        }
+                    },
+                    error: function() {
+                        swal("Hata", "Kayıt Eklenirken Hata Oluştu!", "error");
+                    }
+
+                });
+            } else {
+                swal("Uyarı", "Lütfen Tutar Giriniz.", "warning");
+            }
+        });
+
+        function temizle() {
+            $("#CariID").select2("val", "0");
+            $("#Aciklama").val("");
+            $("#Tutar").val("0");
+
+        }
+
+        $(document).ready(function () {
+
+
+            $(".digit").keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && e.which != 44 && (e.which < 48 || e.which > 57)) {
+                    $("#errormsg").html("Digits Only").show().fadeOut("slow");
+                    return false;
+                }
+            });
+
+
+            $(".select2_demo_1").select2();
+            $(".select2_demo_2").select2();
+            $(".select2_demo_3").select2({
+                placeholder: "Seçiniz",
+                allowClear: true
+            });
+
+
+            $(".KasaDiv").hide('fast');
+            $(".BankaDiv").hide('fast');
+            $('input[type="radio"]').click(function () {
+                if ($(this).attr("value") == "GiderKasa") {
+                    $(".KasaDiv").show('fast');
+                    $(".BankaDiv").hide('slow');
+                }
+                if ($(this).attr("value") == "GiderBanka") {
+                    $(".KasaDiv").hide('slow');
+                    $(".BankaDiv").show('fast');
+
+                }
+            });
+
+            //$('input[type="radio"]').trigger('click');  // trigger the event
+
+        });
+
+
+    </script>
+}

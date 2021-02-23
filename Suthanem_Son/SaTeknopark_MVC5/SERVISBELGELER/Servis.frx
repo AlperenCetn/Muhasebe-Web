@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="09/19/2020 23:50:07" ReportInfo.Modified="02/09/2021 17:52:57" ReportInfo.CreatorVersion="1.9.1.0">
+  <Dictionary>
+    <TableDataSource Name="Cihaz" ReferenceName="Cihaz" DataType="System.Int32" Enabled="true">
+      <Column Name="Servis İşlem No" DataType="System.String"/>
+      <Column Name="İşlem Tarihi" DataType="System.String"/>
+      <Column Name="Seri Numarası" DataType="System.String"/>
+      <Column Name="İş Emri No" DataType="System.String"/>
+      <Column Name="Para Birimi" DataType="System.String"/>
+      <Column Name="Durum" DataType="System.String"/>
+      <Column Name="Marka" DataType="System.String"/>
+      <Column Name="Model" DataType="System.String"/>
+      <Column Name="Cinsi" DataType="System.String"/>
+      <Column Name="Servis Yeri" DataType="System.String"/>
+      <Column Name="Servis Tipi" DataType="System.String"/>
+      <Column Name="Onay" DataType="System.String"/>
+      <Column Name="Garanti" DataType="System.String"/>
+      <Column Name="Emanet" DataType="System.String"/>
+      <Column Name="Şikayet" DataType="System.String"/>
+      <Column Name="Ön Rapor" DataType="System.String"/>
+      <Column Name="Cihazı Alan Personel" DataType="System.String"/>
+      <Column Name="Teknisyen" DataType="System.String"/>
+      <Column Name="Onarım Birimi" DataType="System.String"/>
+      <Column Name="Brüt Toplam" DataType="System.String"/>
+      <Column Name="Net Toplam" DataType="System.String"/>
+      <Column Name="Genel Toplam" DataType="System.String"/>
+      <Column Name="Toplam İskonto" DataType="System.String"/>
+      <Column Name="Kdv Tutarı" DataType="System.String"/>
+      <Column Name="Arıza Tespit" DataType="System.String"/>
+      <Column Name="Onarım Raporu" DataType="System.String"/>
+      <Column Name="Müşteri Yorumu" DataType="System.String"/>
+      <Column Name="Müşteri Puanı" DataType="System.String"/>
+      <Column Name="Servise Giriş Saati" DataType="System.String"/>
+      <Column Name="Özel Alan 1" DataType="System.String"/>
+      <Column Name="Özel Alan 2" DataType="System.String"/>
+      <Column Name="Özel Alan 3" DataType="System.String"/>
+      <Column Name="Özel Alan 4" DataType="System.String"/>
+      <Column Name="Özel Alan 5" DataType="System.String"/>
+      <Column Name="Özel Alan 6" DataType="System.String"/>
+      <Column Name="Özel Alan 7" DataType="System.String"/>
+      <Column Name="Özel Alan 8" DataType="System.String"/>
+      <Column Name="Cari Ünvan" DataType="System.String"/>
+      <Column Name="Firma Kodu" DataType="System.String"/>
+      <Column Name="Toplam Maliyet" DataType="System.String"/>
+      <Column Name="Toplam Karlılık" DataType="System.String"/>
+      <Column Name="Servis Özel Kod" DataType="System.String"/>
+      <Column Name="Proje Bilgisi" DataType="System.String"/>
+      <Column Name="Onarım Tarihi" DataType="System.String"/>
+      <Column Name="Tahmini Onarım Tarihi" DataType="System.String"/>
+      <Column Name="Durum 2" DataType="System.String"/>
+      <Column Name="Dış Servis Carisi" DataType="System.String"/>
+      <Column Name="Dış Servis C_Telefon" DataType="System.String"/>
+      <Column Name="Dış Servis Adres" DataType="System.String"/>
+      <Column Name="İşçilik Süresi" DataType="System.String"/>
+      <Column Name="İşçilik Tutarı" DataType="System.String"/>
+      <Column Name="Km" DataType="System.String"/>
+      <Column Name="YakitMiktar" DataType="System.String"/>
+      <Column Name="MotorHacmi" DataType="System.String"/>
+      <Column Name="Yakıt Tipi" DataType="System.String"/>
+      <Column Name="Vites" DataType="System.String"/>
+      <Column Name="Son İşlem Tarihi" DataType="System.String"/>
+      <Column Name="SanzimanNo" DataType="System.String"/>
+      <Column Name="ModelYili" DataType="System.String"/>
+      <Column Name="Cihaz Adı" DataType="System.String"/>
+      <Column Name="Cihaz Adresi" DataType="System.String"/>
+      <Column Name="Garanti Başlangıç Tarihi" DataType="System.String"/>
+      <Column Name="Garanti Bitiş Tarihi" DataType="System.String"/>
+      <Column Name="Cihaz Satış Tarihi" DataType="System.String"/>
+      <Column Name="Cihaz Montaj Tarihi" DataType="System.String"/>
+    </TableDataSource>
+    <TableDataSource Name="Cari Bilgileri" ReferenceName="Cari Bilgileri" DataType="System.Int32" Enabled="true">
+      <Column Name="Firma Kodu" DataType="System.String"/>
+      <Column Name="Cari Tipi" DataType="System.String"/>
+      <Column Name="Ünvanı" DataType="System.String"/>
+      <Column Name="Vergi Dairesi" DataType="System.String"/>
+      <Column Name="Vergi Daire Numarası" DataType="System.String"/>
+      <Column Name="İlgili Kişi" DataType="System.String"/>
+      <Column Name="TC Numarası" DataType="System.String"/>
+      <Column Name="Adres" DataType="System.String"/>
+      <Column Name="İl" DataType="System.String"/>
+      <Column Name="İlçe" DataType="System.String"/>
+      <Column Name="Ülke" DataType="System.String"/>
+      <Column Name="Telefon 1" DataType="System.String"/>
+      <Column Name="GSM" DataType="System.String"/>
+      <Column Name="Faks" DataType="System.String"/>
+      <Column Name="E-Posta" DataType="System.String"/>
+      <Column Name="WebSite" DataType="System.String"/>
+      <Column Name="Posta Kodu" DataType="System.String"/>
+      <Column Name="Fatura Para Birimi" DataType="System.String"/>
+      <Column Name="Özel İskonto" DataType="System.String"/>
+      <Column Name="Alacak Bakiyesi" DataType="System.String"/>
+      <Column Name="Borç Bakiyesi" DataType="System.String"/>
+      <Column Name="Net Bakiye" DataType="System.String"/>
+      <Column Name="Net Bakiye Borç Alacak" DataType="System.String"/>
+      <Column Name="ID" DataType="System.String"/>
+      <Column Name="Son Yapılan İşlem" DataType="System.String"/>
+      <Column Name="Ciro" DataType="System.String"/>
+      <Column Name="Cari Özel Alan 1" DataType="System.String"/>
+      <Column Name="Cari Özel Alan 2" DataType="System.String"/>
+      <Column Name="Cari Özel Alan 3" DataType="System.String"/>
+      <Column Name="Cari Özel Alan 4" DataType="System.String"/>
+      <Column Name="Cari Özel Alan 5" DataType="System.String"/>
+      <Column Name="Cari Banka Hesap No" DataType="System.String"/>
+      <Column Name="Cari Banka IBAN" DataType="System.String"/>
+      <Column Name="Cari Banka" DataType="System.String"/>
+      <Column Name="Cari Banka Kart Adı" DataType="System.String"/>
+      <Column Name="Cari Banka Şube Adı" DataType="System.String"/>
+      <Column Name="Eski Bakiye" DataType="System.String"/>
+      <Column Name="Eski Bakiye A/B" DataType="System.String"/>
+      <Column Name="Net Bakiye Yazıyla" DataType="System.String"/>
+      <Column Name="Bağkur No" DataType="System.String"/>
+    </TableDataSource>
+    <TableDataSource Name="FirmaBilgileri" ReferenceName="FirmaBilgileri" DataType="System.Int32" Enabled="true">
+      <Column Name="Firma Adı" Alias="FirmaAdi" DataType="System.String"/>
+      <Column Name="Telefon" DataType="System.String"/>
+      <Column Name="Vergi Dairesi" Alias="VergiDairesi" DataType="System.String"/>
+      <Column Name="Vergi No" Alias="VergiNo" DataType="System.String"/>
+      <Column Name="Ülke" Alias="Ulke" DataType="System.String"/>
+      <Column Name="Şehir" Alias="Sehir" DataType="System.String"/>
+      <Column Name="Posta Kodu" Alias="PostaKodu" DataType="System.String"/>
+      <Column Name="Adres" DataType="System.String"/>
+    </TableDataSource>
+    <TableDataSource Name="Cihaz Durum Geçmişi" ReferenceName="Cihaz Durum Geçmişi" DataType="System.Int32" Enabled="true">
+      <Column Name="Durum" DataType="System.String"/>
+      <Column Name="Değişiklik Tarihi" DataType="System.String"/>
+    </TableDataSource>
+    <TableDataSource Name="CihazDetay" ReferenceName="CihazDetay" DataType="System.Int32" Enabled="true">
+      <Column Name="Sıra No" DataType="System.String"/>
+      <Column Name="Ürün Kodu" DataType="System.String"/>
+      <Column Name="Ürün Adı" DataType="System.String"/>
+      <Column Name="Seri Numara" DataType="System.String"/>
+      <Column Name="Depo" DataType="System.String"/>
+      <Column Name="Birim" DataType="System.String"/>
+      <Column Name="Miktar" DataType="System.String"/>
+      <Column Name="Fiyat" DataType="System.String"/>
+      <Column Name="Tutar" DataType="System.String"/>
+      <Column Name="Para Birimi" DataType="System.String"/>
+      <Column Name="Vade Tarihi" DataType="System.String"/>
+      <Column Name="KDV" DataType="System.String"/>
+      <Column Name="Tevfikat" DataType="System.String"/>
+      <Column Name="İade Süresi" DataType="System.String"/>
+      <Column Name="Muhasebe Kodu" DataType="System.String"/>
+      <Column Name="Variyant" DataType="System.String"/>
+      <Column Name="İskonto" DataType="System.String"/>
+      <Column Name="İskonto 2" DataType="System.String"/>
+      <Column Name="İskonto 3" DataType="System.String"/>
+      <Column Name="İskonto 4" DataType="System.String"/>
+      <Column Name="İskonto 5" DataType="System.String"/>
+      <Column Name="BARKODE" DataType="System.String"/>
+      <Column Name="Yerel Fiyat Satır" DataType="System.String"/>
+      <Column Name="Yerel Tutar Satır" DataType="System.String"/>
+      <Column Name="Satır Açıklaması" DataType="System.String"/>
+      <Column Name="Marka" DataType="System.String"/>
+      <Column Name="Adet Fiyatı" DataType="System.String"/>
+      <Column Name="Birim Adet" DataType="System.String"/>
+      <Column Name="ID" DataType="System.String"/>
+      <Column Name="Ek Özellik Adı" DataType="System.String"/>
+      <Column Name="Ek Özellik Açıklaması" DataType="System.String"/>
+      <Column Name="sfID" DataType="System.String"/>
+      <Column Name="Seri Numarası Listesi" DataType="System.String"/>
+      <Column Name="Toplam Teklif" DataType="System.String"/>
+      <Column Name="Toplam Sipariş" DataType="System.String"/>
+      <Column Name="Kalan Teklif" DataType="System.String"/>
+      <Column Name="Kalan Sipariş" DataType="System.String"/>
+      <Column Name="Kdv Dahil Fiyat" DataType="System.String"/>
+      <Column Name="Kdv Dahil Tutar" DataType="System.String"/>
+      <Column Name="Kdv Hariç Fiyat" DataType="System.String"/>
+      <Column Name="Kdv Hariç Tutar" DataType="System.String"/>
+      <Column Name="Teslim Edilen Teklif Miktarı" DataType="System.String"/>
+      <Column Name="Teslim Edilen Sipariş Miktarı" DataType="System.String"/>
+      <Column Name="Satır Net Tutar" DataType="System.String"/>
+      <Column Name="Teslim Edilen Teklif Tutarı" DataType="System.String"/>
+      <Column Name="Teslim Edilen Sipariş Tutarı" DataType="System.String"/>
+      <Column Name="Kalan Teklif Tutarı" DataType="System.String"/>
+      <Column Name="Kalan Sipariş Tutarı" DataType="System.String"/>
+      <Column Name="Toplam Teklif Tutarı" DataType="System.String"/>
+      <Column Name="Toplam Sipariş Tutarı" DataType="System.String"/>
+      <Column Name="Mal Fazlası" DataType="System.String"/>
+      <Column Name="Miktar (MF Dahil)" DataType="System.String"/>
+      <Column Name="Kdv Dahil Fiyat (İskontolu)" DataType="System.String"/>
+      <Column Name="Kdv Dahil Tutar (İskontolu)" DataType="System.String"/>
+      <Column Name="Kdv Hariç Fiyat (İskontolu)" DataType="System.String"/>
+      <Column Name="Kdv Hariç Tutar (İskontolu)" DataType="System.String"/>
+      <Column Name="Toplam Miktar (Ana Birim)" DataType="System.String"/>
+      <Column Name="Miktar (Ana Birim)" DataType="System.String"/>
+      <Column Name="En" DataType="System.String"/>
+      <Column Name="Boy" DataType="System.String"/>
+      <Column Name="Hizmet Sonlanma Tarihi" DataType="System.String"/>
+      <Column Name="Miktar_Num" DataType="System.String"/>
+      <Column Name="Fiyat_Num" DataType="System.String"/>
+      <Column Name="Tutar_Num" DataType="System.String"/>
+      <Column Name="Yerel Fiyat Satır_Num" DataType="System.String"/>
+      <Column Name="Yerel Tutar Satır_Num" DataType="System.String"/>
+      <Column Name="Kdv Dahil Tutar_Num" DataType="System.String"/>
+      <Column Name="Kdv Dahil Fiyat_Num" DataType="System.String"/>
+      <Column Name="Kdv Hariç Fiyat_Num" DataType="System.String"/>
+      <Column Name="Kdv Hariç Tutar_Num" DataType="System.String"/>
+      <Column Name="Kdv Dahil Fiyat (İskontolu)_Num" DataType="System.String"/>
+      <Column Name="Kdv Dahil Tutar (İskontolu)_Num" DataType="System.String"/>
+      <Column Name="Kdv Hariç Fiyat (İskontolu)_Num" DataType="System.String"/>
+      <Column Name="Kdv Hariç Tutar (İskontolu)_Num" DataType="System.String"/>
+      <Column Name="ÖİV" DataType="System.String"/>
+      <Column Name="Satır Özel Kod" DataType="System.String"/>
+      <Column Name="ÖTV" DataType="System.String"/>
+      <Column Name="Satır ÖTV Tutarı" DataType="System.String"/>
+      <Column Name="Yerel Fiyat Satır (İskontolu)" DataType="System.String"/>
+      <Column Name="Yerel Tutar Satır (İskontolu)" DataType="System.String"/>
+      <Column Name="Stok Özel Alan 1" DataType="System.String"/>
+      <Column Name="Stok Özel Alan 2" DataType="System.String"/>
+      <Column Name="Stok Özel Alan 3" DataType="System.String"/>
+      <Column Name="Stok Özel Alan 4" DataType="System.String"/>
+      <Column Name="Stok Özel Alan 5" DataType="System.String"/>
+    </TableDataSource>
+  </Dictionary>
+  <ReportPage Name="Page1">
+    <DataBand Name="Data1" Width="718.2" Height="822.15" DataSource="">
+      <TextObject Name="Text1" Left="28.35" Top="28.35" Width="661.5" Height="18.9" Fill.Color="ControlLight" Text="İŞ EMRİ  KAYIT FORMU" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text3" Left="113.4" Top="139.75" Width="245.7" Height="18.9" Text="[Cihaz.İşlem Tarihi]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text4" Left="28.35" Top="139.75" Width="85.05" Height="18.9" Fill.Color="ControlLight" Text="Tarih :" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text5" Left="112.4" Top="161.1" Width="245.7" Height="18.9" Text="[Cihaz.Servis Tipi]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text6" Left="28.35" Top="161.1" Width="85.05" Height="18.9" Fill.Color="ControlLight" Text="Servis Tipi :" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text7" Left="28.35" Top="79.6" Width="340.2" Height="18.9" Fill.Color="ControlLight" Text="İŞLEM BİLGİLERİ" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text8" Left="113.4" Top="274.05" Width="576.45" Height="18.9" Text="[Cari Bilgileri.Ünvanı]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text9" Left="112.4" Top="184" Width="245.7" Height="18.9" Text="[Cihaz.Durum]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text10" Left="28.35" Top="184" Width="85.05" Height="18.9" Fill.Color="ControlLight" Text="Durumu : " Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text11" Left="112.4" Top="205.9" Width="245.7" Height="18.9" Text="[Cihaz.Servis Yeri]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text12" Left="28.35" Top="205.9" Width="85.05" Height="18.9" Fill.Color="ControlLight" Text="Servis Yeri:" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text13" Left="368.55" Top="79.6" Width="321.3" Height="18.9" Fill.Color="ControlLight" Text="CİHAZ BİLGİLERİ" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text14" Left="472.5" Top="117.4" Width="217.35" Height="18.9" Text="[Cihaz.Seri Numarası]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text15" Left="368.55" Top="117.4" Width="103.95" Height="18.9" Fill.Color="ControlLight" Text="Seri No : " Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text16" Left="471.5" Top="161.1" Width="217.35" Height="18.9" Text="[Cihaz.Cihazı Alan Personel]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text17" Left="368.55" Top="138.75" Width="103.95" Height="18.9" Fill.Color="ControlLight" Text="Marka / Model : " Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text18" Left="471.5" Top="181.55" Width="217.35" Height="18.9" Text="[Cihaz.Onarım Birimi]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text22" Left="113.4" Top="117.4" Width="245.7" Height="18.9" Text="[Cihaz.Servis İşlem No]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text23" Left="28.35" Top="117.4" Width="85.05" Height="18.9" Fill.Color="ControlLight" Text="İşlem No :" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text24" Left="472.5" Top="139.3" Width="217.35" Height="18.9" Text="[Cihaz.Marka] / [Cihaz.Model]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text25" Left="368.55" Top="160.65" Width="103.95" Height="18.9" Fill.Color="ControlLight" Text="Teslim Alan :" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text26" Left="368.55" Top="183.55" Width="103.95" Height="18.9" Fill.Color="ControlLight" Text="Birim :" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text27" Left="471.5" Top="202.45" Width="217.35" Height="37.8" Text="[Cihaz.Tahmini Onarım Tarihi]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text28" Left="368.55" Top="205.45" Width="103.95" Height="18.9" Fill.Color="ControlLight" Text="Tahmini Onarım:" Font="Arial, 10pt, style=Bold"/>
+      <LineObject Name="Line4" Left="18.9" Top="249.7" Width="689.85" Border.Color="LightGray"/>
+      <TextObject Name="Text29" Left="28.35" Top="448.15" Width="661.5" Height="18.9" Border.Lines="All" Border.Color="LightGray" Fill.Color="ControlLight" Text="Teknisyen Ön Raporu" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text30" Left="28.35" Top="467.05" Width="661.5" Height="75.6" Border.Lines="All" Border.Color="LightGray" Text="[Cihaz.Ön Rapor]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text33" Left="28.35" Top="353.65" Width="661.5" Height="18.9" Border.Lines="All" Border.Color="LightGray" Fill.Color="ControlLight" Text="Arıza Bilgisi" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text34" Left="28.35" Top="372.55" Width="661.5" Height="75.6" Border.Lines="All" Border.Color="LightGray" Text="[Cihaz.Şikayet]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text35" Left="113.4" Top="319.3" Width="576.45" Height="18.9" Text="[Cari Bilgileri.Adres] - [Cari Bilgileri.İl] [Cari Bilgileri.İlçe]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text36" Left="28.35" Top="319.3" Width="85.05" Height="18.9" Fill.Color="ControlLight" Text="Adres :" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text37" Left="113.4" Top="296.95" Width="576.45" Height="18.9" Text="[Cihaz.Tahmini Onarım Tarihi]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text38" Left="28.35" Top="296.95" Width="85.05" Height="18.9" Fill.Color="ControlLight" Text="Telefon :" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text31" Left="28.35" Top="656.05" Width="661.5" Height="18.9" Border.Lines="All" Border.Color="LightGray" Fill.Color="ControlLight" Text="Onarım Detayları" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text32" Left="28.35" Top="674.95" Width="661.5" Height="75.6" Border.Lines="All" Border.Color="LightGray" Text="[Cihaz.Onarım Raporu]" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text39" Left="28.35" Top="274.05" Width="85.05" Height="18.9" Fill.Color="ControlLight" Text="Firma:" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text40" Left="28.35" Top="543.1" Width="661.5" Height="18.9" Border.Lines="All" Border.Color="LightGray" Fill.Color="ControlLight" Text="Arıza Tepsit" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text41" Left="28.35" Top="562" Width="661.5" Height="75.6" Border.Lines="All" Border.Color="LightGray" Text="[Cihaz.Arıza Tespit]" Font="Arial, 10pt, style=Bold"/>
+    </DataBand>
+  </ReportPage>
+</Report>

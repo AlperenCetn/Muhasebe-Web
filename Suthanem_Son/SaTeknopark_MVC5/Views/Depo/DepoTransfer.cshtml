@@ -1,0 +1,443 @@
+﻿@model List<SaTeknopark_MVC5.Models.Stok>
+@{
+    ViewBag.Title = "Depo Transfer";
+    string col1 = "col-lg-12";
+    string col2 = "col-lg-6";
+    string class1 = "col-lg-12";
+    string class2 = "gosterme";
+    string class3 = "goster";
+    string Tipi = "Sevk İrsaliyesi";
+    string FiyatTipi = "1.Fiyat";
+}
+
+<style>
+    .gosterme {
+        display: none;
+    }
+</style>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+
+
+    <br />
+
+    <div class="row">
+        <div class="@class1">
+            <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                    <li><a class="nav-link active" data-toggle="tab" href="#tab-1">Depo Transfer</a></li>
+
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="panel-body">
+
+                            <div id="veri">
+
+                                <div class="row">
+                                    <div class="offset-4 col-8">
+                                        <button type="button" style="float:right;" class="nakitSatis btn btn-lg btn-outline-primary">Kaydet <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                                        <button type="button" style="float:right;" class="btn btn btn-lg pull-right btn-outline-danger">Vazgeç <i class="fa fa-close"></i></button>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-group row">
+                                    <label for="gDepo" class="col-4 col-form-label">Gönderen Depo</label>
+                                    <div class="col-8">
+                                        @Html.DropDownList("ID", new SelectList(AyarMetot.Depolar(Session["FirmaID"].ToString()), "Value", "Text"),
+                                        "Tüm Depolar", new { @id = "gdepo", @class = "select2_demo_3 form-control", @style = "font-size:x-small;width:100%" })
+
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="aDepo" class="col-4 col-form-label">Alan Depo</label>
+                                    <div class="col-8">
+                                        @Html.DropDownList("ID", new SelectList(AyarMetot.Depolar(Session["FirmaID"].ToString()), "Value", "Text"),
+                                        "Tüm Depolar", new { @id = "adepo", @class = "select2_demo_3 form-control", @style = "font-size:x-small" })
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="aciklama" class="col-4 col-form-label">Açıklama</label>
+                                    <div class="col-8">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="fa fa-font"></i>
+                                                </div>
+                                            </div>
+                                            <input id="aciklama" name="aciklama" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="col-md-3 px-1">
+                                    <div class="form-group">
+                                        @Html.Hidden("cID", -1, new { @id = "cID" })
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-sm-8 col-md-8 px-1">
+                                        <b>Ürün</b> <br />@Html.DropDownList("StokKodu", new SelectList(AyarMetot.Urunler(Session["firmaID"].ToString()), "Value", "Text"),
+                                        "Tüm Ürünler", new { @id = "StokKodu", @class = "select2_demo_3 form-control", @style = "font-size:x-small" })
+                                    </div>
+
+                                    <div class="col-sm-3 col-md-3 px-1">
+                                        <b>Miktar</b><br /><input required id="Miktar" name="text" placeholder="Miktar" type="number" class="form-control" onchange="setTwoNumberDecimal" min="0" step="1" value="1.00">
+                                    </div>
+
+
+
+                                    <div class="col-sm-1 col-md-1 px-1">
+                                        <label> </label><br />
+                                        <button class="sepeteEkle btn btn-outline btn-lg btn-info px-1">EKLE <i class="fa fa-plus" aria-hidden="true"></i></button>
+                                    </div>
+
+                                </div>
+                                <br />
+                                <div id="tblUrun" class="row" style="display:none; border-color:lightgray;margin-top:30px">
+                                    <div class="col-lg-11">
+                                        <table id="siparis" class="display" style="margin:0px; width:100%">
+                                            <thead style="font-size:smaller; color:maroon">
+                                                <tr>
+                                                    <th style="width:27%">Ürün</th>
+                                                    <th> Miktar</th>
+
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="font-weight:bold;"></tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <br />
+                            <div class="row">
+                                <div class="offset-4 col-8">
+                                    <button type="button" style="float:right;" class="nakitSatis btn btn-lg btn-outline-primary">Kaydet <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                                    <button type="button" style="float:right;" class="btn btn btn-lg pull-right btn-outline-danger">Vazgeç <i class="fa fa-close"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div style="overflow:auto; max-height:100vh" class="@class2 col-lg-5 pl-1">
+            <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                    <li><a class="nav-link active" data-toggle="tab" href="#tab-1">Ürün Listesi</a></li>
+
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="panel-body">
+
+                            <div class="row pb-4">
+                                <div class="col-md-6 p-0">
+
+                                    @Html.DropDownList("StokKodu", new SelectList(AyarMetot.Urunler(Session["FirmaID"].ToString()), "Value", "Text"),
+"Tüm Ürünler", new { @id = "StokKodu", @class = "select2_demo_3 form-control", @style = "font-size:x-small;  width:100%;" })
+                                </div>
+                                <div class="col-md-6 p-0 pl-1">
+
+                                    <input type="text" placeholder="Barkod No" class="form-control p-2" />
+                                </div>
+                            </div>
+
+                            <div background-color:white" class="row">
+                                @foreach (var item in Model)
+                                {
+                                    decimal fiyat = Convert.ToDecimal(item.SatishFiyat);
+
+                                    <div font-family:'Century Gothic'" class="col-md-4 px-1">
+                                        <div class="card card-stats">
+                                            <div class="card-body ">
+
+                                                <div>
+
+
+                                                    @if (item.StokBase64 == null)
+                                                    {
+
+                                                        <a href="/Basvuru/BasvuruList?id=@item.ID">
+                                                            <img url align="middle"
+                                                                 style="height:50px;width:100%;" src="~/Content/images/no-image.png" alt="Stok Resmi" />
+                                                        </a>
+
+
+                                                    }
+                                                    else
+                                                    {
+                                                        var base64 = Convert.ToBase64String(item.StokBase64);
+                                                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+
+                                                        <a href="/Basvuru/BasvuruList?id=@item.ID">
+                                                            <img style="object-fit:scale-down;
+                                                            height:50px;width:100%;" src="@imgSrc" alt="Stok Resmi" />
+                                                        </a>
+
+
+
+                                                    }
+                                                    <hr>
+                                                    <b> @item.UrunAdi </b>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--    TABLO   -->
+    <!--    TABLO   -->
+
+
+    @section Styles {
+        @Styles.Render("~/plugins/awesomeCheckboxStyles")
+        @Styles.Render("~/plugins/clockpickerStyles")
+        @Styles.Render("~/plugins/dateRangeStyles")
+        @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+        @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+        @Styles.Render("~/plugins/switcheryStyles")
+        @Styles.Render("~/plugins/jasnyBootstrapStyles")
+        @Styles.Render("~/plugins/nouiSliderStyles")
+        @Styles.Render("~/plugins/dataPickerStyles")
+        @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+        @Styles.Render("~/plugins/imagecropperStyles")
+        @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+        @Styles.Render("~/plugins/select2Styles")
+        @Styles.Render("~/plugins/touchSpinStyles")
+        @Styles.Render("~/plugins/tagInputsStyles")
+        @Styles.Render("~/plugins/duallistStyles")
+    }
+    @section Scripts {
+        @Scripts.Render("~/plugins/iCheck")
+        @Scripts.Render("~/plugins/dataPicker")
+        @Scripts.Render("~/plugins/ionRange")
+        @Scripts.Render("~/plugins/nouiSlider")
+        @Scripts.Render("~/plugins/jasnyBootstrap")
+        @Scripts.Render("~/plugins/switchery")
+        @Scripts.Render("~/plugins/chosen")
+        @Scripts.Render("~/plugins/knob")
+        @Scripts.Render("~/plugins/imagecropper")
+        @Scripts.Render("~/plugins/colorpicker")
+        @Scripts.Render("~/plugins/clockpicker")
+        @Scripts.Render("~/plugins/dateRange")
+        @Scripts.Render("~/plugins/select2")
+        @Scripts.Render("~/plugins/touchSpin")
+        @Scripts.Render("~/plugins/tagInputs")
+        @Scripts.Render("~/plugins/duallist")
+
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+        <script src="~/Scripts/mask.js"></script>
+        <script src="~/Scripts/musteri.js"></script>
+        <link href="https://printjs-4de6.kxcdn.com/print.min.css" rel="stylesheet" />
+        <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+
+        <script src="~/Scripts/Fonksiyonlar.js"></script>
+        <script type="text/javascript">
+
+
+
+                    function temizle() {
+                        $("#StokKodu").select2("val", "0");
+                        $("#Miktar").val("1");
+
+                    }
+
+                    //function GenelTopla(event) {
+                    //    var $row = $(event).closest("tr");
+
+                    //    var Fiy = $row.find("td:eq(3) .birimfiyat").val().replace(",", ".");
+                    //    var Mik = $row.find("td:eq(1) .miktar").val().replace(",", ".");
+
+                    //    var total = 0;
+                    //    total = parseFloat(Mik) * parseFloat(Fiy);
+
+
+                    //    var sayi = total;
+                    //    sayi = Number(sayi.toFixed(2));
+
+                    //    $row.find("td:eq(4) .tutar").val(sayi);
+                    //}
+
+
+                    function setTwoNumberDecimal(event) {
+                        this.value = parseFloat(this.value).toFixed(2);
+                    }
+
+
+
+
+                    //Sepete Ekle
+                    $(document).on("click", ".sepeteEkle", function () {
+
+                        var kaydet = true;
+
+
+
+
+                        if ($("#StokKodu").val() == "" || $("#StokKodu").val() == "0" || $("#StokKodu").val() == null) {
+                            swal("Uyarı", "Ürün Seçiniz", "warning");
+                            kaydet = false;
+                        }
+
+
+                        if (kaydet) {
+
+                            document.getElementById("tblUrun").style.display = "block";
+
+                            var row = $(this).closest("tr");
+                            var sutunlar = {
+                                Kaldir: '<button style="background-color:indianred;margin:0px" type="button" value="' + $("#StokKodu").val() + '" class="btn btn-md btn-danger  sepetSil"> SİL   <i class="fa fa-trash" aria-hidden="true"></i></button>',
+                                UrunAdi: '<input disabled  style="font-size:smaller" type="text" class=" urunadi form-control" value="' + $("#StokKodu :selected").text() + '" />',
+                                Miktar: '<input style="font-size:smaller" onchange="GenelTopla(this)" type="text" class="miktar form-control" value="' + $("#Miktar").val() + '" />',
+                            };
+
+                            temizle();
+                            $("#siparis tbody").append("<tr style='font-size:small;'><td>" + sutunlar.UrunAdi + "</td> <td>" + sutunlar.Miktar + "</td><td>" + sutunlar.Kaldir + "</td></tr>");
+                        }
+                    });
+
+                    $("#siparis").on("click", ".sepetSil", function () {
+                        var row = $(this).closest('tr');
+                        row.fadeOut(500, function () {
+                            row.remove();
+
+                        });
+                    });
+
+
+                    $(document).on("click", ".nakitSatis", function () {
+
+                        var kaydet = true;
+
+                        //if ($("#CariID").val() == "" || $("#CariID").val() == null) {
+                        //    swal("Uyarı", "Cari Seçiniz", "warning");
+                        //    kaydet = false;
+                        //}
+
+                        if (kaydet) {
+                            var data = [];
+                            var indirim = "0";
+                            var gdepo = $("#gdepo").val();
+                            var adepo = $("#adepo").val();
+                            var Aciklama = $("#aciklama").val();
+                            var tr = 0;
+                            var tutar = 0;
+
+
+
+                            $("#siparis tbody tr").each(function () {
+                                data[tr] = new Array(2);
+                                data[tr][0] = $(this).find("td:eq(2) .sepetSil").val();
+                                data[tr][1] = $(this).find("td:eq(1) .miktar").val();
+
+                                tr++;
+                            });
+
+                            
+
+                            $.ajax({
+                                type: "POST",
+                                url: '/Depo/DepoTransfer',
+                                data: { data: data, indirim: indirim, gdepo: gdepo, adepo: adepo, Aciklama: Aciklama },
+                                dataType: "json",
+
+                                success: function (g) {
+                                    if (g.sonuc == "1") {
+
+                                        swal({
+                                            title: "Başarılı!",
+                                            text: g.Mesaj,
+                                            type: "success"
+                                        }).then(function () {
+
+                                            RaporGoster(g.id, 'DI');
+                                            window.location.reload();
+
+                                        });
+                                    }
+                                    else if (g.sonuc == "0") {
+                                        swal("Hata", "Kaydedilemedi", "success");
+                                    }
+                                },
+                                error: function () {
+                                    swal("Hata", "HATA OLUŞTU!", "error");
+                                }
+
+                            });
+
+                        }
+                    });
+
+                    function Topla() {
+                        var age = Number(document.getElementById("Miktar").value.replace(",", "."));
+                        var age1 = Number(document.getElementById("BirimFiyati").value.replace(",", "."));
+
+                        var total = 0;
+                        total = parseFloat(age) * parseFloat(age1);
+
+
+                        var sayi = total;
+                        sayi = Number(sayi.toFixed(2));
+
+
+                        document.getElementById("Tutar").value = sayi.toFixed(2).replace(".", ",");
+                    }
+
+
+
+                    $(document).ready(function () {
+
+
+
+                        $(".select2_demo_1").select2();
+                        $(".select2_demo_2").select2();
+                        $(".select2_demo_3").select2({
+                            placeholder: "Seçiniz",
+                            allowClear: true
+                        });
+
+                    });
+
+                    $('#Miktar').on("keyup", function () {
+                        Topla();
+                    });
+
+                    $('#BirimFiyati').on("keyup", function () {
+                        Topla();
+                    });
+
+        </script>
+    }
+
+
+
+

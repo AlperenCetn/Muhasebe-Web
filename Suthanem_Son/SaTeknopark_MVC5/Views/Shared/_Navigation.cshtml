@@ -1,0 +1,827 @@
+﻿@{
+
+    string class3 = "";
+
+}
+@if (Session["Grubu"] != null)
+{
+    if (Session["Grubu"].ToString() == "Kurye")
+    {
+        class3 = "display:none";
+    }
+
+}
+
+<style>
+    .fa{
+        width:30px;
+    }
+
+</style>
+
+<nav class="navbar-light navbar-static-side" style="font-size:medium" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+
+                <div class="dropdown profile-element">
+                    <a>
+                        <img style="width:155px;height:75px;" alt="image" src="~/Content/sayaz.png" />
+                    </a>
+                    <br />
+
+                    <br />
+                    <a style='width:145px;background-color:dimgray;color:white' type="button" class="btn-white btn btn-xs">
+                        @try
+                        {
+                            if (Session["Grubu"].ToString() == "Teknik Servis Kullanıcısı")
+                            {
+                                <strong>Teknik Servis</strong>
+                            }
+                            else if (Session["PaketTipi"].ToString() == "Muhasebe1")
+                            {
+                                <strong>ÖN MUHASEBE 1 </strong>
+                            }
+                            else if (Session["PaketTipi"].ToString() == "Servis1")
+                            {
+                                <strong> TEKNİK SERVİS </strong>
+                            }
+                            else if (Session["PaketTipi"].ToString() == "Servis")
+                            {
+                                <strong> TEKNİK SERVİS </strong>
+                            }
+                            else if (Session["PaketTipi"].ToString() == "Servis2")
+                            {
+                                <strong> TEKNİK SERVİS </strong>
+                            }
+                            else if (Session["PaketTipi"].ToString() == "Muhasebe2")
+                            {
+                                <strong>ÖN MUHASEBE 2 </strong>
+                            }
+                            else if (Session["PaketTipi"].ToString() == "Muhasebe3")
+                            {
+                                <strong>ÖN MUHASEBE 3 </strong>
+                            }
+                            else if (Session["PaketTipi"].ToString() == "hizlisatis")
+                            {
+                                <strong>PERAKENDE </strong>
+                            }
+                            else if (Session["PaketTipi"].ToString() == "Full")
+                            {
+                                <strong>FULL PAKET </strong>
+                            }
+
+
+                        }
+                        catch
+                        {
+                            @Url.Action("Login", "Login")
+                        }
+
+                    </a>
+                    <br />
+                    <br />
+                    <a style='width:145px;color:white' class="btn-outline-warning btn btn-xs">
+
+                        @if (Session["PersonelAdi"] != null)
+
+                        {
+                            <strong>@Session["PersonelAdi"]</strong>
+                        }
+                    </a>
+                </div>
+                <div class="logo-element">
+                    SA
+                </div>
+            </li>
+
+            
+
+            @if (Session["PersonelType"] != null)
+            {
+                if (Session["Grubu"].ToString() == "Teknik Servis Kullanıcısı")
+                {
+                    <li class="@Html.IsSelected(controller: "ServisList")" style="@class3">
+                        <a href="@Url.Action("Index", "ServisList")"><i class="fa fa-th-large"></i> <span>Ana Sayfa</span></a>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Finans")">
+                        <a href="#"><i class="fa fa-money"></i> <span class="nav-label" data-i18n="nav.ecommerce">Finansman</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Finans", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Kasa")"><a href="@Url.Action("Kasa", "Finans")">Kasa</a></li>
+                            <li class="@Html.IsSelected(action: "Banka")"><a href="@Url.Action("Banka", "Finans")">Banka</a></li>
+                            <li class="@Html.IsSelected(action: "YeniMasraf")"><a href="@Url.Action("YeniMasraf", "Finans", new {KasaID = -1})">Yeni Gider Kaydı</a></li>
+                            <li class="@Html.IsSelected(action: "YeniGelir")"><a href="@Url.Action("YeniGelir", "Finans", new {KasaID = -1})">Yeni Gelir Kaydı</a></li>
+                        </ul>
+                    </li>
+
+
+                }
+                else if (Session["sCariID"].ToString() != "-1")
+                {
+                    <li class="@Html.IsSelected(controller: "ServisList")" style="@class3">
+                        <a href="@Url.Action("Index", "ServisList")"><i class="fa fa-th-large"></i> <span>Ana Sayfa</span></a>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Personel")">
+                        <a href="@Url.Action("Personeller", "Personel")"><i class="fa fa-male"></i> <span class="nav-label " data-i18n="nav.gridoptions">Personel</span></a>
+                    </li>
+
+                }
+
+                else if (Session["PaketTipi"].ToString() == "Servis1")
+                {
+
+                    <li class="@Html.IsSelected(controller: "AnaSayfa")" style="@class3">
+                        <a href="@Url.Action("AnaSayfa", "AnaSayfa")"><i class="fa fa-th-large"></i> <span>Ana Sayfa</span></a>
+                    </li>
+
+
+                    <li class="@Html.IsSelected(controller: "Stok")" style="@class3">
+                        <a href="#"><i class="fa fa-dropbox"></i> <span class="nav-label" data-i18n="nav.ecommerce">Ürünler</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Stok", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Urunler")"><a href="@Url.Action("Urunler", "Stok")">Ürün Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "Store")">Depolar</a></li>
+                            <li class="@Html.IsSelected(action: "DepoHareketler")"><a href="@Url.Action("DepoHareketler", "Store")">Depo Hareketleri</a></li>
+                          @*<li class="@Html.IsSelected(action: "UrunAgacı")"><a href="@Url.Action("UrunAgacı", "Stok")">Ürün Ağaçları</a></li>
+                          <li class="@Html.IsSelected(action: "VariantList")"><a href="@Url.Action("VariantList", "Stok")">Varyant Listesi</a></li>*@
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Tables")" style="@class3">
+                        <a href="#"><i class="fa fa-address-book"></i> <span class="nav-label" data-i18n="nav.ecommerce">Cariler</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Tables", cssClass: "in")">
+                            <li class="@Url.Action("DataTables", "Tables")"><a href="@Url.Action("DataTables", "Tables")">Cari Hesaplar</a></li>
+                            <li class="@Html.IsSelected(action: "Dekont")"><a href="@Url.Action("Dekont", "Dekont")">Dekont</a></li>
+                        </ul>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Servis")">
+                        <a href="#"><i class="fa fa-server"></i> <span class="nav-label" data-i18n="nav.ecommerce">Servis</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Servis", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "ServisKayitlari")"><a href="@Url.Action("ServisKayitlari", "Servis")">Servis Kayıtları</a></li>
+                            <li class="@Html.IsSelected(action: "yeniServis")"><a href="@Url.Action("yeniServis", "Servis", new {id = 0})">Yeni Servis</a></li>
+                            <li class="@Html.IsSelected(action: "BakimListesi")"><a href="@Url.Action("BakimListesi", "Servis")">Bakım Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "GarantiTakibi")"><a href="@Url.Action("GarantiTakibi", "Servis")">Garanti Takibi</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Fatura")">
+                        <a href="#"><i class="fa fa-newspaper-o"></i> <span class="nav-label" data-i18n="nav.ecommerce">Faturalar</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Fatura", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "FaturalarListesi")"><a href="@Url.Action("FaturalarListesi", "Fatura")">Fatura Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "SatisListesi")"><a href="@Url.Action("SatisListesi", "Stok")">Satış Detayları</a></li>
+                            <li class="@Html.IsSelected(action: "SatisYeni")"><a href="@Url.Action("SatisYeni", "Fatura")">Yeni Fatura/İrsaliye</a></li>
+
+
+                        </ul>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Finans")">
+                        <a href="#"><i class="fa fa-money"></i> <span class="nav-label" data-i18n="nav.ecommerce">Finansman</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Finans", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Kasa")"><a href="@Url.Action("Kasa", "Finans")">Kasa</a></li>
+                            <li class="@Html.IsSelected(action: "Banka")"><a href="@Url.Action("Banka", "Finans")">Banka</a></li>
+                            <li class="@Html.IsSelected(action: "FinansHareketleri")"><a href="@Url.Action("FinansHareketleri", "Finans", new {KasaID = -1})">Finans Hareketleri</a></li>
+                            <li class="@Html.IsSelected(action: "YeniTahsilat")"><a href="@Url.Action("YeniTahsilat", "Tables", new {KasaID = -1})">Yeni Hareket Ekle</a></li>
+                            <li class="@Html.IsSelected(action: "YeniMasraf")"><a href="@Url.Action("YeniMasraf", "Finans", new {KasaID = -1})">Yeni Gider Kaydı</a></li>
+                            <li class="@Html.IsSelected(action: "YeniGelir")"><a href="@Url.Action("YeniGelir", "Finans", new {KasaID = -1})">Yeni Gelir Kaydı</a></li>
+                            <li class="@Html.IsSelected(action: "Ozel")"><a href="@Url.Action("Ozel", "Ozel")">Özel Kod</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Personel")">
+                        <a href="@Url.Action("Personeller", "Personel")"><i class="fa fa-male"></i> <span class="nav-label " data-i18n="nav.gridoptions">Personel</span></a>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Bayii")" style="@class3">
+                        <a href="@Url.Action("Index", "Bayii")"><i class="fa fa-address-book"></i> <span class="nav-label " data-i18n="nav.gridoptions">Bayiler</span></a>
+                    </li>
+
+
+                }
+                else if (Session["PaketTipi"].ToString() == "Servis2")
+                {
+
+                    <li class="@Html.IsSelected(controller: "AnaSayfa")" style="@class3">
+                        <a href="@Url.Action("AnaSayfa", "AnaSayfa")"><i class="fa fa-th-large"></i> <span>Ana Sayfa</span></a>
+                    </li>
+
+
+                    <li class="@Html.IsSelected(controller: "Stok")" style="@class3">
+                        <a href="#"><i class="fa fa-dropbox"></i> <span class="nav-label" data-i18n="nav.ecommerce">Ürünler</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Stok", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Urunler")"><a href="@Url.Action("Urunler", "Stok")">Ürün Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "Store")">Depolar</a></li>
+                            <li class="@Html.IsSelected(action: "DepoHareketler")"><a href="@Url.Action("DepoHareketler", "Store")">Depo Hareketleri</a></li>
+                          @*<li class="@Html.IsSelected(action: "UrunAgacı")"><a href="@Url.Action("UrunAgacı", "Stok")">Ürün Ağaçları</a></li>
+                          <li class="@Html.IsSelected(action: "VariantList")"><a href="@Url.Action("VariantList", "Stok")">Varyant Listesi</a></li>*@
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Tables")" style="@class3">
+                        <a href="#"><i class="fa fa-address-book"></i> <span class="nav-label" data-i18n="nav.ecommerce">Cariler</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Tables", cssClass: "in")">
+                            <li class="@Url.Action("DataTables", "Tables")"><a href="@Url.Action("DataTables", "Tables")">Cari Hesaplar</a></li>
+                            <li class="@Html.IsSelected(action: "Dekont")"><a href="@Url.Action("Dekont", "Dekont")">Dekont</a></li>
+                        </ul>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Servis")">
+                        <a href="#"><i class="fa fa-server"></i> <span class="nav-label" data-i18n="nav.ecommerce">Servis</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Servis", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "ServisKayitlari")"><a href="@Url.Action("ServisKayitlari", "Servis")">Servis Kayıtları</a></li>
+                            <li class="@Html.IsSelected(action: "yeniServis")"><a href="@Url.Action("yeniServis", "Servis", new {id = 0})">Yeni Servis</a></li>
+                            <li class="@Html.IsSelected(action: "BakimListesi")"><a href="@Url.Action("BakimListesi", "Servis")">Bakım Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "GarantiTakibi")"><a href="@Url.Action("GarantiTakibi", "Servis")">Garanti Takibi</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Fatura")">
+                        <a href="#"><i class="fa fa-newspaper-o"></i> <span class="nav-label" data-i18n="nav.ecommerce">Faturalar</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Fatura", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "FaturalarListesi")"><a href="@Url.Action("FaturalarListesi", "Fatura")">Fatura Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "SatisListesi")"><a href="@Url.Action("SatisListesi", "Stok")">Satış Detayları</a></li>
+                            <li class="@Html.IsSelected(action: "SatisYeni")"><a href="@Url.Action("SatisYeni", "Fatura")">Yeni Fatura/İrsaliye</a></li>
+
+
+                        </ul>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Finans")">
+                        <a href="#"><i class="fa fa-money"></i> <span class="nav-label" data-i18n="nav.ecommerce">Finansman</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Finans", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Kasa")"><a href="@Url.Action("Kasa", "Finans")">Kasa</a></li>
+                            <li class="@Html.IsSelected(action: "Banka")"><a href="@Url.Action("Banka", "Finans")">Banka</a></li>
+                            <li class="@Html.IsSelected(action: "FinansHareketleri")"><a href="@Url.Action("FinansHareketleri", "Finans", new {KasaID = -1})">Finans Hareketleri</a></li>
+                            <li class="@Html.IsSelected(action: "YeniTahsilat")"><a href="@Url.Action("YeniTahsilat", "Tables", new {KasaID = -1})">Yeni Hareket Ekle</a></li>
+                            <li class="@Html.IsSelected(action: "YeniMasraf")"><a href="@Url.Action("YeniMasraf", "Finans", new {KasaID = -1})">Yeni Gider Kaydı</a></li>
+                            <li class="@Html.IsSelected(action: "YeniGelir")"><a href="@Url.Action("YeniGelir", "Finans", new {KasaID = -1})">Yeni Gelir Kaydı</a></li>
+                            <li class="@Html.IsSelected(action: "Ozel")"><a href="@Url.Action("Ozel", "Ozel")">Özel Kod</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Payroll")" style="@class3">
+                        <a href="#"><i class="fa fa-bitcoin"></i> <span class="nav-label" data-i18n="nav.ecommerce">Çek / Senet</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Payroll", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Bordrolar")"><a href="@Url.Action("Bordrolar", "Payroll")">Bordrolar</a></li>
+                            <li class="@Html.IsSelected(action: "Cekler")"><a href="@Url.Action("Cekler", "Payroll")">Çek / Senet Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "YeniCekSenet")"><a href="@Url.Action("YeniCekSenet", "Payroll",new {ceksenet = 0})">Çek Girişi</a></li>
+                            <li class="@Html.IsSelected(action: "YeniCekSenet")"><a href="@Url.Action("YeniCekSenet", "Payroll",new {ceksenet = 1})">Senet Girişi</a></li>
+                            <li class="@Html.IsSelected(action: "YeniCekCikis")"><a href="@Url.Action("YeniCekCikis", "Payroll")">Çek / Senet Çıkışı</a></li>
+                            <br />
+                            <li class="@Html.IsSelected(controller: "Payroll")">
+                                <a href="#"> <span class="nav-label" data-i18n="nav.ecommerce">Çek İade</span><span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Payroll", cssClass: "in")">
+                                    <li class="@Html.IsSelected(action: "CekIade")"><a href="@Url.Action("CekIade", "Payroll")">İade Al</a></li>
+                                    <li class="@Html.IsSelected(action: "CekIadeVer")"><a href="@Url.Action("CekIadeVer", "Payroll")">İade Ver</a></li>
+                                </ul>
+                            </li>
+                            <li class="@Html.IsSelected(controller: "Payroll")">
+                                <a href="#"> <span class="nav-label" data-i18n="nav.ecommerce">Çek Tahsilat</span><span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Payroll", cssClass: "in")">
+                                    <li class="@Html.IsSelected(action: "CekTahsilatKasa")"><a href="@Url.Action("CekTahsilatKasa", "Payroll")">Kasaya</a></li>
+                                    <li class="@Html.IsSelected(action: "CekTahsilatBanka")"><a href="@Url.Action("CekTahsilatBanka", "Payroll")">Bankaya</a></li>
+
+                                </ul>
+                            </li>
+                            <li class="@Html.IsSelected(controller: "Payroll")">
+                                <a href="#"> <span class="nav-label" data-i18n="nav.ecommerce">Çek Ödeme</span><span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Payroll", cssClass: "in")">
+                                    <li class="@Html.IsSelected(action: "CekOdemeKasa")"><a href="@Url.Action("CekOdemeKasa", "Payroll")">Kasadan</a></li>
+                                    <li class="@Html.IsSelected(action: "CekOdemeBanka")"><a href="@Url.Action("CekOdemeBanka", "Payroll")">Bankadan</a></li>
+
+                                </ul>
+                            </li>
+
+                            <li class="@Html.IsSelected(controller: "Payroll")">
+                                <a href="#"> <span class="nav-label" data-i18n="nav.ecommerce">Banka İşlemleri</span><span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Payroll", cssClass: "in")">
+                                    <li class="@Html.IsSelected(action: "BankayaCekCikis")"><a href="@Url.Action("BankayaCekCikis", "Payroll")">Bankaya Çek Çıkış</a></li>
+                                    <li class="@Html.IsSelected(action: "BankadanCekAl")"><a href="@Url.Action("BankadanCekAl", "Payroll")">Bankadan Çek Al</a></li>
+
+                                </ul>
+                            </li></ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Personel")">
+                        <a href="#"><i class="fa fa-male"></i> <span class="nav-label" data-i18n="nav.ecommerce">Personel</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Finans", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Personeller")"><a href="@Url.Action("Personeller", "Personel")">Personeller</a></li>
+                            <li class="@Html.IsSelected(action: "Maas")"><a href="@Url.Action("Maas", "Maas")">Maaş Yönetimi</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Bayii")" style="@class3">
+                        <a href="@Url.Action("Index", "Bayii")"><i class="fa fa-address-book"></i> <span class="nav-label " data-i18n="nav.gridoptions">Bayiler</span></a>
+                    </li>
+
+
+                }
+                else if (Session["PaketTipi"].ToString() == "Servis")
+                {
+
+                    <li class="@Html.IsSelected(controller: "AnaSayfa")" style="@class3">
+                        <a href="@Url.Action("AnaSayfa", "AnaSayfa")"><i class="fa fa-th-large"></i> <span>Ana Sayfa</span></a>
+                    </li>
+
+
+                    <li class="@Html.IsSelected(controller: "Stok")" style="@class3">
+                        <a href="#"><i class="fa fa-dropbox"></i> <span class="nav-label" data-i18n="nav.ecommerce">Ürünler</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Stok", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Urunler")"><a href="@Url.Action("Urunler", "Stok")">Ürün Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "Store")">Depolar</a></li>
+                            <li class="@Html.IsSelected(action: "DepoHareketler")"><a href="@Url.Action("DepoHareketler", "Store")">Depo Hareketleri</a></li>
+                            @*<li class="@Html.IsSelected(action: "UrunAgacı")"><a href="@Url.Action("UrunAgacı", "Stok")">Ürün Ağaçları</a></li>
+                            <li class="@Html.IsSelected(action: "VariantList")"><a href="@Url.Action("VariantList", "Stok")">Varyant Listesi</a></li>*@
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Tables")" style="@class3">
+                        <a href="#"><i class="fa fa-address-book"></i> <span class="nav-label" data-i18n="nav.ecommerce">Cariler</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Tables", cssClass: "in")">
+                            <li class="@Url.Action("DataTables", "Tables")"><a href="@Url.Action("DataTables", "Tables")">Cari Hesaplar</a></li>
+                            <li class="@Html.IsSelected(action: "Dekont")"><a href="@Url.Action("Dekont", "Dekont")">Dekont</a></li>
+                        </ul>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Servis")">
+                        <a href="#"><i class="fa fa-server"></i> <span class="nav-label" data-i18n="nav.ecommerce">Servis</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Servis", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "ServisKayitlari")"><a href="@Url.Action("ServisKayitlari", "Servis")">Servis Kayıtları</a></li>
+                            <li class="@Html.IsSelected(action: "yeniServis")"><a href="@Url.Action("yeniServis", "Servis", new {id = 0})">Yeni Servis</a></li>
+                            <li class="@Html.IsSelected(action: "BakimListesi")"><a href="@Url.Action("BakimListesi", "Servis")">Bakım Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "GarantiTakibi")">
+                                <a href="@Url.Action("GarantiTakibi", "Servis")">
+                                    Garanti Takibi
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Fatura")">
+                        <a href="#"><i class="fa fa-newspaper-o"></i> <span class="nav-label" data-i18n="nav.ecommerce">Faturalar</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Fatura", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "FaturalarListesi")"><a href="@Url.Action("FaturalarListesi", "Fatura")">Fatura Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "SatisListesi")"><a href="@Url.Action("SatisListesi", "Stok")">Satış Detayları</a></li>
+                            <li class="@Html.IsSelected(action: "SatisYeni")"><a href="@Url.Action("SatisYeni", "Fatura")">Yeni Fatura/İrsaliye</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Finans")">
+                        <a href="#"><i class="fa fa-money"></i> <span class="nav-label" data-i18n="nav.ecommerce">Finansman</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Finans", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Kasa")"><a href="@Url.Action("Kasa", "Finans")">Kasa</a></li>
+                            <li class="@Html.IsSelected(action: "Banka")"><a href="@Url.Action("Banka", "Finans")">Banka</a></li>
+                            <li class="@Html.IsSelected(action: "FinansHareketleri")"><a href="@Url.Action("FinansHareketleri", "Finans", new {KasaID = -1})">Finans Hareketleri</a></li>
+                            <li class="@Html.IsSelected(action: "YeniTahsilat")"><a href="@Url.Action("YeniTahsilat", "Tables", new {KasaID = -1})">Yeni Hareket Ekle</a></li>
+                            <li class="@Html.IsSelected(action: "YeniMasraf")"><a href="@Url.Action("YeniMasraf", "Finans", new {KasaID = -1})">Yeni Gider Kaydı</a></li>
+                            <li class="@Html.IsSelected(action: "YeniGelir")"><a href="@Url.Action("YeniGelir", "Finans", new {KasaID = -1})">Yeni Gelir Kaydı</a></li>
+                            <li class="@Html.IsSelected(action: "Ozel")"><a href="@Url.Action("Ozel", "Ozel")">Özel Kod</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Personel")">
+                        <a href="@Url.Action("Personeller", "Personel")"><i class="fa fa-male"></i> <span class="nav-label " data-i18n="nav.gridoptions">Personel</span></a>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Bayii")" style="@class3">
+                        <a href="@Url.Action("Index", "Bayii")"><i class="fa fa-address-book"></i> <span class="nav-label " data-i18n="nav.gridoptions">Bayiler</span></a>
+                    </li>
+
+
+                }
+
+
+
+                else if (Session["Pakettipi"].ToString() == "Muhasebe1")
+                {
+                    <li class="@Html.IsSelected(controller: "AnaSayfa")" style="@class3">
+                        <a href="@Url.Action("OnMuhasebeAnaSayfa", "AnaSayfa")"><i class="fa fa-th-large"></i> <span>Ana Sayfa</span></a>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Stok")" style="@class3">
+                        <a href="#"><i class="fa fa-dropbox"></i> <span class="nav-label" data-i18n="nav.ecommerce">Ürünler</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Stok", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Urunler")"><a href="@Url.Action("Urunler", "Stok")">Ürün Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "Store")">Depolar</a></li>
+                            <li class="@Html.IsSelected(action: "DepoHareketler")"><a href="@Url.Action("DepoHareketler", "Store")">Depo Hareketleri</a></li>
+                            <li class="@Html.IsSelected(action: "VariantList")"><a href="@Url.Action("VariantList", "Stok")">Varyant Listesi</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Tables")" style="@class3">
+                        <a href="#"><i class="fa fa-address-book"></i> <span class="nav-label" data-i18n="nav.ecommerce">Cariler</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Tables", cssClass: "in")">
+                            <li class="@Url.Action("DataTables", "Tables")"><a href="@Url.Action("DataTables", "Tables")">Cari Hesaplar</a></li>
+                            <li class="@Html.IsSelected(action: "Dekont")"><a href="@Url.Action("Dekont", "Dekont")">Dekont</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Fatura")">
+                        <a href="#"><i class="fa fa-newspaper-o"></i> <span class="nav-label" data-i18n="nav.ecommerce">Faturalar</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Fatura", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "FaturalarListesi")"><a href="@Url.Action("FaturalarListesi", "Fatura")">Fatura Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "SatisListesi")"><a href="@Url.Action("SatisListesi", "Stok")">Satış Detayları</a></li>
+                            <li class="@Html.IsSelected(action: "SatisYeni")"><a href="@Url.Action("SatisYeni", "Fatura")">Yeni Fatura/İrsaliye</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Finans")">
+                        <a href="#"><i class="fa fa-money"></i> <span class="nav-label" data-i18n="nav.ecommerce">Finansman</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Finans", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Kasa")"><a href="@Url.Action("Kasa", "Finans")">Kasa</a></li>
+                            <li class="@Html.IsSelected(action: "Banka")"><a href="@Url.Action("Banka", "Finans")">Banka</a></li>
+                            <li class="@Html.IsSelected(action: "FinansHareketleri")"><a href="@Url.Action("FinansHareketleri", "Finans", new {KasaID = -1})">Finans Hareketleri</a></li>
+                            <li class="@Html.IsSelected(action: "YeniTahsilat")"><a href="@Url.Action("YeniTahsilat", "Tables", new {KasaID = -1})">Yeni Hareket Ekle</a></li>
+                            <li class="@Html.IsSelected(action: "YeniMasraf")"><a href="@Url.Action("YeniMasraf", "Finans", new {KasaID = -1})">Yeni Gider Kaydı</a></li>
+                            <li class="@Html.IsSelected(action: "YeniGelir")"><a href="@Url.Action("YeniGelir", "Finans", new {KasaID = -1})">Yeni Gelir Kaydı</a></li>
+                            <li class="@Html.IsSelected(action: "Ozel")"><a href="@Url.Action("Ozel", "Ozel")">Özel Kod</a></li>
+
+                        </ul>
+                    </li>
+                    if (Session["Grubu"].ToString() == "Admin")
+                    {
+
+
+                        <li class="@Html.IsSelected(controller: "Personel")">
+                            <a href="#"><i class="fa fa-male"></i> <span class="nav-label" data-i18n="nav.ecommerce">Personel</span><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Finans", cssClass: "in")">
+                                <li class="@Html.IsSelected(action: "Personeller")"><a href="@Url.Action("Personeller", "Personel")">Personeller</a></li>
+
+                            </ul>
+                        </li>
+
+                    }
+                    @*<li class="@Html.IsSelected(controller: "Bayii")" style="@class3">
+                    <a href="@Url.Action("Index", "Bayii")"><i class="fa fa-address-book"></i> <span class="nav-label " data-i18n="nav.gridoptions">Bayiler</span></a>
+                </li>*@
+
+
+
+
+
+                }
+
+                else if (Session["Pakettipi"].ToString() == "hizlisatis")
+                {
+                    <li class="@Html.IsSelected(controller: "AnaSayfa")" style="@class3">
+                        <a href="@Url.Action("OnMuhasebeAnaSayfa", "AnaSayfa")"><i class="fa fa-th-large"></i> <span>Ana Sayfa</span></a>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Stok")" style="@class3">
+                        <a href="#"><i class="fa fa-dropbox"></i> <span class="nav-label" data-i18n="nav.ecommerce">Ürünler</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Stok", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Urunler")"><a href="@Url.Action("Urunler", "Stok")">Ürün Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "Store")">Depolar</a></li>
+                            <li class="@Html.IsSelected(action: "DepoHareketler")"><a href="@Url.Action("DepoHareketler", "Store")">Depo Hareketleri</a></li>
+                            <li class="@Html.IsSelected(action: "UrunAgacı")"><a href="@Url.Action("UrunAgacı", "Stok")">Ürün Ağaçları</a></li>
+                            <li class="@Html.IsSelected(action: "VariantList")"><a href="@Url.Action("VariantList", "Stok")">Varyant Listesi</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Tables")" style="@class3">
+                        <a href="#"><i class="fa fa-address-book"></i> <span class="nav-label" data-i18n="nav.ecommerce">Cariler</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Tables", cssClass: "in")">
+                            <li class="@Url.Action("DataTables", "Tables")"><a href="@Url.Action("DataTables", "Tables")">Cari Hesaplar</a></li>
+                            <li class="@Html.IsSelected(action: "Dekont")"><a href="@Url.Action("Dekont", "Dekont")">Dekont</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Fatura")">
+                        <a href="#"><i class="fa fa-newspaper-o"></i> <span class="nav-label" data-i18n="nav.ecommerce">Faturalar</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Fatura", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "FaturalarListesi")"><a href="@Url.Action("FaturalarListesi", "Fatura")">Fatura Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "SatisListesi")"><a href="@Url.Action("SatisListesi", "Stok")">Satış Detayları</a></li>
+                            <li class="@Html.IsSelected(action: "SatisYeni")"><a href="@Url.Action("SatisYeni", "Fatura")">Yeni Fatura/İrsaliye</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Finans")">
+                        <a href="#"><i class="fa fa-money"></i> <span class="nav-label" data-i18n="nav.ecommerce">Finansman</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Finans", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Kasa")"><a href="@Url.Action("Kasa", "Finans")">Kasa</a></li>
+                            <li class="@Html.IsSelected(action: "Banka")"><a href="@Url.Action("Banka", "Finans")">Banka</a></li>
+                            <li class="@Html.IsSelected(action: "FinansHareketleri")"><a href="@Url.Action("FinansHareketleri", "Finans", new {KasaID = -1})">Finans Hareketleri</a></li>
+                            <li class="@Html.IsSelected(action: "YeniTahsilat")"><a href="@Url.Action("YeniTahsilat", "Tables", new {KasaID = -1})">Yeni Hareket Ekle</a></li>
+                            <li class="@Html.IsSelected(action: "YeniMasraf")"><a href="@Url.Action("YeniMasraf", "Finans", new {KasaID = -1})">Yeni Gider Kaydı</a></li>
+                            <li class="@Html.IsSelected(action: "YeniGelir")"><a href="@Url.Action("YeniGelir", "Finans", new {KasaID = -1})">Yeni Gelir Kaydı</a></li>
+                            <li class="@Html.IsSelected(action: "Ozel")"><a href="@Url.Action("Ozel", "Ozel")">Özel Kod</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Personel")">
+                        <a href="#"><i class="fa fa-male"></i> <span class="nav-label" data-i18n="nav.ecommerce">Personel</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Finans", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Personeller")"><a href="@Url.Action("Personeller", "Personel")">Personeller</a></li>
+                            <li class="@Html.IsSelected(action: "Maas")"><a href="@Url.Action("Maas", "Maas")">Maaş Yönetimi</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Bayii")" style="@class3">
+                        <a href="@Url.Action("Index", "Bayii")"><i class="fa fa-address-book"></i> <span class="nav-label " data-i18n="nav.gridoptions">Bayiler</span></a>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Perakende")">
+                        <a href="#"><i class="fa fa-dashboard"></i> <span class="nav-label" data-i18n="nav.ecommerce">Perakende</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Perakende", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "PerakendeSatis")"><a href="@Url.Action("PerakendeSatis", "Perakende")">Perakende Satış</a></li>
+                            <li class="@Html.IsSelected(action: "PerakendeListesi")"><a href="@Url.Action("PerakendeListesi", "Perakende")">Perakende Satış Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "GunSonuRaporu")"><a href="@Url.Action("GunSonuRaporu", "Perakende")">Gün Sonu Raporu</a></li>
+                        </ul>
+                    </li>
+                }
+
+                else if (Session["Pakettipi"].ToString() == "Muhasebe2")
+                {
+                   
+                    <li class="@Html.IsSelected(controller: "AnaSayfa")" style="@class3">
+                        <a href="@Url.Action("OnMuhasebeAnaSayfa", "AnaSayfa")"><i class="fa fa-th-large"></i> <span>Ana Sayfa</span></a>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Stok")" style="@class3">
+                        <a href="#"><i class="fa fa-dropbox"></i> <span class="nav-label" data-i18n="nav.ecommerce">Ürünler</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Stok", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Urunler")"><a href="@Url.Action("Urunler", "Stok")">Ürün Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "Store")">Depolar</a></li>
+                            <li class="@Html.IsSelected(action: "DepoHareketler")"><a href="@Url.Action("DepoHareketler", "Store")">Depo Hareketler</a></li>
+                            <li class="@Html.IsSelected(action: "UrunAgacı")"><a href="@Url.Action("UrunAgacı", "Stok")">Ürün Ağaçları</a></li>
+                            <li class="@Html.IsSelected(action: "VariantList")"><a href="@Url.Action("VariantList", "Stok")">Varyant Listesi</a></li>
+
+
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Tables")" style="@class3">
+                        <a href="#"><i class="fa fa-address-book"></i> <span class="nav-label" data-i18n="nav.ecommerce">Cariler</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Tables", cssClass: "in")">
+                            <li class="@Url.Action("DataTables", "Tables")"><a href="@Url.Action("DataTables", "Tables")">Cari Hesaplar</a></li>
+                            <li class="@Html.IsSelected(action: "Dekont")"><a href="@Url.Action("Dekont", "Dekont", new {YeniStok = 1})">Dekont</a></li>
+
+
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Fatura")">
+                        <a href="#"><i class="fa fa-newspaper-o"></i> <span class="nav-label" data-i18n="nav.ecommerce">Faturalar</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Fatura", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "FaturalarListesi")"><a href="@Url.Action("FaturalarListesi", "Fatura")">Fatura Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "SatisListesi")"><a href="@Url.Action("SatisListesi", "Stok")">Satış Detayları</a></li>
+                            <li class="@Html.IsSelected(action: "SatisYeni")"><a href="@Url.Action("SatisYeni", "Fatura")">Yeni Fatura/İrsaliye</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Finans")">
+                        <a href="#"><i class="fa fa-money"></i> <span class="nav-label" data-i18n="nav.ecommerce">Finansman</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Finans", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Kasa")"><a href="@Url.Action("Kasa", "Finans")">Kasa</a></li>
+                            <li class="@Html.IsSelected(action: "Banka")"><a href="@Url.Action("Banka", "Finans")">Banka</a></li>
+                            <li class="@Html.IsSelected(action: "FinansHareketleri")"><a href="@Url.Action("FinansHareketleri", "Finans", new {KasaID = -1})">Finans Hareketleri</a></li>
+                            <li class="@Html.IsSelected(action: "YeniTahsilat")"><a href="@Url.Action("YeniTahsilat", "Tables", new {KasaID = -1})">Yeni Hareket Ekle</a></li>
+                            <li class="@Html.IsSelected(action: "YeniMasraf")"><a href="@Url.Action("YeniMasraf", "Finans", new {KasaID = -1})">Yeni Masraf</a></li>
+                            <li class="@Html.IsSelected(action: "Ozel")"><a href="@Url.Action("Ozel", "Ozel")">Özel Kod</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Personel")">
+                        <a href="#"><i class="fa fa-male"></i> <span class="nav-label" data-i18n="nav.ecommerce">Personel</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Finans", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Personeller")"><a href="@Url.Action("Personeller", "Personel")">Personeller</a></li>
+                            <li class="@Html.IsSelected(action: "Maas")"><a href="@Url.Action("Maas", "Maas")">Maaş Yönetimi</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Bayii")" style="@class3">
+                        <a href="@Url.Action("Index", "Bayii")"><i class="fa fa-address-book"></i> <span class="nav-label " data-i18n="nav.gridoptions">Bayiler</span></a>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "OrderOffer")">
+                        <a href="#"><i class="fa fa-money"></i> <span class="nav-label" data-i18n="nav.ecommerce">Teklif-Sipariş</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "OrderOffer", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Teklif")"><a href="@Url.Action("Teklif", "OrderOffer")">Teklif Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "Siparis")"><a href="@Url.Action("Siparis", "OrderOffer")">Sipariş Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "YeniTeklif")"><a href="@Url.Action("YeniTeklif", "OrderOffer")">Yeni Teklif</a></li>
+                            <li class="@Html.IsSelected(action: "YeniSiparis")"><a href="@Url.Action("YeniSiparis", "OrderOffer")">Yeni Sipariş</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Payroll")" style="@class3">
+                        <a href="#"><i class="fa fa-bitcoin"></i> <span class="nav-label" data-i18n="nav.ecommerce">Çek / Senet</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Payroll", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Bordrolar")"><a href="@Url.Action("Bordrolar", "Payroll")">Bordrolar</a></li>
+                            <li class="@Html.IsSelected(action: "Cekler")"><a href="@Url.Action("Cekler", "Payroll")">Çek / Senet Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "YeniCekSenet")"><a href="@Url.Action("YeniCekSenet", "Payroll",new {ceksenet = 0})">Çek Girişi</a></li>
+                            <li class="@Html.IsSelected(action: "YeniCekSenet")"><a href="@Url.Action("YeniCekSenet", "Payroll",new {ceksenet = 1})">Senet Girişi</a></li>
+                            <li class="@Html.IsSelected(action: "YeniCekCikis")"><a href="@Url.Action("YeniCekCikis", "Payroll")">Çek / Senet Çıkışı</a></li>
+                            <br />
+                            <li class="@Html.IsSelected(controller: "Payroll")">
+                                <a href="#"> <span class="nav-label" data-i18n="nav.ecommerce">Çek İade</span><span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Payroll", cssClass: "in")">
+                                    <li class="@Html.IsSelected(action: "CekIade")"><a href="@Url.Action("CekIade", "Payroll")">İade Al</a></li>
+                                    <li class="@Html.IsSelected(action: "CekIadeVer")"><a href="@Url.Action("CekIadeVer", "Payroll")">İade Ver</a></li>
+                                </ul>
+                            </li>
+                            <li class="@Html.IsSelected(controller: "Payroll")">
+                                <a href="#"> <span class="nav-label" data-i18n="nav.ecommerce">Çek Tahsilat</span><span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Payroll", cssClass: "in")">
+                                    <li class="@Html.IsSelected(action: "CekTahsilatKasa")"><a href="@Url.Action("CekTahsilatKasa", "Payroll")">Kasaya</a></li>
+                                    <li class="@Html.IsSelected(action: "CekTahsilatBanka")"><a href="@Url.Action("CekTahsilatBanka", "Payroll")">Bankaya</a></li>
+
+                                </ul>
+                            </li>
+                            <li class="@Html.IsSelected(controller: "Payroll")">
+                                <a href="#"> <span class="nav-label" data-i18n="nav.ecommerce">Çek Ödeme</span><span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Payroll", cssClass: "in")">
+                                    <li class="@Html.IsSelected(action: "CekOdemeKasa")"><a href="@Url.Action("CekOdemeKasa", "Payroll")">Kasadan</a></li>
+                                    <li class="@Html.IsSelected(action: "CekOdemeBanka")"><a href="@Url.Action("CekOdemeBanka", "Payroll")">Bankadan</a></li>
+
+                                </ul>
+                            </li>
+
+                            <li class="@Html.IsSelected(controller: "Payroll")">
+                                <a href="#"> <span class="nav-label" data-i18n="nav.ecommerce">Banka İşlemleri</span><span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Payroll", cssClass: "in")">
+                                    <li class="@Html.IsSelected(action: "BankayaCekCikis")"><a href="@Url.Action("BankayaCekCikis", "Payroll")">Bankaya Çek Çıkış</a></li>
+                                    <li class="@Html.IsSelected(action: "BankadanCekAl")"><a href="@Url.Action("BankadanCekAl", "Payroll")">Bankadan Çek Al</a></li>
+
+                                </ul>
+                            </li>
+
+                          
+
+
+                        </ul>
+                    </li>
+
+                }
+
+                else if (Session["Pakettipi"].ToString() == "Muhasebe3")
+                {
+                    <li class="@Html.IsSelected(controller: "AnaSayfa")" style="@class3">
+                        <a href="@Url.Action("OnMuhasebeAnaSayfa", "AnaSayfa")"><i class="fa fa-th-large"></i> <span>Ana Sayfa</span></a>
+                    </li>
+
+
+                    <li class="@Html.IsSelected(controller: "Stok")" style="@class3">
+                        <a href="#"><i class="fa fa-dropbox"></i> <span class="nav-label" data-i18n="nav.ecommerce">Ürünler</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Stok", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Urunler")"><a href="@Url.Action("Urunler", "Stok")">Ürün Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "Store")">Depolar</a></li>
+                            <li class="@Html.IsSelected(action: "DepoHareketler")"><a href="@Url.Action("DepoHareketler", "Store")">Depo Hareketleri</a></li>
+                            <li class="@Html.IsSelected(action: "UrunAgacı")"><a href="@Url.Action("UrunAgacı", "Stok")">Ürün Ağaçları</a></li>
+                            <li class="@Html.IsSelected(action: "VariantList")"><a href="@Url.Action("VariantList", "Stok")">Varyant Listesi</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Tables")" style="@class3">
+                        <a href="#"><i class="fa fa-address-book"></i> <span class="nav-label" data-i18n="nav.ecommerce">Cariler</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Tables", cssClass: "in")">
+                            <li class="@Url.Action("DataTables", "Tables")"><a href="@Url.Action("DataTables", "Tables")">Cari Hesaplar</a></li>
+                            <li class="@Html.IsSelected(action: "Dekont")"><a href="@Url.Action("Dekont", "Dekont")">Dekont</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Fatura")">
+                        <a href="#"><i class="fa fa-newspaper-o"></i> <span class="nav-label" data-i18n="nav.ecommerce">Faturalar</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Fatura", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "FaturalarListesi")"><a href="@Url.Action("FaturalarListesi", "Fatura")">Fatura Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "SatisListesi")"><a href="@Url.Action("SatisListesi", "Stok")">Satış Detayları</a></li>
+                            <li class="@Html.IsSelected(action: "SatisYeni")"><a href="@Url.Action("SatisYeni", "Fatura")">Yeni Fatura/İrsaliye</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Finans")">
+                        <a href="#"><i class="fa fa-money"></i> <span class="nav-label" data-i18n="nav.ecommerce">Finansman</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Finans", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Kasa")"><a href="@Url.Action("Kasa", "Finans")">Kasa</a></li>
+                            <li class="@Html.IsSelected(action: "Banka")"><a href="@Url.Action("Banka", "Finans")">Banka</a></li>
+                            <li class="@Html.IsSelected(action: "FinansHareketleri")"><a href="@Url.Action("FinansHareketleri", "Finans", new {KasaID = -1})">Finans Hareketleri</a></li>
+                            <li class="@Html.IsSelected(action: "YeniTahsilat")"><a href="@Url.Action("YeniTahsilat", "Tables", new {KasaID = -1})">Yeni Hareket Ekle</a></li>
+                            <li class="@Html.IsSelected(action: "YeniMasraf")"><a href="@Url.Action("YeniMasraf", "Finans", new {KasaID = -1})">Yeni Gider Kaydı</a></li>
+                            <li class="@Html.IsSelected(action: "YeniGelir")"><a href="@Url.Action("YeniGelir", "Finans", new {KasaID = -1})">Yeni Gelir Kaydı</a></li>
+                            <li class="@Html.IsSelected(action: "Ozel")"><a href="@Url.Action("Ozel", "Ozel")">Özel Kod</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Personel")">
+                        <a href="#"><i class="fa fa-male"></i> <span class="nav-label" data-i18n="nav.ecommerce">Personel</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Finans", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Personeller")"><a href="@Url.Action("Personeller", "Personel")">Personeller</a></li>
+                            <li class="@Html.IsSelected(action: "Maas")"><a href="@Url.Action("Maas", "Maas")">Maaş Yönetimi</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Bayii")" style="@class3">
+                        <a href="@Url.Action("Index", "Bayii")"><i class="fa fa-address-book"></i> <span class="nav-label " data-i18n="nav.gridoptions">Bayiler</span></a>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "OrderOffer")">
+                        <a href="#"><i class="fa fa-money"></i> <span class="nav-label" data-i18n="nav.ecommerce">Teklif-Sipariş</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "OrderOffer", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Siparis")"><a href="@Url.Action("Siparis", "OrderOffer")">Teklif Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "Teklif")"><a href="@Url.Action("Teklif", "OrderOffer")">Sipariş Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "YeniTeklif")"><a href="@Url.Action("YeniTeklif", "OrderOffer")">Yeni Teklif</a></li>
+                            <li class="@Html.IsSelected(action: "YeniSiparis")"><a href="@Url.Action("YeniSiparis", "OrderOffer")">Yeni Sipariş</a></li>
+
+                        </ul>
+                    </li>
+
+                }
+                else if (Session["Pakettipi"].ToString() == "Full")
+                {
+                    <li class="@Html.IsSelected(controller: "AnaSayfa")" style="@class3">
+                        <a href="@Url.Action("OnMuhasebeAnaSayfa", "AnaSayfa")"><i class="fa fa-th-large"></i> <span>Ana Sayfa</span></a>
+                    </li>
+
+
+                    <li class="@Html.IsSelected(controller: "Stok")" style="@class3">
+                        <a href="#"><i class="fa fa-dropbox"></i> <span class="nav-label" data-i18n="nav.ecommerce">Ürünler</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Stok", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Urunler")"><a href="@Url.Action("Urunler", "Stok")">Ürün Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "Store")">Depolar</a></li>
+                            <li class="@Html.IsSelected(action: "DepoHareketler")"><a href="@Url.Action("DepoHareketler", "Store")">Depo Hareketleri</a></li>
+                            <li class="@Html.IsSelected(action: "UrunAgacı")"><a href="@Url.Action("UrunAgacı", "Stok")">Ürün Ağaçları</a></li>
+                            <li class="@Html.IsSelected(action: "VariantList")"><a href="@Url.Action("VariantList", "Stok")">Varyant Listesi</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Tables")" style="@class3">
+                        <a href="#"><i class="fa fa-address-book"></i> <span class="nav-label" data-i18n="nav.ecommerce">Cariler</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Tables", cssClass: "in")">
+                            <li class="@Url.Action("DataTables", "Tables")"><a href="@Url.Action("DataTables", "Tables")">Cari Hesaplar</a></li>
+                            <li class="@Html.IsSelected(action: "Dekont")"><a href="@Url.Action("Dekont", "Dekont")">Dekont</a></li>
+                        </ul>
+                    </li>
+
+
+
+
+                    <li class="@Html.IsSelected(controller: "Fatura")">
+                        <a href="#"><i class="fa fa-newspaper-o"></i> <span class="nav-label" data-i18n="nav.ecommerce">Faturalar</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Fatura", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "FaturalarListesi")"><a href="@Url.Action("FaturalarListesi", "Fatura")">Fatura Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "SatisListesi")"><a href="@Url.Action("SatisListesi", "Stok")">Satış Detayları</a></li>
+                            <li class="@Html.IsSelected(action: "SatisYeni")"><a href="@Url.Action("SatisYeni", "Fatura")">Yeni Fatura/İrsaliye</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Finans")">
+                        <a href="#"><i class="fa fa-money"></i> <span class="nav-label" data-i18n="nav.ecommerce">Finansman</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Finans", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Kasa")"><a href="@Url.Action("Kasa", "Finans")">Kasa</a></li>
+                            <li class="@Html.IsSelected(action: "Banka")"><a href="@Url.Action("Banka", "Finans")">Banka</a></li>
+                            <li class="@Html.IsSelected(action: "FinansHareketleri")"><a href="@Url.Action("FinansHareketleri", "Finans", new {KasaID = -1})">Finans Hareketleri</a></li>
+                            <li class="@Html.IsSelected(action: "YeniTahsilat")"><a href="@Url.Action("YeniTahsilat", "Tables", new {KasaID = -1})">Yeni Hareket Ekle</a></li>
+                            <li class="@Html.IsSelected(action: "YeniMasraf")"><a href="@Url.Action("YeniMasraf", "Finans", new {KasaID = -1})">Yeni Gider Kaydı</a></li>
+                            <li class="@Html.IsSelected(action: "YeniGelir")"><a href="@Url.Action("YeniGelir", "Finans", new {KasaID = -1})">Yeni Gelir Kaydı</a></li>
+                            <li class="@Html.IsSelected(action: "Ozel")"><a href="@Url.Action("Ozel", "Ozel")">Özel Kod</a></li>
+
+                        </ul>
+                    </li>
+
+
+
+                    <li class="@Html.IsSelected(controller: "Personel")">
+                        <a href="#"><i class="fa fa-male"></i> <span class="nav-label" data-i18n="nav.ecommerce">Personel</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Finans", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Personeller")"><a href="@Url.Action("Personeller", "Personel")">Personeller</a></li>
+                            <li class="@Html.IsSelected(action: "Maas")"><a href="@Url.Action("Maas", "Maas")">Maaş Yönetimi</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="@Html.IsSelected(controller: "Bayii")" style="@class3">
+                        <a href="@Url.Action("Index", "Bayii")"><i class="fa fa-address-book"></i> <span class="nav-label " data-i18n="nav.gridoptions">Bayiler</span></a>
+                    </li>
+
+
+
+
+                    <li class="@Html.IsSelected(controller: "OrderOffer")">
+                        <a href="#"><i class="fa fa-money"></i> <span class="nav-label" data-i18n="nav.ecommerce">TEKLİF-SİPARİŞ</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "OrderOffer", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Teklif")"><a href="@Url.Action("Teklif", "OrderOffer")">Teklif Listesi</a></li>
+                            <li class="@Html.IsSelected(action: "Siparis")"><a href="@Url.Action("Siparis", "OrderOffer")">Sipariş Listesi</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Payroll")" style="@class3">
+                        <a href="#"><i class="fa fa-bitcoin"></i> <span class="nav-label" data-i18n="nav.ecommerce">ÇEK/SENET</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Payroll", cssClass: "in")">
+                            <li class="@Html.IsSelected(action: "Bordrolar")"><a href="@Url.Action("Bordrolar", "Payroll")">BORDROLAR</a></li>
+                            <li class="@Html.IsSelected(action: "Cekler")"><a href="@Url.Action("Cekler", "Payroll")">ÇEK/SENET LİSTESİ</a></li>
+                            <li class="@Html.IsSelected(action: "YeniCekSenet")"><a href="@Url.Action("YeniCekSenet", "Payroll",new {ceksenet = 0})">ÇEK GİRİŞİ</a></li>
+                            <li class="@Html.IsSelected(action: "YeniCekSenet")"><a href="@Url.Action("YeniCekSenet", "Payroll",new {ceksenet = 1})">SENET GİRİŞİ</a></li>
+                            <li class="@Html.IsSelected(action: "YeniCekCikis")"><a href="@Url.Action("YeniCekCikis", "Payroll")">ÇEK/SENET ÇIKIŞI</a></li>
+                        </ul>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</nav>

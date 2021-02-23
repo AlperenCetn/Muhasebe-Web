@@ -1,0 +1,420 @@
+﻿@model SaTeknopark_MVC5.Models.GunSonuRpr
+
+@{
+    ViewBag.Title = "GÜN SONU RAPORU";
+}
+
+<style>
+    #container {
+        height: 400px;
+    }
+
+    .highcharts-figure, .highcharts-data-table table {
+        min-width: 310px;
+        max-width: 800px;
+        margin: 1em auto;
+    }
+
+    .highcharts-data-table table {
+        font-family: Verdana, sans-serif;
+        border-collapse: collapse;
+        border: 1px solid #EBEBEB;
+        margin: 10px auto;
+        text-align: center;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .highcharts-data-table caption {
+        padding: 1em 0;
+        font-size: 1.2em;
+        color: #555;
+    }
+
+    .highcharts-data-table th {
+        font-weight: 600;
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+        background: #f8f8f8;
+    }
+
+    .highcharts-data-table tr:hover {
+        background: #f1f7ff;
+    }
+</style>
+
+
+<!--2.Chart-->
+<style>
+    #card-header {
+        font-size: larger;
+        font-weight: 900;
+    }
+</style>
+
+
+
+@*<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h3></h3>
+        <ol class="breadcrumb">
+
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("PerakendeListesi", "Perakende")">PERAKENDE</a>
+            </li>
+            <li class="active breadcrumb-item">
+
+                <strong style="color : black">GÜN SONU RAPORU</strong>
+            </li>
+        </ol>
+    </div>
+</div>*@
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox ">
+
+                <div class="ibox-title ">
+
+                    <div class="row" style="background-color:white">
+
+                        <div class="col-md-3">
+                            <div class="">
+                                <label><b>Başlangıç Tarihi</b></label>
+
+                                <input type="date" id="min" class="form-control" value="@Convert.ToDateTime(new DateTime(2021,1,1,0,0,0)).ToString("yyyy-MM-dd")" name="min">
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+                            <div class="pl-0">
+                                <label><b>Bitiş Tarihi</b></label>
+
+                                <input type="date" id="max" class="form-control" value="2021-12-31" name="max">
+                            </div>
+
+                        </div>
+                        <div class="col-md-3 px-1">
+                            <div class="form-group">
+                                <label><b>Personel</b></label>
+                                @Html.DropDownList("PersonelTeknik", new SelectList(AyarMetot.PersonelList("-1", Session["FirmaID"].ToString()), "Value", "Text"), "Seçiniz",
+                                    new { @id = "PersonelTeknik", @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 px-1">
+                            <div class="form-group pt-4">
+                                <button class="btn btn-outline-success btn-lg" onclick="Uygula()" type="submit">Uygula</button>
+                                <button class="btn btn-outline-primary btn-lg" onclick="Yazdır()" type="submit">Yazdır</button>
+                            </div>
+                            @*<div class="form-group pt-4">
+                                    <button class="btn btn-outline-primary btn-lg" onclick="Yazdır()" type="submit">Yazdır</button>
+                                </div>*@
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="ibox-content">
+
+                    @*<div class="row">
+                            <div class="col-md-2">
+                                <div id="container"></div>
+                            </div>
+                            <div class="col-md-5">
+                                <div id="container2"></div>
+                            </div>
+                        </div>*@
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card text-white bg-primary">
+                                <div class="card-header" style="font-size:larger"><b> En Çok Satılan Ürün / Satış Adedi </b></div>
+                                <div class="card-body row">
+                                    <h2 id="UrunAdi" class="pr-2"> Ürün - 1 </h2>
+                                    <h3 id="Miktar"> 0 TL</h3>
+                                   
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-3">
+                            <div class="card text-white bg-secondary" style="height: 190px">
+                                <div class="card-header" style="font-size:larger"><b> Genel Toplam (İndirim Dahil) </b></div>
+                                <div class="card-body">
+                                    <h1 id="Toplam">  0 TL</h1>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card text-white bg-success" style="height: 190px">
+                                <div class="card-header" style="font-size:larger"><b> Toplam İade Tutarı </b></div>
+                                <div class="card-body">
+                                    <h1 id="Iade">  0 TL</h1>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card text-white bg-danger " style="height: 190px">
+                                <div class="card-header" style="font-size:larger"><b> Toplam Satış İade Farkı </b></div>
+                                <div class="card-body">
+                                    <h1 id="IadeSatis">  0 TL</h1>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="row pt-3">
+                        <div class="col-md-3">
+                            <div class="card bg-warning ">
+                                <div class="card-header" style="font-size:larger"><b> Toplam İndirim Tutarı</b></div>
+                                <div class="card-body">
+                                    <h1 id="Indirim">  0 TL</h1>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card text-body bg-info ">
+                                <div class="card-header" style="font-size:larger; color:white"><b> Toplam Nakit Tutarı </b></div>
+                                <div class="card-body" style="color:white">
+                                    <h1 id="NakitTutar">  0 TL</h1>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-3">
+                            <div class="card bg-light ">
+                                <div class="card-header" style="font-size:larger"><b> Toplam Kredi Kartı Tutarı </b></div>
+                                <div class="card-body">
+                                    <h1 id="KKTutar">  0 TL</h1>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-3">
+                            <div class="card text-white bg-dark">
+                                <div class="card-header" style="font-size:larger"><b> Toplam Havale </b></div>
+                                <div class="card-body">
+                                    <h1 id="HvlTutar">  0 TL</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row pt-3">
+                        <div class="col-md-3">
+                            <div class="card text-white bg-primary">
+                                <div class="card-header" style="font-size:larger"><b> Toplam Para Kart </b></div>
+                                <div class="card-body">
+                                    <h1 id="ParaKartTutar">  0 TL</h1>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-md-3">
+                            <div class="card text-white bg-success">
+                                <div class="card-header" style="font-size:larger"><b> Cari Satış </b></div>
+                                <div class="card-body">
+                                    <h1 id="CariSatis">  0 TL</h1>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card text-white bg-danger ">
+                                <div class="card-header" style="font-size:larger"><b> Toplam Taksitli </b></div>
+                                <div class="card-body">
+                                    <h1 id="TaksitTutar">  0 TL</h1>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card text-white bg-secondary">
+                                <div class="card-header" style="font-size:larger"><b> Toplam SGK </b></div>
+                                <div class="card-body">
+                                    <h1 id="SgkTutar">  0 TL</h1id="">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Styles {
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @Styles.Render("~/plugins/dateRangeStyles")
+    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @Styles.Render("~/plugins/dataPickerStyles")
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/plugins/tagInputsStyles")
+    @Styles.Render("~/plugins/duallistStyles")
+}
+
+@section Scripts {
+    @* @Scripts.Render("~/plugins/dataTables")*@
+    <script src="~/Content/DataTables/datatables.js"></script>
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @Scripts.Render("~/plugins/dateRange")
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/tagInputs")
+    @Scripts.Render("~/plugins/duallist")
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+    <script src="~/multiselect.min.js"></script>
+    <script src="~/Scripts/moment-with-locales.js"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <script type="text/javascript">
+
+        function Uygula() {
+            alert("Filtreler Uygulanacak");
+        }
+
+        var oTable;
+        $.fn.dataTableExt.afnFiltering.push(function(oSettings, aData, iDataIndex) {
+            var min = moment(document.getElementById('min').value).format('YYYY.MM.DD');
+            var max = moment(document.getElementById('max').value).format('YYYY.MM.DD');
+
+
+            var iStartDateCol = 9;
+            var iEndDateCol = 9;
+
+            min = min.substring(0, 4) + min.substring(5, 7) + min.substring(8, 10);
+            max = max.substring(0, 4) + max.substring(5, 7) + max.substring(8, 10);
+            var datofini = aData[iStartDateCol].substring(6, 10) +
+                aData[iStartDateCol].substring(3, 5) +
+                aData[iStartDateCol].substring(0, 2);
+
+            //return true
+
+            if (min === "" && max === "") {
+
+                return true;
+            } else if (min <= datofini && max === "") {
+
+                return true;
+            } else if (min <= datofini && max >= datofini) {
+                //alert(1);
+                return true;
+            }
+
+            return false;
+
+        });
+
+
+        function Yazdır(id, type) {
+
+            type = "SI";
+            var win = null;
+            if (type == "SI" || type == "YI") {
+                win = window.open("/Adv/IrsaliyeYazdir?ID=" + id);
+            } else if (type == "DI") {
+                win = window.open("/Adv/DepoIslemYazdir?ID=" + id);
+            } else if (type == "T" || type == "G" || type == "KKT") {
+                win = window.open("/Adv/TahsilatYazdir?ID=" + id);
+            }
+            win.focus();
+
+
+        }
+
+        function GunSonuRapor() {
+            $.ajax({
+                type: "GET",
+                "datatype": "json",
+                url:'@Url.Action("GetGunSonuRaporu", "Perakende")',
+                success: function (gt) {
+                    
+                    if (gt.success) {
+                        $("#Miktar").text(gt.data.Miktar);
+                        $("#UrunAdi").text(gt.data.UrunAdi);
+                        $("#Toplam").text(gt.data.Toplam);
+                        $("#KKTutar").text(gt.data.KKTutar);
+                        $("#Indirim").text(gt.data.Indirim);
+                        $("#NakitTutar").text(gt.data.NakitTutar);
+                        $("#HvlTutar").text(gt.data.HvlTutar);
+                        $("#ParaKartTutar").text(gt.data.ParaKartTutar);
+                        $("#CariSatis").text(gt.data.CariSatis);
+                        $("#TaksitTutar").text(gt.data.TaksitTutar);
+                        $("#SgkTutar").text(gt.data.SgkTutar);
+
+
+                    }
+                }
+
+            });
+        }
+
+        $(document).ready(function() {
+            GunSonuRapor();
+
+
+         
+
+
+        });
+
+
+    </script>
+
+}
